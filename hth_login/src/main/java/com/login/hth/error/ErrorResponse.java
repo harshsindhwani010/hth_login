@@ -1,4 +1,4 @@
-package com.login.hth.user.error;
+package com.login.hth.error;
 
 import lombok.Data;
 

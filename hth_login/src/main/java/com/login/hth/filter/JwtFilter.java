@@ -1,6 +1,5 @@
 package com.login.hth.filter;
 
-import com.login.hth.service.UserService;
 import com.login.hth.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,10 +17,8 @@ import java.io.IOException;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-
     @Autowired
     private JWTUtility jwtUtility;
-
     @Autowired
     private UserService userService;
 

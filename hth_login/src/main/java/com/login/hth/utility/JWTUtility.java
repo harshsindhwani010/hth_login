@@ -17,10 +17,8 @@ import java.util.stream.Collectors;
 public class JWTUtility {
     @Value("${security.jwt.secret}")
     private String secretKey;
-
     @Value("${security.jwt.token.expire.length}")
     private long validityInMilliseconds; // 1h
-
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
@@ -35,7 +33,7 @@ public class JWTUtility {
         return claimsResolver.apply(claims);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
+    public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
@@ -64,15 +62,4 @@ public class JWTUtility {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
-
-//    public String generateToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-//        return doGenerateToken(claims, userDetails.getUsername());
-//    }
-//
-//    private String doGenerateToken(Map<String, Object> claims, String subject) {
-//        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-//                .signWith(SignatureAlgorithm.HS512, secretKey).compact();
-//    }
 }

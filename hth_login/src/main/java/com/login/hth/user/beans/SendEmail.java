@@ -1,7 +1,7 @@
 package com.login.hth.user.beans;
 
 import com.login.hth.connection.iSeries;
-import com.login.hth.user.error.ErrorResponse;
+import com.login.hth.error.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

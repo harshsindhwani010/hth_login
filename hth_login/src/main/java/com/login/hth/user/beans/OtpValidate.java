@@ -1,12 +1,11 @@
 package com.login.hth.user.beans;
 
 import com.login.hth.connection.iSeries;
-import com.login.hth.user.error.ErrorResponse;
+import com.login.hth.error.ErrorResponse;
 import com.login.hth.user.dto.OtpValidateDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;

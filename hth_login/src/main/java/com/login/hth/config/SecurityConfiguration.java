@@ -1,6 +1,6 @@
 package com.login.hth.config;
 
-import com.login.hth.service.UserService;
+import com.login.hth.filter.UserService;
 import com.login.hth.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

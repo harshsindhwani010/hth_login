@@ -1,6 +1,6 @@
 package com.login.hth.user.controller;
 
-import com.login.hth.user.error.ErrorResponse;
+import com.login.hth.error.ErrorResponse;
 import com.login.hth.user.beans.OtpValidate;
 import com.login.hth.user.beans.SendEmail;
 import com.login.hth.user.beans.UserLogin;
@@ -21,6 +21,7 @@ public class UserController {
     private UserLogin userLogin;
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
         try {
