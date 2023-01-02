@@ -1,7 +1,7 @@
-package com.login.hth.id_card.controller;
+package com.login.hth.Controller;
 
-import com.login.hth.beans.GRPMST;
-import com.login.hth.beans.IdCardData;
+import com.login.hth.id_card.beans.GRPMST;
+import com.login.hth.id_card.beans.IdCardData;
 import com.login.hth.utility.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

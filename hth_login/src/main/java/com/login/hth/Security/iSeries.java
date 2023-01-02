@@ -1,6 +1,7 @@
-package com.login.hth.connection;
+package com.login.hth.Security;
 
-import com.ibm.as400.access.*;
+import com.ibm.as400.access.AS400;
+import com.ibm.as400.access.CommandCall;
 
 import java.sql.*;
 import java.util.ArrayList;

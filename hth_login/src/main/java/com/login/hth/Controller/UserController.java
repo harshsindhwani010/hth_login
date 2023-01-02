@@ -1,11 +1,11 @@
-package com.login.hth.user.controller;
+package com.login.hth.Controller;
 
-import com.login.hth.beans.*;
-import com.login.hth.dto.ErrorResponseDTO;
-import com.login.hth.dto.OtpValidateDTO;
-import com.login.hth.dto.UserDTO;
-import com.login.hth.dto.UserVerifyDTO;
-import com.login.hth.dto.CreateAccountDTO;
+import com.login.hth.error.ErrorResponse;
+import com.login.hth.user.beans.*;
+import com.login.hth.user.dto.CreateAccountDTO;
+import com.login.hth.user.dto.OtpValidateDTO;
+import com.login.hth.user.dto.UserDTO;
+import com.login.hth.user.dto.UserVerifyDTO;
 import com.login.hth.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class UserController {
                     )
             );
         } catch (BadCredentialsException e) {
-            ErrorResponseDTO er = new ErrorResponseDTO();
+            ErrorResponse er = new ErrorResponse();
             er.setMessage("INVALID_CREDENTIALS.");
             //er.setError(String.valueOf(401));
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
