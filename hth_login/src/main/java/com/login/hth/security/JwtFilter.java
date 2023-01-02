@@ -1,4 +1,4 @@
-package com.login.hth.Security;
+package com.login.hth.security;
 
 import com.login.hth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

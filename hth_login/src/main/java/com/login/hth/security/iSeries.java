@@ -1,4 +1,4 @@
-package com.login.hth.Security;
+package com.login.hth.security;
 
 import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.CommandCall;
@@ -80,7 +80,7 @@ public class iSeries {
                 }
             } else {
                 String rowCount = Integer.toString(statement.executeUpdate(sql));
-                result = new String[] {rowCount};
+                result = new String[]{rowCount};
                 resultList.add(result);
             }
         } catch (Exception e) {

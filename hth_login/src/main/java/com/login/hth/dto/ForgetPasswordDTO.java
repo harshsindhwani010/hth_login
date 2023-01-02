@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ForgetPasswordDTO {
-    private String userName;
-    private String email;
+    private String newPassword;
+    private String confirmPassword;
 }

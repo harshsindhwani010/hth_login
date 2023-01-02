@@ -1,4 +1,4 @@
-package com.login.hth.Controller;
+package com.login.hth.controller;
 
 import com.login.hth.beans.SignupUser;
 import com.login.hth.dto.SignupRequestDTO;

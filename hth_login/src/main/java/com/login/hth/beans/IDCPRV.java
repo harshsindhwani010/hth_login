@@ -1,6 +1,6 @@
 package com.login.hth.beans;
 
-import com.login.hth.connection.iSeries;
+import com.login.hth.security.iSeries;
 import com.login.hth.dto.IdCardResponseDTO;
 
 public class IDCPRV {

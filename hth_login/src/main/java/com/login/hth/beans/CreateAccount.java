@@ -1,9 +1,9 @@
 package com.login.hth.beans;
 
+import com.login.hth.security.JWTUtility;
+import com.login.hth.security.iSeries;
 import com.login.hth.dto.MessageDTO;
-import com.login.hth.connection.iSeries;
 import com.login.hth.dto.CreateAccountDTO;
-import com.login.hth.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
