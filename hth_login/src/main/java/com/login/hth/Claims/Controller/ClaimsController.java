@@ -1,15 +1,11 @@
 package com.login.hth.Claims.Controller;
 
 import com.login.hth.Claims.Beans.ClaimsData;
-import com.login.hth.error.ErrorResponse;
-import com.login.hth.user.dto.UserDTO;
 import com.login.hth.utility.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;

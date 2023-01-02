@@ -48,7 +48,7 @@ public class IdCardData {
         if (idList.length == 1) {
             StringBuilder idValue = new StringBuilder(idList[0]);
             String clCommand = "CALL DFLIB/LOADIDC PARM('" + "BI1" + "' '" + "PRT" + " ' '%s')";
-            iSeries.executeCL(String.format(clCommand, idValue));
+            iSeries.executeCL(String.format(clCommand,  idValue));
 
             IdCardResponseDTO cardList = IDCPRV.generateIDCARD(grpList, idList, "PRT");
             return new ResponseEntity<>(cardList, HttpStatus.OK);

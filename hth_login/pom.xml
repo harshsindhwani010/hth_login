@@ -64,6 +64,13 @@
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+
 <!--		<dependency>-->
 <!--			&lt;!&ndash; Automated JSON API documentation for API's built with Spring &ndash;&gt;-->
 <!--			<groupId>io.springfox</groupId>-->
