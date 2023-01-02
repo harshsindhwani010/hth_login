@@ -41,8 +41,8 @@ public class UserController {
             );
         } catch (BadCredentialsException e) {
             ErrorResponse er = new ErrorResponse();
-            er.setStatus("INVALID_CREDENTIALS.");
-            er.setError(String.valueOf(401));
+            er.setMessage("INVALID_CREDENTIALS.");
+            //er.setError(String.valueOf(401));
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
         return userLogin.checkUser(userDTO);
