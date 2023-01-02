@@ -1,11 +1,12 @@
 package com.login.hth.user.controller;
 
 import com.login.hth.error.ErrorResponse;
-import com.login.hth.user.beans.OtpValidate;
-import com.login.hth.user.beans.SendEmail;
-import com.login.hth.user.beans.UserLogin;
+import com.login.hth.user.beans.*;
 import com.login.hth.user.dto.OtpValidateDTO;
 import com.login.hth.user.dto.UserDTO;
+import com.login.hth.user.dto.UserVerifyDTO;
+import com.login.hth.user.dto.CreateAccountDTO;
+import com.login.hth.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,13 @@ public class UserController {
     private UserLogin userLogin;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserVerify userValidation;
+    @Autowired
+    JWTUtility jwtUtility;
+
+    @Autowired
+    private CreateAccount createAccount;
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -39,6 +47,12 @@ public class UserController {
         }
         return userLogin.checkUser(userDTO);
     }
+
+    @GetMapping("/validation")
+    public ResponseEntity<Object> userValidation(@RequestBody UserVerifyDTO userValidationDTO){
+        return userValidation.checkValidation(userValidationDTO);
+    }
+
     @GetMapping("/forgetPassword/{email}")
     public ResponseEntity<Object> sendEmail(@PathVariable("email") String email) {
         return SendEmail.checkUser(email);
@@ -48,5 +62,15 @@ public class UserController {
     public ResponseEntity<Object> otpValidate(@RequestBody OtpValidateDTO otpValidateDTO) {
         return OtpValidate.otpValidate(otpValidateDTO);
     }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<Object> CreateUser(@RequestBody CreateAccountDTO createAccountDTO) {
+        return CreateAccount.createUser(createAccountDTO);
+    }
+
+//    @PostMapping("/securityQuestion")
+//    public ResponseEntity<Object> securityQuestion(@RequestBody SecurityQuestionDTO securityQuestion) {
+//        return SecurityQuestion.addQuestion(securityQuestion);
+//    }
 
 }

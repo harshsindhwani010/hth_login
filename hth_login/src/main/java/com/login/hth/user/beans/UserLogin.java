@@ -20,16 +20,6 @@ public class UserLogin {
     @Autowired
     private JWTUtility jWTUtility;
 
-    public static String config(String usrID) {
-        String sql = "SELECT USRMBR FROM HTHDATV1.SYSUSRP WHERE USRID='" + usrID.toUpperCase() + "'";
-        List<String[]> resultList = iSeries.executeSQL(sql);
-        if (resultList.isEmpty()) {
-            return "   ";
-        } else {
-            return resultList.get(0)[0].trim();
-        }
-    }
-
     public String[] getUserDetail(String user) {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
