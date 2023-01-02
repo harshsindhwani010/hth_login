@@ -1,7 +1,7 @@
 package com.login.hth.signup.controller;
 
-import com.login.hth.signup.beans.SignupUser;
-import com.login.hth.signup.dto.SignupRequestDTO;
+import com.login.hth.beans.SignupUser;
+import com.login.hth.dto.SignupRequestDTO;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;

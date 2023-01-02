@@ -1,6 +1,6 @@
 package com.login.hth.Claims.Controller;
 
-import com.login.hth.Claims.Beans.ClaimsData;
+import com.login.hth.beans.ClaimsData;
 import com.login.hth.utility.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

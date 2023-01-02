@@ -1,6 +1,6 @@
 package com.login.hth.filter;
 
-import com.login.hth.user.beans.UserLogin;
+import com.login.hth.beans.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
