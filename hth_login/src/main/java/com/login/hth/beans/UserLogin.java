@@ -1,10 +1,10 @@
 package com.login.hth.beans;
 
-import com.login.hth.connection.iSeries;
+import com.login.hth.Security.JWTUtility;
+import com.login.hth.Security.iSeries;
 import com.login.hth.dto.AppUserRole;
 import com.login.hth.dto.UserDTO;
 import com.login.hth.dto.ErrorResponseDTO;
-import com.login.hth.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

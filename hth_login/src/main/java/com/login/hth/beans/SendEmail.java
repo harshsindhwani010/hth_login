@@ -1,6 +1,6 @@
 package com.login.hth.beans;
 
-import com.login.hth.connection.iSeries;
+import com.login.hth.Security.iSeries;
 import com.login.hth.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

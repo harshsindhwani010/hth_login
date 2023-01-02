@@ -12,12 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserVerifyDTO {
-
     private String firstName;
     private String lastName;
     private String dateOfBirth;
     private String employPolicy;
-
 
     public void setDateOfBirth(String dateOfBirth) {
         //IN YYYY-MM-DD

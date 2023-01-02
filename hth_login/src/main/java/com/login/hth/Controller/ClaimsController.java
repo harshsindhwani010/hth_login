@@ -1,7 +1,7 @@
 package com.login.hth.Controller;
 
-import com.login.hth.Claims.Beans.ClaimsData;
-import com.login.hth.utility.JWTUtility;
+import com.login.hth.Security.JWTUtility;
+import com.login.hth.beans.ClaimsData;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

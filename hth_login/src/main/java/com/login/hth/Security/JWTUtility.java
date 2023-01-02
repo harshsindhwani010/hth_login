@@ -1,6 +1,6 @@
 package com.login.hth.Security;
 
-import com.login.hth.user.dto.AppUserRole;
+import com.login.hth.dto.AppUserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
