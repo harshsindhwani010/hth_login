@@ -115,20 +115,15 @@ public class UserController {
         }
     }
 
-    @PostMapping("/createUser")
-    public ResponseEntity<Object> CreateUser(@RequestBody CreateAccountDTO createAccountDTO) {
-        return CreateAccount.createUser(createAccountDTO);
-    }
-
-    @GetMapping("/test")
-    public void getUser() {
-        String[] data = signupUser.getAllProfile();
-        Object obj = JSONValue.parse(data[1].trim());
-        JSONObject jsonObject = (JSONObject) obj;
-        String first = jsonObject.get("firstName").toString();
-        String last = jsonObject.get("lastName").toString();
-        System.out.println(first + ":");
-        System.out.println(last + ":");
-    }
+//    @GetMapping("/test")
+//    public void getUser() {
+//        String[] data = signupUser.getAllProfile();
+//        Object obj = JSONValue.parse(data[1].trim());
+//        JSONObject jsonObject = (JSONObject) obj;
+//        String first = jsonObject.get("firstName").toString();
+//        String last = jsonObject.get("lastName").toString();
+//        System.out.println(first + ":");
+//        System.out.println(last + ":");
+//    }
 
 }
