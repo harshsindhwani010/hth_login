@@ -1,6 +1,5 @@
 package com.login.hth.beans;
 
-import com.login.hth.dto.ErrorResponseDTO;
 import com.login.hth.security.iSeries;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Component;
 public class ChangePassword {
 
     public String checkUser(String email){
-        ErrorResponseDTO er = new ErrorResponseDTO();
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";

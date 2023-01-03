@@ -1,6 +1,6 @@
 package com.login.hth.beans;
 
-import com.login.hth.dto.ErrorResponseDTO;
+import com.login.hth.dto.MessageDTO;
 import com.login.hth.dto.UserDTO;
 import com.login.hth.security.JWTUtility;
 import com.login.hth.security.iSeries;
@@ -14,8 +14,7 @@ import java.util.List;
 @Component
 public class UserLogin {
     @Autowired
-    private JWTUtility jWTUtility;
-
+    JWTUtility jWTUtility;
     public static String config(String usrID) {
         String sql = "SELECT USRMBR FROM HTHDATV1.SYSUSRP WHERE USRID='" + usrID.toUpperCase() + "'";
         List<String[]> resultList = iSeries.executeSQL(sql);
@@ -25,7 +24,6 @@ public class UserLogin {
             return resultList.get(0)[0].trim();
         }
     }
-
     public String[] getUserDetail(String user) {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
@@ -45,7 +43,7 @@ public class UserLogin {
     }
 
     public ResponseEntity<Object> checkUser(UserDTO user) {
-        ErrorResponseDTO er = new ErrorResponseDTO();
+        MessageDTO er = new MessageDTO();
         String[] result = null;
         result = getUserDetail(user.getEmail());
         if (result == null) {

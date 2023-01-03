@@ -1,8 +1,8 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.ChangePasswordDTO;
+import com.login.hth.dto.MessageDTO;
 import com.login.hth.security.iSeries;
-import com.login.hth.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,8 @@ import java.util.Random;
 
 @Component
 public class SendEmail {
-
     public ResponseEntity<Object> updatePassword(String password, String email){
-        ErrorResponseDTO er = new ErrorResponseDTO();
+        MessageDTO er = new MessageDTO();
         List<String[]> result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
@@ -32,7 +31,7 @@ public class SendEmail {
     }
 
     public ResponseEntity<Object> changePassword(ChangePasswordDTO changePasswordDTO, String email){
-        ErrorResponseDTO er = new ErrorResponseDTO();
+        MessageDTO er = new MessageDTO();
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
@@ -53,7 +52,7 @@ public class SendEmail {
     }
 
     public static ResponseEntity<Object> checkUser(String email){
-        ErrorResponseDTO er = new ErrorResponseDTO();
+        MessageDTO er = new MessageDTO();
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";

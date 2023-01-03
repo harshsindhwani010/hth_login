@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClaimResponseDTO {
-
     private String dateOfService;
     private String patient;
     private String claimNumber;
     private PaymentDetailDTO paymentDetails;
     private String patientResponsibilityDetails;
-
 }

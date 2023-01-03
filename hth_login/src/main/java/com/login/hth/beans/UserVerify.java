@@ -12,40 +12,51 @@ import java.util.List;
 
 @Component
 public class UserVerify {
-    public static List<String[]> getInsureData(String empIDPolcy) {
-        List<String[]> resultList = null;
+    public String[] getInsureData(String empIDPolcy) {
+        String[] resultList = null;
         String alias = "QTEMP.INSURE";
         String file = "TESTDATA.INSURE(TRT)";
-        String sql = "SELECT IFNAM,ILNAM,IDOB FROM QTEMP.INSURE WHERE IEMPID ='" + empIDPolcy + "' or IPOLCY = '" + empIDPolcy + "'";
+        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE WHERE IEMPID ='" + empIDPolcy + "' or IPOLCY = '" + empIDPolcy + "'";
 
-        resultList = iSeries.executeSQLByAlias(sql, alias, file);
+        resultList = iSeries.executeSQLByAliasArray(sql, alias, file);
         return resultList;
     }
 
     public ResponseEntity<Object> checkValidation(UserVerifyDTO userValidationDTO) {
-        List<UserVerifyDTO> validationDTOList = new ArrayList<UserVerifyDTO>();
-        List<String[]> insureList = UserVerify.getInsureData(userValidationDTO.getEmployPolicy());
-        if(insureList!=null) {
-            for (int i = 0; i < insureList.size(); i++) {
-                String[] insure = insureList.get(i);
-                if (!insure[0].trim().equals(userValidationDTO.getFirstName().trim())) {
-                    System.out.println("FirstName: " + insure[0]);
-                    MessageDTO msg1 = new MessageDTO("First name did not match");
-                    return new ResponseEntity<>(msg1, HttpStatus.BAD_REQUEST);
-                } else if (!insure[1].trim().equals(userValidationDTO.getLastName().trim())) {
-                    MessageDTO msg2 = new MessageDTO("Last name did not match");
-                    return new ResponseEntity<>(msg2, HttpStatus.BAD_REQUEST);
-                } else if (!insure[2].equals(userValidationDTO.getDateOfBirth())) {
-                    MessageDTO msg3 = new MessageDTO("DOB did not match");
-                    return new ResponseEntity<>(msg3, HttpStatus.BAD_REQUEST);
+        MessageDTO messageDto = new MessageDTO();
+        String[] insure = getInsureData(userValidationDTO.getEmployPolicy());
+        if (insure == null) {
+            messageDto.setMessage("User not found");
+            return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
+        } else {
+            if (!insure[0].trim().equals(userValidationDTO.getFirstName().trim())) {
+                messageDto.setMessage("First name did't match");
+                return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
+            } else if (!insure[1].trim().equals(userValidationDTO.getLastName().trim())) {
+                messageDto.setMessage("Last name did not match");
+                return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
+            } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {
+                messageDto.setMessage("DOB did not match");
+                return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
+            } else {
+                if (getUserProfile(insure[3].trim()).length > 0) {
+                    messageDto.setMessage("User Already Registered");
+                    return new ResponseEntity<>(messageDto, HttpStatus.OK);
                 } else {
-                    MessageDTO messageDTO = new MessageDTO("Success");
-                    return ResponseEntity.ok(messageDTO);
-
+                    messageDto.setMessage("Success");
+                    return new ResponseEntity<>(messageDto, HttpStatus.OK);
                 }
             }
         }
-        return ResponseEntity.accepted().body(userValidationDTO);
+    }
+
+    public String[] getUserProfile(String ssn) {
+        String[] result = null;
+        String alias = "QTEMP.USERPROF";
+        String file = "TESTDATA.USERPROF(TRT)";
+        String sql = "SELECT * FROM QTEMP.USERPROF where USSN='" + ssn + "'";
+        result = iSeries.executeSQLByAliasArray(sql, alias, file);
+        return result;
     }
 
 }

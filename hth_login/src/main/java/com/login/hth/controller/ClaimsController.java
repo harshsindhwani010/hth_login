@@ -17,15 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v2")
 public class ClaimsController {
     @Autowired
-    private ClaimsData claimsData;
-
+    ClaimsData claimsData;
     @Autowired
-    private JWTUtility jwtUtility;
+    JWTUtility jwtUtility;
 
     @GetMapping("/claims")
     public ResponseEntity<Object> getClaims(@RequestHeader ("Authrozation") String bearerToken) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != "") {
             return claimsData.checkClaim(claims.get("ssn").toString());
