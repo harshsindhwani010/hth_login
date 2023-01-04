@@ -17,7 +17,10 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        String[] user = userLogin.getUserDetail(userName);
+        String[] user = userLogin.getUserDetailUser(userName);
+        if(user==null){
+            throw new UsernameNotFoundException("User not found:"+ userName);
+        }
         return new User(user[0].trim(), user[1].trim(), new ArrayList<>());
     }
 }
