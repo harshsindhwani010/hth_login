@@ -1,14 +1,11 @@
 package com.login.hth.beans;
 
-import com.login.hth.security.iSeries;
 import com.login.hth.dto.MessageDTO;
 import com.login.hth.dto.UserVerifyDTO;
+import com.login.hth.security.iSeries;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class UserVerify {

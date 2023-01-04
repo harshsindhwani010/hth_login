@@ -15,6 +15,7 @@ import java.util.List;
 public class UserLogin {
     @Autowired
     JWTUtility jWTUtility;
+
     public static String config(String usrID) {
         String sql = "SELECT USRMBR FROM HTHDATV1.SYSUSRP WHERE USRID='" + usrID.toUpperCase() + "'";
         List<String[]> resultList = iSeries.executeSQL(sql);
@@ -24,11 +25,12 @@ public class UserLogin {
             return resultList.get(0)[0].trim();
         }
     }
-    public String[] getUserDetail(String user) {
+
+    public String[] getUserDetail(String email) {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT USRNME,UPASS1,UEMAIL,UGROUP,USSN FROM QTEMP.USERPROF where UEMAIL='" + user + "'";
+        String sql = "SELECT USRNME,UPASS1,UEMAIL,UGROUP,USSN FROM QTEMP.USERPROF where UEMAIL='" + email + "' or USRNME='" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         return result;
     }
@@ -37,7 +39,7 @@ public class UserLogin {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT USRNME,UPASS1,UEMAIL,UGROUP,USSN FROM QTEMP.USERPROF where USRNME='" + user + "'";
+        String sql = "SELECT USRNME,UPASS1,UEMAIL,UGROUP,USSN FROM QTEMP.USERPROF where USRNME='" + user + "' or UEMAIL='" + user + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         return result;
     }
@@ -51,19 +53,6 @@ public class UserLogin {
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         } else {
             if (result[1].trim().equals(user.getPassword())) {
-//                HashMap<String, String> data = new HashMap<>();
-//                data.put("name", result[0].trim());
-//                data.put("email", result[2].trim());
-//                data.put("ssn", result[4].trim());
-//                data.put("group", result[3].trim());
-//
-//                ArrayList<AppUserRole> roles = new ArrayList<>();
-//                roles.add(AppUserRole.ROLE_ADMIN);
-//                String token = jWTUtility.createToken(result[0].trim(), roles, data);
-//
-//                HttpHeaders headers = new HttpHeaders();
-//                headers.set("token", token);
-                //ErrorResponse er = new ErrorResponse();
                 er.setMessage("Success");
                 return new ResponseEntity<>(er, HttpStatus.OK);
             } else {

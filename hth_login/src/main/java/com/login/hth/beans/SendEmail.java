@@ -3,6 +3,7 @@ package com.login.hth.beans;
 import com.login.hth.dto.ChangePasswordDTO;
 import com.login.hth.dto.MessageDTO;
 import com.login.hth.security.iSeries;
+import com.login.hth.service.SendEmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,44 +15,44 @@ import java.util.Random;
 
 @Component
 public class SendEmail {
-    public ResponseEntity<Object> updatePassword(String password, String email){
+
+    public ResponseEntity<Object> updatePassword(String password, String email) {
         MessageDTO er = new MessageDTO();
         List<String[]> result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "UPDATE QTEMP.USERPROF set UPASS1 = '"+password+"' where UEMAIL='" + email + "'";
+        String sql = "UPDATE QTEMP.USERPROF set UPASS1 = '" + password + "' where UEMAIL='" + email + "'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
         if (result != null) {
             er.setMessage("Password Updated");
-            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
-        }else{
+            return new ResponseEntity<>(er, HttpStatus.OK);
+        } else {
             er.setMessage("Bad Request.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
-    public ResponseEntity<Object> changePassword(ChangePasswordDTO changePasswordDTO, String email){
+    public ResponseEntity<Object> changePassword(ChangePasswordDTO changePasswordDTO, String email) {
         MessageDTO er = new MessageDTO();
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT PASS1 QTEMP.USERPROF where UEMAIL='" + email + "'";
+        String sql = "SELECT UPASS1 FROM QTEMP.USERPROF where UEMAIL='" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
-        if (result.length>0) {
-            if(!result[0].equals(changePasswordDTO.getCurrentPassword())){
+        if (result!=null && result.length > 0) {
+            if (!result[0].trim().equals(changePasswordDTO.getCurrentPassword())) {
                 er.setMessage("Current Password not matched");
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
-            }else {
-                er.setMessage("Password Updated");
-                return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+            } else {
+                return updatePassword(changePasswordDTO.getNewPassword(), email);
             }
-        }else{
+        } else {
             er.setMessage("Bad Request");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
-    public static ResponseEntity<Object> checkUser(String email){
+    public ResponseEntity<Object> checkUser(String email) {
         MessageDTO er = new MessageDTO();
         String[] result = null;
         String alias = "QTEMP.USERPROF";
@@ -66,26 +67,35 @@ public class SendEmail {
         }
     }
 
-    public static ResponseEntity<Object> insertOtp(String[] user) {
-        String randomNumber = getRandomNumberString();
-        String[] dateTime = getCurrentDateAndTime();
-        List<String[]> result = null;
-        String alias = "QTEMP.USREML";
-        String file = "TESTDATA.USREML(TRT)";
-        String sql = "INSERT INTO QTEMP.USREML(PGROUP,PUSRNME,PEMAILK,PDATE,PTIME,PUSTUS) " +
-                "VALUES ('" + user[1].trim() + "','" + user[0].trim() + "','" + randomNumber + "','"+dateTime[0]+"','"+dateTime[1]+"','0')";
-        result = iSeries.executeSQLByAlias(sql, alias, file);
-        System.out.println("random number:"+randomNumber);
+    public ResponseEntity<Object> insertOtp(String[] user) {
+        try {
+            String randomNumber = getRandomNumberString();
+            String[] dateTime = getCurrentDateAndTime();
+            List<String[]> result = null;
+            String alias = "QTEMP.USREML";
+            String file = "TESTDATA.USREML(TRT)";
+            String sql = "INSERT INTO QTEMP.USREML(PGROUP,PUSRNME,PEMAILK,PDATE,PTIME,PUSTUS) " +
+                    "VALUES ('" + user[1].trim() + "','" + user[0].trim() + "','" + randomNumber + "','" + dateTime[0] + "','" + dateTime[1] + "','0')";
+            result = iSeries.executeSQLByAlias(sql, alias, file);
+            System.out.println("random number:" + randomNumber);
+            String[] to = new String[1];
+            to[0] = user[2].trim();
+            String subject = "Otp Validation";
+            SendEmailService sendEmailService = new SendEmailService();
+            sendEmailService.main(to, subject, randomNumber);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return new ResponseEntity<>("OTP Sent to your Email. Please Check your Inbox", HttpStatus.OK);
     }
 
-    public static String getRandomNumberString() {
+    public String getRandomNumberString() {
         Random random = new Random();
         int number = random.nextInt(999999);
         return String.format("%06d", number);
     }
 
-    public static String[] getCurrentDateAndTime(){
+    public static String[] getCurrentDateAndTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy HHmmss");
         Date date = new Date();
         String[] dateTime = formatter.format(date).split(" ");

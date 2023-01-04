@@ -1,11 +1,10 @@
 package com.login.hth.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.login.hth.security.JWTUtility;
 import com.login.hth.beans.*;
 import com.login.hth.dto.*;
 import io.jsonwebtoken.Claims;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +31,6 @@ public class UserController {
     @Autowired
     OtpValidate otpValidate;
     @Autowired
-    ChangePassword changePassword;
-    @Autowired
     SignupUser signupUser;
 
     @PostMapping("/userLogin")
@@ -49,6 +46,8 @@ public class UserController {
             MessageDTO er = new MessageDTO();
             er.setMessage("INVALID_CREDENTIALS.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
         return userLogin.checkUser(userDTO);
     }
@@ -78,7 +77,7 @@ public class UserController {
 
     @GetMapping("/forgetPassword/{email}")
     public ResponseEntity<Object> sendEmail(@PathVariable("email") String email) {
-        return SendEmail.checkUser(email);
+        return sendEmail.checkUser(email);
     }
 
     @PostMapping("/forgetPassword")
@@ -86,7 +85,7 @@ public class UserController {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         String email = claims.get("email").toString();
-        if (changePassword.checkUser(email).equalsIgnoreCase("success")) {
+        if (userLogin.getUserDetail(email).length > 0) {
             if (!forgetPasswordDTO.getNewPassword().equals(forgetPasswordDTO.getConfirmPassword())) {
                 return new ResponseEntity<>("Password not Matched", HttpStatus.BAD_REQUEST);
             } else {
@@ -97,13 +96,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/changePassword")
+    @PostMapping("/changePassword")
     public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO, @RequestHeader("Authorization") String bearerToken) {
         MessageDTO er = new MessageDTO();
         bearerToken = bearerToken.substring(7, bearerToken.length());
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         String email = claims.get("email").toString();
-        if (changePassword.checkUser(email).equalsIgnoreCase("success")) {
+        if (userLogin.getUserDetail(email).length > 0) {
             if (!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmPassword())) {
                 er.setMessage("Password not Matched");
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -114,16 +113,4 @@ public class UserController {
             return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @GetMapping("/test")
-//    public void getUser() {
-//        String[] data = signupUser.getAllProfile();
-//        Object obj = JSONValue.parse(data[1].trim());
-//        JSONObject jsonObject = (JSONObject) obj;
-//        String first = jsonObject.get("firstName").toString();
-//        String last = jsonObject.get("lastName").toString();
-//        System.out.println(first + ":");
-//        System.out.println(last + ":");
-//    }
-
 }

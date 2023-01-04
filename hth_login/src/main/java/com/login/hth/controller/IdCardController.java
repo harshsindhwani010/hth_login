@@ -24,6 +24,7 @@ public class IdCardController {
     public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+
         String group = claims.get("group").toString();
         if (!group.isEmpty()) {
             if (GRPMST.groupExists(group)) {

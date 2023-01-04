@@ -18,9 +18,9 @@ import java.io.IOException;
 @Component
 public class JWTFilter extends OncePerRequestFilter {
     @Autowired
-    private JWTUtility jwtUtility;
+    JWTUtility jwtUtility;
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {

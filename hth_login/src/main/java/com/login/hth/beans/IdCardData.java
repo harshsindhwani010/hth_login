@@ -16,16 +16,13 @@ import java.util.TimeZone;
 @Component
 public class IdCardData {
 
-    public ResponseEntity<Object> showIdCard(Claims claims)  {
+    public ResponseEntity<Object> showIdCard(Claims claims) {
         String nameS = "A";
         String nameE = "Z";
-        String date = "";
-        if (date.isEmpty()) {
-            Date today = Calendar.getInstance().getTime();
-            SimpleDateFormat format = new SimpleDateFormat("MMddyy");
-            format.setTimeZone(TimeZone.getTimeZone("GWT"));
-            date = format.format(today);
-        }
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MMddyy");
+        format.setTimeZone(TimeZone.getTimeZone("GWT"));
+        String date = format.format(today);
 
         String parameter = "BI1" + " " + claims.get("name").toString() + " " + claims.get("group").toString() + " " + nameS + " " + nameE + " " + date;
         StringBuilder parm = new StringBuilder(parameter);
@@ -48,7 +45,7 @@ public class IdCardData {
         if (idList.length == 1) {
             StringBuilder idValue = new StringBuilder(idList[0]);
             String clCommand = "CALL DFLIB/LOADIDC PARM('" + "BI1" + "' '" + "PRT" + " ' '%s')";
-            iSeries.executeCL(String.format(clCommand,  idValue));
+            iSeries.executeCL(String.format(clCommand, idValue));
 
             IdCardResponseDTO cardList = IDCPRV.generateIDCARD(grpList, idList, "PRT");
             return new ResponseEntity<>(cardList, HttpStatus.OK);

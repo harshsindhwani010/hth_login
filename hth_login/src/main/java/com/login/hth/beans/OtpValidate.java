@@ -61,7 +61,7 @@ public class OtpValidate {
 
                         ArrayList<AppUserRole> roles = new ArrayList<>();
                         roles.add(AppUserRole.ROLE_ADMIN);
-                        String token = jWTUtility.createToken(result[0].trim(), roles, data);
+                        String token = jWTUtility.createToken(otpValidateDTO.getUserName(), roles, data);
 
                         JWTTokenResponseDTO dto = new JWTTokenResponseDTO();
                         dto.setToken(token);

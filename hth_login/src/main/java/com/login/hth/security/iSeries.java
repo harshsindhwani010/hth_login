@@ -15,6 +15,14 @@ public class iSeries {
     private static final String PASSWORD = "TWMC1990";
     private static AS400 system = null;
 
+    static{
+        try {
+            Class.forName(DRIVER);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public static String[] executeSQLByAliasArray(String sql, String alias, String file) {
         String aliasSQL = "CREATE ALIAS " + alias + " FOR " + file;
         String[] result = null;
@@ -24,7 +32,6 @@ public class iSeries {
         Connection connection = null;
 
         try {
-            Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
             statement = connection.createStatement();
             statement.execute(aliasSQL);
@@ -63,7 +70,6 @@ public class iSeries {
         Connection connection = null;
 
         try {
-            Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
             statement = connection.createStatement();
 
@@ -108,7 +114,6 @@ public class iSeries {
         Connection connection = null;
 
         try {
-            Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
             statement = connection.createStatement();
             System.out.println("::" + aliasSQL);
@@ -155,7 +160,6 @@ public class iSeries {
         Connection connection = null;
 
         try {
-            Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
             statement = connection.createStatement();
             statement.execute(aliasSQL);

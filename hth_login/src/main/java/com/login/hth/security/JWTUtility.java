@@ -22,6 +22,7 @@ public class JWTUtility {
     private String secretKey;
     @Value("${security.jwt.token.expire.length}")
     private long validityInMilliseconds; // 1h
+
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
