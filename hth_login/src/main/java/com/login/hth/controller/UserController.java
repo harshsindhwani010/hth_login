@@ -1,9 +1,8 @@
 package com.login.hth.controller;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
-import com.login.hth.security.JWTUtility;
 import com.login.hth.beans.*;
 import com.login.hth.dto.*;
+import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

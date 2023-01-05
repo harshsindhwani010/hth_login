@@ -36,9 +36,9 @@ public class UserVerify {
                 messageDto.setMessage("DOB did not match");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else {
-                if (getUserProfile(insure[3].trim()).length > 0) {
+                if (getUserProfile(insure[3].trim())!=null && getUserProfile(insure[3].trim()).length > 0) {
                     messageDto.setMessage("User Already Registered");
-                    return new ResponseEntity<>(messageDto, HttpStatus.OK);
+                    return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
                 } else {
                     messageDto.setMessage("Success");
                     return new ResponseEntity<>(messageDto, HttpStatus.OK);

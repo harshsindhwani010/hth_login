@@ -68,6 +68,7 @@ public class SendEmail {
     }
 
     public ResponseEntity<Object> insertOtp(String[] user) {
+        MessageDTO dto = new MessageDTO();
         try {
             String randomNumber = getRandomNumberString();
             String[] dateTime = getCurrentDateAndTime();
@@ -86,7 +87,8 @@ public class SendEmail {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>("OTP Sent to your Email. Please Check your Inbox", HttpStatus.OK);
+        dto.setMessage("OTP Sent to your Email. Please Check your Inbox");
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     public String getRandomNumberString() {

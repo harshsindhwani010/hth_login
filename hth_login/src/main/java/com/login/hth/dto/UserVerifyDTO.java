@@ -19,13 +19,13 @@ public class UserVerifyDTO {
 
     public void setDateOfBirth(String dateOfBirth) {
         //IN YYYY-MM-DD
-        //OUT DDMYYYY
-               SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMyyyy");
-               SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //OUT MDDYYYY
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("Mddyyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date dob= sdf.parse(dateOfBirth);
-            this.dateOfBirth = simpleDateFormat.format(dob  );
-        }catch (ParseException pe){
+            Date dob = sdf.parse(dateOfBirth);
+            this.dateOfBirth = simpleDateFormat.format(dob);
+        } catch (ParseException pe) {
             pe.printStackTrace();
         }
     }
