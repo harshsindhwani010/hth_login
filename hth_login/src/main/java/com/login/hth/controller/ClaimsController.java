@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v3")
 public class ClaimsController {
     @Autowired
     ClaimsData claimsData;
@@ -22,7 +22,8 @@ public class ClaimsController {
     JWTUtility jwtUtility;
 
     @GetMapping("/claims")
-    public ResponseEntity<Object> getClaims(@RequestHeader ("Authrozation") String bearerToken) {
+    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != "") {
@@ -31,6 +32,4 @@ public class ClaimsController {
             return new ResponseEntity<>("SSN Not found.", HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
