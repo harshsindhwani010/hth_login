@@ -9,7 +9,7 @@ public class CLMDET {
         List<String[]> resultList = null;
         String alias = "QTEMP.CLMHDR";
         String file = "TESTDATA.CLMHDR(TRT)";
-        String sql = "SELECT HCLMNO,HDISC,HTOTCL FROM QTEMP.CLMHDR WHERE HSSN ='" + ssn + "'";
+        String sql = "SELECT HCLMNO,HDISC,HTOTCL,HFILL7 FROM QTEMP.CLMHDR WHERE HSSN ='" + ssn + "'";
 
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;

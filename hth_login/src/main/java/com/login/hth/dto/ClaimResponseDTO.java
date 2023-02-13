@@ -11,6 +11,8 @@ public class ClaimResponseDTO {
     private String dateOfService;
     private String patient;
     private String claimNumber;
+    private String claimType;
+    private String patientRelatipnship;
     private PaymentDetailDTO paymentDetails;
     private String patientResponsibilityDetails;
 }

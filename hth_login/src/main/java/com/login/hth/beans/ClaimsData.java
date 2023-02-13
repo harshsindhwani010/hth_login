@@ -31,6 +31,7 @@ public class ClaimsData {
                     claimResponseDTO.setClaimNumber(header[0]);
                     claimResponseDTO.setDateOfService(detail[1]);
                     claimResponseDTO.setPatientResponsibilityDetails(detail[2]);
+                    claimResponseDTO.setClaimType(header[3]);
                     claimResponseDTO.setPaymentDetails(paymentDetail);
                     claimResponseDTO.setPatient(fullName);
                     wholeDTOList.add(claimResponseDTO);
