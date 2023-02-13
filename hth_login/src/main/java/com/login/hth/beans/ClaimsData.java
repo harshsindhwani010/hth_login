@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+
 public class ClaimsData {
     public ResponseEntity<Object> checkClaim(String ssn){
         List<String[]> headerList = CLMDET.getHeaderData(ssn);
@@ -33,6 +34,7 @@ public class ClaimsData {
                     claimResponseDTO.setPaymentDetails(paymentDetail);
                     claimResponseDTO.setPatient(fullName);
                     wholeDTOList.add(claimResponseDTO);
+
                 }
         }
         return ResponseEntity.accepted().body(wholeDTOList);

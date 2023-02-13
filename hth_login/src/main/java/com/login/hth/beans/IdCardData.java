@@ -24,7 +24,7 @@ public class IdCardData {
         format.setTimeZone(TimeZone.getTimeZone("GWT"));
         String date = format.format(today);
 
-        String parameter = "BI1" + " " + claims.get("name").toString() + " " + claims.get("group").toString() + " " + nameS + " " + nameE + " " + date;
+        String parameter = "BI1" + " " + claims.get("name").toString().trim() + " " + claims.get("group").toString().trim() + " " + nameS.trim()+ " " + nameE.trim() + " " + date.trim();
         StringBuilder parm = new StringBuilder(parameter);
         while (parm.length() < 60) {
             parm.append(" ");

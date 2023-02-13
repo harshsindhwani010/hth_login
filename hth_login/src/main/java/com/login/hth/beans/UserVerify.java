@@ -32,7 +32,8 @@ public class UserVerify {
             } else if (!insure[1].trim().equals(userValidationDTO.getLastName().trim())) {
                 messageDto.setMessage("Last name did not match");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
-            } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {
+            } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {    //mmddyy
+               // userValidationDTO.setDateOfBirth();
                 messageDto.setMessage("DOB did not match");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else {

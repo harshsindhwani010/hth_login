@@ -8,11 +8,12 @@ public class IDWORK {
 	private static String[] grpList = null;
 	
 	public static String[] getInQueueID(String usr, String ssn) {
+		List<String[]> resultList;
 		String alias = "QTEMP.IDWORK";
 		String file = "HTHDATV1.IDWORK(BI1)";
 
-		String sql = "SELECT IEMPID, IGRP FROM QTEMP.IDWORK WHERE IUSER='" + usr + "' and IEMPID='"+ssn+"'";
-		List<String[]> resultList = iSeries.executeSQLByAlias(sql, alias, file);
+		String sql = "SELECT IEMPID, IGRP FROM QTEMP.IDWORK WHERE IUSER = '" + usr + "' OR IEMPID= '"+ssn+"'";
+		resultList = iSeries.executeSQLByAlias(sql, alias, file);
 
 		String[] idList = new String[resultList.size()];
 		grpList = new String[resultList.size()];

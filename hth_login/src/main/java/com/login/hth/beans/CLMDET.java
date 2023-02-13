@@ -12,7 +12,6 @@ public class CLMDET {
         String sql = "SELECT HCLMNO,HDISC,HTOTCL FROM QTEMP.CLMHDR WHERE HSSN ='" + ssn + "'";
 
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
-
         return resultList;
     }
 
@@ -25,7 +24,6 @@ public class CLMDET {
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }
-
 
     public static List<String[]> getInsureData(String issn) {
         List<String[]> resultList = null;

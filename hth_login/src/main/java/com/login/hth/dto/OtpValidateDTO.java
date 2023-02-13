@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class OtpValidateDTO {
     private String otp;
     private String userName;
+
+
 }

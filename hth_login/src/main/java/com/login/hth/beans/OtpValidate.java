@@ -32,13 +32,29 @@ public class OtpValidate {
         result = iSeries.executeSQLByAlias(sql, alias, file);
     }
 
+    public String[] getUsername(String email) {
+        MessageDTO er = new MessageDTO();
+        String[] result = null;
+        String alias = "QTEMP.USERPROF";
+        String file = "TESTDATA.USERPROF(TRT)";
+        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" +email + "' OR USRNME= '"+ email+ "'";
+        result = iSeries.executeSQLByAliasArray(sql, alias, file);
+        if (result != null) {
+            return result;
+        } else {
+            er.setMessage("Password not matched.");
+            return result;
+        }
+    }
+
     public ResponseEntity<Object> otpValidate(OtpValidateDTO otpValidateDTO) {
         MessageDTO er = new MessageDTO();
         try {
             String[] result = null;
+            String[] userData = getUsername(otpValidateDTO.getUserName());
             String alias = "QTEMP.USREML";
             String file = "TESTDATA.USREML(TRT)";
-            String sql = "SELECT * FROM QTEMP.USREML where PUSRNME='" + otpValidateDTO.getUserName() + "' and PEMAILK=" +
+            String sql = "SELECT * FROM QTEMP.USREML where PUSRNME='" + userData[0].trim() +  "' and PEMAILK=" +
                     "'" + otpValidateDTO.getOtp() + "' and PDATE ='" + removeZero(SendEmail.getCurrentDateAndTime()[0]) + "' order by PTIME desc limit 1";
             System.out.println(sql);
             result = iSeries.executeSQLByAliasArray(sql, alias, file);
@@ -50,17 +66,17 @@ public class OtpValidate {
                     long store = getTimeInMilliseconds(result[4]);
                     long current = getCurrentTimeInMilliSeconds();
                     long diff = current - store;
-                    if (diff <= 900) {
-                        String[] userData = userLogin.getUserDetailUser(otpValidateDTO.getUserName());
+                    if (diff <= 9900) {
+                        String[] userData1 = userLogin.getUserDetailUser(otpValidateDTO.getUserName());
                         updateStatus(otpValidateDTO, result[4]);
                         HashMap<String, String> data = new HashMap<>();
                         data.put("name", otpValidateDTO.getUserName());
-                        data.put("email", userData[2].trim());
-                        data.put("ssn", userData[4].trim());
-                        data.put("group", userData[3].trim());
+                        data.put("email", userData1[2].trim());
+                        data.put("ssn", userData1[4].trim());
+                        data.put("group", userData1[3].trim());
 
                         ArrayList<AppUserRole> roles = new ArrayList<>();
-                        roles.add(AppUserRole.ROLE_ADMIN);
+                                                                                    roles.add(AppUserRole.ROLE_ADMIN);
                         String token = jWTUtility.createToken(otpValidateDTO.getUserName(), roles, data);
 
                         JWTTokenResponseDTO dto = new JWTTokenResponseDTO();

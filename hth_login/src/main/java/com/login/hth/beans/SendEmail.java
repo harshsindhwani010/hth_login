@@ -7,7 +7,6 @@ import com.login.hth.service.SendEmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +56,7 @@ public class SendEmail {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" + email + "'";
+        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" +email + "' OR USRNME= '"+ email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         if (result != null) {
             return insertOtp(result);

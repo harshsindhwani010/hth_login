@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +33,12 @@ public class UserController {
     OtpValidate otpValidate;
     @Autowired
     SignupUser signupUser;
+
+    @Autowired
+    ClaimsData claimsData;
+
+    @Autowired
+    IdCardData idCardData;
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -112,4 +120,46 @@ public class UserController {
             return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/claims")
+    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("ssn").toString() != " ") {
+            return claimsData.checkClaim(claims.get("ssn").toString());
+        } else {
+            return new ResponseEntity<>("SSN Not found.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/idCard")
+    public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+
+        String group = claims.get("group").toString();
+        if (!group.isEmpty()) {
+            if (GRPMST.groupExists(group)) {
+                return idCardData.showIdCard(claims);
+            } else {
+                return new ResponseEntity<>("Group Not found.", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<>("Invalid Token.", HttpStatus.BAD_REQUEST);
+        }
+    }
+//
+//    @GetMapping("/securityQuestions")
+//    public ResponseEntity<Object> securityQue(@PathVariable("email") String email){
+//
+//        return signupUser.securityQuestions(new SecurityDTO());
+//    }
+//
+//    @GetMapping("/securityAnswers")
+//    public ResponseEntity<Object> securityAns(@PathVariable("email") String email){
+//
+//        return signupUser.securityQuestions(new SecurityDTO(email));
+//    }
+
 }
