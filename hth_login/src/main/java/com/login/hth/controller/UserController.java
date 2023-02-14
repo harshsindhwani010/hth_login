@@ -5,6 +5,7 @@ import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     IdCardData idCardData;
+
+    @Autowired
+    SecurityQue securityQue;
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -149,13 +153,13 @@ public class UserController {
             return new ResponseEntity<>("Invalid Token.", HttpStatus.BAD_REQUEST);
         }
     }
-//
+
 //    @GetMapping("/securityQuestions")
 //    public ResponseEntity<Object> securityQue(@PathVariable("email") String email){
 //
-//        return signupUser.securityQuestions(new SecurityDTO());
+//        return securityQue.checkSecurity(email);
 //    }
-//
+
 //    @GetMapping("/securityAnswers")
 //    public ResponseEntity<Object> securityAns(@PathVariable("email") String email){
 //

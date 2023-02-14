@@ -16,9 +16,12 @@ public class SecurityQue {
             String[] que = securityQuestions.get(i);
 
             SecurityDTO securityDTO = new SecurityDTO();
-            //securityDTO.setSecurityQuestion1();
+            securityDTO.setSecurityQuestion1(que[0]);
+            securityDTO.setSecurityQuestion1(que[1]);
+
+            wholeDTOList.add(securityDTO);
 
         }
-        return checkSecurity("");
+        return ResponseEntity.accepted().body(wholeDTOList);
     }
 }

@@ -4,6 +4,8 @@ import com.login.hth.dto.ChangePasswordDTO;
 import com.login.hth.dto.MessageDTO;
 import com.login.hth.security.iSeries;
 import com.login.hth.service.SendEmailService;
+import com.login.hth.service.SendMail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,9 @@ import java.util.Random;
 
 @Component
 public class SendEmail {
+
+    @Autowired
+    SendMail sendMail;
 
     public ResponseEntity<Object> updatePassword(String password, String email) {
         MessageDTO er = new MessageDTO();
@@ -56,10 +61,11 @@ public class SendEmail {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" +email + "' OR USRNME= '"+ email + "'";
+        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" + email + "' OR USRNME= '" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         if (result != null) {
             return insertOtp(result);
+
         } else {
             er.setMessage("Password not matched.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -81,12 +87,13 @@ public class SendEmail {
             String[] to = new String[1];
             to[0] = user[2].trim();
             String subject = "Otp Validation";
-            SendEmailService sendEmailService = new SendEmailService();
-            sendEmailService.main(to, subject, randomNumber);
+            sendMail.sendingMail(to[0],subject,randomNumber);
+//            SendEmailService sendEmailService = new SendEmailService();
+//            sendEmailService.main(to, subject, randomNumber);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        dto.setMessage("OTP Sent to your Email. Please Check your Inbox");
+        dto.setMessage("OTP Sent");
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
