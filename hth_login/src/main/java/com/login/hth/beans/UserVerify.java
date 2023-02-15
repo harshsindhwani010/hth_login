@@ -23,18 +23,18 @@ public class UserVerify {
         MessageDTO messageDto = new MessageDTO();
         String[] insure = getInsureData(userValidationDTO.getEmployPolicy());
         if (insure == null) {
-            messageDto.setMessage("User not found");
+            messageDto.setMessage("User Not Found");
             return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
         } else {
             if (!insure[0].trim().equals(userValidationDTO.getFirstName().trim())) {
-                messageDto.setMessage("First name did't match");
+                messageDto.setMessage("User Not Found");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else if (!insure[1].trim().equals(userValidationDTO.getLastName().trim())) {
-                messageDto.setMessage("Last name did not match");
+                messageDto.setMessage("User Not Found");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {    //mmddyy
                // userValidationDTO.setDateOfBirth();
-                messageDto.setMessage("DOB did not match");
+                messageDto.setMessage("User Not Found");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else {
                 if (getUserProfile(insure[3].trim())!=null && getUserProfile(insure[3].trim()).length > 0) {

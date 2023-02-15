@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -41,8 +42,6 @@ public class UserController {
     @Autowired
     IdCardData idCardData;
 
-    @Autowired
-    SecurityQue securityQue;
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -75,14 +74,18 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<Object> signupUser(@RequestBody SignupRequestDTO signupRequestDTO) {
+        MessageDTO er = new MessageDTO();
         List<String[]> userExist = signupUser.checkUserName(signupRequestDTO);
         if (userExist.size() > 0) {
-            return new ResponseEntity<>("User Already Registered", HttpStatus.BAD_REQUEST);
+            er.setMessage("User Already Registered");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         } else if (!signupRequestDTO.getPassword().equals(signupRequestDTO.getConfirmPassword())) {
-            return new ResponseEntity<>("Password Mismatched.", HttpStatus.BAD_REQUEST);
+            er.setMessage("Password Mismatched.");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         } else {
             signupUser.insertUserDetails(signupRequestDTO);
-            return new ResponseEntity<>("Success", HttpStatus.OK);
+            er.setMessage("User Created Successfully");
+            return new ResponseEntity<>(er, HttpStatus.OK);
         }
     }
 
@@ -94,16 +97,19 @@ public class UserController {
     @PostMapping("/forgetPassword")
     public ResponseEntity<Object> forgetPassword(@RequestBody ForgetPasswordDTO forgetPasswordDTO, @RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         String email = claims.get("email").toString();
         if (userLogin.getUserDetail(email).length > 0) {
             if (!forgetPasswordDTO.getNewPassword().equals(forgetPasswordDTO.getConfirmPassword())) {
-                return new ResponseEntity<>("Password not Matched", HttpStatus.BAD_REQUEST);
+                er.setMessage("Password not Matched");
+                return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             } else {
                 return sendEmail.updatePassword(forgetPasswordDTO.getNewPassword(), email);
             }
         } else {
-            return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+            er.setMessage("Bad Request");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -121,19 +127,22 @@ public class UserController {
                 return sendEmail.changePassword(changePasswordDTO, email);
             }
         } else {
-            return new ResponseEntity<>("Bad Request", HttpStatus.BAD_REQUEST);
+            er.setMessage("Bad Request");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/claims")
     public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != " ") {
             return claimsData.checkClaim(claims.get("ssn").toString());
         } else {
-            return new ResponseEntity<>("SSN Not found.", HttpStatus.BAD_REQUEST);
+            er.setMessage("SSN Not found.");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -141,29 +150,40 @@ public class UserController {
     public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-
+        MessageDTO er = new MessageDTO();
         String group = claims.get("group").toString();
         if (!group.isEmpty()) {
             if (GRPMST.groupExists(group)) {
                 return idCardData.showIdCard(claims);
             } else {
-                return new ResponseEntity<>("Group Not found.", HttpStatus.BAD_REQUEST);
+                er.setMessage("Group Not found.");
+                return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity<>("Invalid Token.", HttpStatus.BAD_REQUEST);
+            er.setMessage("Invalid Token.");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
 
-//    @GetMapping("/securityQuestions")
-//    public ResponseEntity<Object> securityQue(@PathVariable("email") String email){
-//
-//        return securityQue.checkSecurity(email);
-//    }
+    @GetMapping("/securityQuestions")
+    public ResponseEntity<Object> securityQue(@PathVariable("email") String email){
+            List <String[]> questions = signupUser.securityQuestions(email);
 
-//    @GetMapping("/securityAnswers")
-//    public ResponseEntity<Object> securityAns(@PathVariable("email") String email){
-//
-//        return signupUser.securityQuestions(new SecurityDTO(email));
-//    }
+        return new ResponseEntity<>(questions,HttpStatus.OK);
+    }
+
+    @GetMapping("/securityAnswers")
+    public ResponseEntity<Object> securityAns(@PathVariable("email") String email, QuestionVerifyDTO questionVerifyDTO){
+        List <String[]> questionAnswer = signupUser.questionAnswer(email);
+
+    //    questionAnswer.stream().filter(qa -> qa)
+
+//        if (questionAnswer.equals(questionAnswer.get(0))){
+//            questionVerifyDTO.getSecurityQuestion1Answer();
+//        }else if (questionAnswer.equals(questionAnswer.get(1))){
+//            questionVerifyDTO.setSecurityQuestion2();
+//        }
+        return securityQue("");
+    }
 
 }

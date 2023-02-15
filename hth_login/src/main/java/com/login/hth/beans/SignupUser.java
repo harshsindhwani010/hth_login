@@ -1,6 +1,5 @@
 package com.login.hth.beans;
 
-import com.login.hth.dto.SecurityDTO;
 import com.login.hth.dto.SignupRequestDTO;
 import com.login.hth.security.iSeries;
 import org.springframework.stereotype.Component;
@@ -21,11 +20,21 @@ public class SignupUser {
         return result;
     }
 
-    public static List<String[]> securityQuestions(String email){
+    public  List<String[]> securityQuestions(String email){
         List<String[]> result =null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT usec1,usec2 FROM QTEMP.USERPROF ORDER BY RAND() WHERE UEMAIL= '"+ email + "'";
+        String sql = "SELECT usec1,usec2,usec3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "'";
+        result = iSeries.executeSQLByAlias(sql, alias, file);
+
+        return result;
+    }
+
+    public  List<String[]> questionAnswer(String email){
+        List<String[]> result =null;
+        String alias = "QTEMP.USERPROF";
+        String file = "TESTDATA.USERPROF(TRT)";
+        String sql = "SELECT usec1,usec2,usec3,uans1,usec2,uans3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
 
         return result;

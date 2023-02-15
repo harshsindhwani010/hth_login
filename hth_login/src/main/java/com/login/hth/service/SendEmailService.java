@@ -1,9 +1,7 @@
 package com.login.hth.service;
 
-
 import com.login.hth.utils.ValueOrDefault;
 import org.springframework.stereotype.Component;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
