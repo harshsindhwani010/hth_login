@@ -24,7 +24,7 @@ public class SignupUser {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT usec1,usec2,usec3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "'";
+        String sql = "SELECT usec1,usec2,usec3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "' or USRNME= '"+ email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
 
         return result;

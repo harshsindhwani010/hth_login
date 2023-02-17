@@ -131,7 +131,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/claims", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping("/claims")
     public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
@@ -169,7 +169,7 @@ public class UserController {
         return securityQue.checkSecurity(email);
     }
 
-    @GetMapping("/securityAnswers/{email}")
+    @PostMapping("/securityAnswers/{email}")
     public ResponseEntity<Object> securityAns(@PathVariable("email") String email) {
         return securityQue.checkAns(email);
     }

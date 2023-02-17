@@ -18,8 +18,7 @@ public class EmailService implements IEmailService {
 
     @Override
     public String sendSimpleMail(String to, String subject, String content) {
-        SimpleMailMessage mailMessage
-                = new SimpleMailMessage();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         // Setting up necessary details
         mailMessage.setFrom("Health App <"+sender+">");

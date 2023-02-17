@@ -22,10 +22,10 @@ public class SecurityQue {
         SecurityDTO wholeDTOList = new SecurityDTO();
 
         wholeDTOList.setSecurityQuestion1(securityAnswers[0].trim());
-        wholeDTOList.setSecurityQuestion2(securityAnswers[1].trim());
-        wholeDTOList.setSecurityQuestion3(securityAnswers[2].trim());
         wholeDTOList.setSecurityQuestion1Answer(securityAnswers[3].trim());
+        wholeDTOList.setSecurityQuestion2(securityAnswers[1].trim());
         wholeDTOList.setSecurityQuestion2Answer(securityAnswers[4].trim());
+        wholeDTOList.setSecurityQuestion3(securityAnswers[2].trim());
         wholeDTOList.setSecurityQuestion3Answer(securityAnswers[5].trim());
 
         return new ResponseEntity(wholeDTOList, HttpStatus.OK);
