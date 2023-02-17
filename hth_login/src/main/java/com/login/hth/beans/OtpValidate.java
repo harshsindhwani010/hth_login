@@ -56,11 +56,10 @@ public class OtpValidate {
             String file = "TESTDATA.USREML(TRT)";
             String sql = "SELECT * FROM QTEMP.USREML where PUSRNME='" + userData[0].trim() +  "' and PEMAILK=" +
                     "'" + otpValidateDTO.getOtp() + "' and PDATE ='" + removeZero(SendEmail.getCurrentDateAndTime()[0]) + "' order by PTIME desc limit 1";
-            System.out.println(sql);
             result = iSeries.executeSQLByAliasArray(sql, alias, file);
             if (result != null) {
                 if (result[5].equals("1")) {
-                    er.setMessage("Password updated Already");
+                    er.setMessage("Invalid OTP");
                     return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
                 } else {
                     long store = getTimeInMilliseconds(result[4]);

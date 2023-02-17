@@ -13,7 +13,7 @@ public class UserVerify {
         String[] resultList = null;
         String alias = "QTEMP.INSURE";
         String file = "TESTDATA.INSURE(TRT)";
-        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE WHERE IEMPID ='" + empIDPolcy + "' or IPOLCY = '" + empIDPolcy + "'";
+        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE WHERE IEMPID ='" + empIDPolcy + "' or IPOLCY = '" + empIDPolcy + "' or issn='" + empIDPolcy + "'";
 
         resultList = iSeries.executeSQLByAliasArray(sql, alias, file);
         return resultList;
@@ -32,12 +32,12 @@ public class UserVerify {
             } else if (!insure[1].trim().equals(userValidationDTO.getLastName().trim())) {
                 messageDto.setMessage("User Not Found");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
-            } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {    //mmddyy
-               // userValidationDTO.setDateOfBirth();
+            } else if (!insure[2].trim().equals(userValidationDTO.getDateOfBirth())) {
+                // userValidationDTO.setDateOfBirth();
                 messageDto.setMessage("User Not Found");
                 return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
             } else {
-                if (getUserProfile(insure[3].trim())!=null && getUserProfile(insure[3].trim()).length > 0) {
+                if (getUserProfile(insure[3].trim()) != null && getUserProfile(insure[3].trim()).length > 0) {
                     messageDto.setMessage("User Already Registered");
                     return new ResponseEntity<>(messageDto, HttpStatus.BAD_REQUEST);
                 } else {

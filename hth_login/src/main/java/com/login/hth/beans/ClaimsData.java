@@ -38,6 +38,6 @@ public class ClaimsData {
 
                 }
         }
-        return ResponseEntity.accepted().body(wholeDTOList);
+        return ResponseEntity.ok().body(wholeDTOList);
     }
 }

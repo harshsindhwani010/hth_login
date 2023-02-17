@@ -5,8 +5,8 @@ import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -35,12 +34,12 @@ public class UserController {
     OtpValidate otpValidate;
     @Autowired
     SignupUser signupUser;
-
     @Autowired
     ClaimsData claimsData;
-
     @Autowired
     IdCardData idCardData;
+    @Autowired
+    SecurityQue securityQue;
 
 
     @PostMapping("/userLogin")
@@ -54,9 +53,9 @@ public class UserController {
             );
         } catch (BadCredentialsException e) {
             MessageDTO er = new MessageDTO();
-            er.setMessage("INVALID_CREDENTIALS.");
+            er.setMessage("INVALID CREDENTIALS");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return userLogin.checkUser(userDTO);
@@ -132,7 +131,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/claims")
+    @GetMapping(value = "/claims", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
@@ -165,25 +164,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/securityQuestions")
-    public ResponseEntity<Object> securityQue(@PathVariable("email") String email){
-            List <String[]> questions = signupUser.securityQuestions(email);
-
-        return new ResponseEntity<>(questions,HttpStatus.OK);
+    @GetMapping("/securityQuestions/{email}")
+    public ResponseEntity<Object> securityQue(@PathVariable("email") String email) {
+        return securityQue.checkSecurity(email);
     }
 
-    @GetMapping("/securityAnswers")
-    public ResponseEntity<Object> securityAns(@PathVariable("email") String email, QuestionVerifyDTO questionVerifyDTO){
-        List <String[]> questionAnswer = signupUser.questionAnswer(email);
-
-    //    questionAnswer.stream().filter(qa -> qa)
-
-//        if (questionAnswer.equals(questionAnswer.get(0))){
-//            questionVerifyDTO.getSecurityQuestion1Answer();
-//        }else if (questionAnswer.equals(questionAnswer.get(1))){
-//            questionVerifyDTO.setSecurityQuestion2();
-//        }
-        return securityQue("");
+    @GetMapping("/securityAnswers/{email}")
+    public ResponseEntity<Object> securityAns(@PathVariable("email") String email) {
+        return securityQue.checkAns(email);
     }
 
 }

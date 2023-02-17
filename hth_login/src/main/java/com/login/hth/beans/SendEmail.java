@@ -3,12 +3,12 @@ package com.login.hth.beans;
 import com.login.hth.dto.ChangePasswordDTO;
 import com.login.hth.dto.MessageDTO;
 import com.login.hth.security.iSeries;
-import com.login.hth.service.SendEmailService;
-import com.login.hth.service.SendMail;
+import com.login.hth.service.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +18,7 @@ import java.util.Random;
 public class SendEmail {
 
     @Autowired
-    SendMail sendMail;
-
+    IEmailService iEmailService;
     public ResponseEntity<Object> updatePassword(String password, String email) {
         MessageDTO er = new MessageDTO();
         List<String[]> result = null;
@@ -43,7 +42,7 @@ public class SendEmail {
         String file = "TESTDATA.USERPROF(TRT)";
         String sql = "SELECT UPASS1 FROM QTEMP.USERPROF where UEMAIL='" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
-        if (result!=null && result.length > 0) {
+        if (result != null && result.length > 0) {
             if (!result[0].trim().equals(changePasswordDTO.getCurrentPassword())) {
                 er.setMessage("Current Password not matched");
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -76,6 +75,7 @@ public class SendEmail {
         MessageDTO dto = new MessageDTO();
         try {
             String randomNumber = getRandomNumberString();
+            String content = "This is your otp for validate " + randomNumber;
             String[] dateTime = getCurrentDateAndTime();
             List<String[]> result = null;
             String alias = "QTEMP.USREML";
@@ -87,9 +87,7 @@ public class SendEmail {
             String[] to = new String[1];
             to[0] = user[2].trim();
             String subject = "Otp Validation";
-            sendMail.sendingMail(to[0],subject,randomNumber);
-//            SendEmailService sendEmailService = new SendEmailService();
-//            sendEmailService.main(to, subject, randomNumber);
+            iEmailService.sendSimpleMail(to[0],subject,content);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

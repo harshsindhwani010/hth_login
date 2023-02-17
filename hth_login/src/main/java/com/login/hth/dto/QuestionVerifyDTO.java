@@ -2,18 +2,23 @@ package com.login.hth.dto;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionVerifyDTO {
 
-    private String securityQuestion1;
-    private String securityQuestion2;
+    public String securityQuestions;
+    public String securityQuestions1;
+    public String securityQuestions2;
+//    private String securityQuestion1;
+//    private String securityQuestion2;
+//    private String securityQuestion3;
 
-    private String securityQuestion1Answer;
-    private String securityQuestion2Answer;
+
 
 }
