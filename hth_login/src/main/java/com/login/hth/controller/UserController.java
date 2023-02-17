@@ -170,8 +170,8 @@ public class UserController {
     }
 
     @PostMapping("/securityAnswers/{email}")
-    public ResponseEntity<Object> securityAns(@PathVariable("email") String email) {
-        return securityQue.checkAns(email);
+    public ResponseEntity<Object> securityAns(@PathVariable("email") String email, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
+        return securityQue.checkAns(securityQuestionDTO, email);
     }
 
 }

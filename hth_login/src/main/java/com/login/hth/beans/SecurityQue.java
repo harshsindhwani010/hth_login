@@ -1,6 +1,7 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.SecurityDTO;
+import com.login.hth.dto.SecurityQuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -17,18 +18,12 @@ public class SecurityQue {
         return new ResponseEntity(securityQuestions2, HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> checkAns(String email) {
+    public ResponseEntity<Object> checkAns(SecurityQuestionDTO securityQuestionDTO, String email) {
         String[] securityAnswers = SignupUser.questionAnswer(email);
-        SecurityDTO wholeDTOList = new SecurityDTO();
+        System.out.println(securityQuestionDTO);
 
-        wholeDTOList.setSecurityQuestion1(securityAnswers[0].trim());
-        wholeDTOList.setSecurityQuestion1Answer(securityAnswers[3].trim());
-        wholeDTOList.setSecurityQuestion2(securityAnswers[1].trim());
-        wholeDTOList.setSecurityQuestion2Answer(securityAnswers[4].trim());
-        wholeDTOList.setSecurityQuestion3(securityAnswers[2].trim());
-        wholeDTOList.setSecurityQuestion3Answer(securityAnswers[5].trim());
 
-        return new ResponseEntity(wholeDTOList, HttpStatus.OK);
+        return new ResponseEntity(securityQuestionDTO, HttpStatus.OK);
     }
 
 }

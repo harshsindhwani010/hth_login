@@ -20,21 +20,21 @@ public class SignupUser {
         return result;
     }
 
-    public static String[] securityQuestions(String email){
+    public static String[] securityQuestions(String email) {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT usec1,usec2,usec3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "' or USRNME= '"+ email + "'";
+        String sql = "SELECT usec1,usec2,usec3 FROM QTEMP.USERPROF WHERE UEMAIL= '" + email + "' or USRNME= '" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
 
         return result;
     }
 
-    public static String[] questionAnswer(String email){
-        String[] result =null;
+    public static String[] questionAnswer(String email) {
+        String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT usec1,usec2,usec3,uans1,uans2,uans3 FROM QTEMP.USERPROF WHERE UEMAIL= '"+ email + "'";
+        String sql = "SELECT usec1,usec2,usec3,uans1,uans2,uans3 FROM QTEMP.USERPROF WHERE UEMAIL= '" + email + "' or usrnme='" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
 
         return result;

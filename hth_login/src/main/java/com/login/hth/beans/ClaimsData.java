@@ -5,8 +5,10 @@ import com.login.hth.dto.PaymentDetailDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -29,7 +31,7 @@ public class ClaimsData {
                     paymentDetail.setPatientResponsibility(detail[2]);
                     ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
                     claimResponseDTO.setClaimNumber(header[0]);
-                    claimResponseDTO.setDateOfService(detail[1]);
+                    claimResponseDTO.setDateOfService(formattedDate(detail[1].trim()));
                     claimResponseDTO.setPatientResponsibilityDetails(detail[2]);
                     claimResponseDTO.setClaimType(header[3]);
                     claimResponseDTO.setPaymentDetails(paymentDetail);
@@ -39,5 +41,23 @@ public class ClaimsData {
                 }
         }
         return ResponseEntity.ok().body(wholeDTOList);
+    }
+
+    public static String formattedDate(String processDate) {
+        String formattedProcessDate = "";
+        try {
+            if (processDate.equals("")) {
+                return formattedProcessDate;
+            }
+            if (processDate.length() == 5) {
+                processDate = "0" + processDate;
+            }
+            Date d = new SimpleDateFormat("MMddyy").parse(processDate);
+            SimpleDateFormat d2 = new SimpleDateFormat("MM-dd-yyyy");
+            formattedProcessDate = d2.format(d).toString();
+        } catch (Exception e) {
+
+        }
+        return formattedProcessDate;
     }
 }
