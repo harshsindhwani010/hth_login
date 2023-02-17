@@ -10,14 +10,31 @@ import java.util.List;
 public class SignupUser {
     public List<String[]> insertUserDetails(SignupRequestDTO signupRequestDTO) {
         List<String[]> result = null;
-        String alias = "QTEMP.USERPROF";
-        String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "INSERT INTO QTEMP.USERPROF(usrnme,uemail,uphone,upass1,usec1,usec2,usec3,uans1,uans2,uans3) values('" + signupRequestDTO.getUserName() + "'" +
-                ",'" + signupRequestDTO.getEmail() + "','" + signupRequestDTO.getPhoneNo() + "','" + signupRequestDTO.getPassword() + "'" +
-                ",'" + signupRequestDTO.getSecurityQuestion1() + "','" + signupRequestDTO.getSecurityQuestion2() + "','" + signupRequestDTO.getSecurityQuestion3() + "'" +
-                ",'" + signupRequestDTO.getSecurityQuestion1Answer() + "','" + signupRequestDTO.getSecurityQuestion2Answer() + "','" + signupRequestDTO.getSecurityQuestion3Answer() + "')";
-        result = iSeries.executeSQLByAlias(sql, alias, file);
-        return result;
+        String[] aliases = {"QTEMP.INSURE","QTEMP.USERPROF"};
+        String[] files = {"TESTDATA.INSURE(TRT)","TESTDATA.USERPROF(TRT)"};
+        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE JOIN qtemp.userprof on ISSN=USSN  WHERE  IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or issn='" + signupRequestDTO.getEmployPolicy() + "'";
+        result =iSeries.executeSQLByAlias(sql,aliases,files);
+        if(result.size()>0) {
+        return null;
+        }else {
+
+            String alias = "QTEMP.INSURE";
+            String file = "TESTDATA.INSURE(TRT)";
+            sql = "Select ISSN from insure where IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or issn='" + signupRequestDTO.getEmployPolicy() + "'";
+
+            List<String[]> temp = iSeries.executeSQLByAlias(sql,alias,file);
+
+            String ssn = temp.get(0)[0];
+
+            alias = "QTEMP.USERPROF";
+            file = "TESTDATA.USERPROF(TRT)";
+            sql = "INSERT INTO QTEMP.USERPROF(usrnme,uemail,uphone,USSN,upass1,usec1,usec2,usec3,uans1,uans2,uans3) values('" + signupRequestDTO.getUserName() + "'" +
+                    ",'" + signupRequestDTO.getEmail() + "','" + signupRequestDTO.getPhoneNo() + "','" + ssn + "','" + signupRequestDTO.getPassword() + "'" +
+                    ",'" + signupRequestDTO.getSecurityQuestion1() + "','" + signupRequestDTO.getSecurityQuestion2() + "','" + signupRequestDTO.getSecurityQuestion3() + "'" +
+                    ",'" + signupRequestDTO.getSecurityQuestion1Answer() + "','" + signupRequestDTO.getSecurityQuestion2Answer() + "','" + signupRequestDTO.getSecurityQuestion3Answer() + "')";
+            result = iSeries.executeSQLByAlias(sql,alias,file);
+            return result;
+        }
     }
 
     public static String[] securityQuestions(String email) {

@@ -61,6 +61,56 @@ public class iSeries {
         return result;
     }
 
+    public static List<String[]> executeSQLByAlias(String sql, String[] alias, String[] file) {
+        String[] aliasSQL = new String[alias.length];
+        for(int i=0;i<alias.length;i++){
+            aliasSQL[i] = "CREATE ALIAS " + alias[i] + " FOR " + file[i];
+        }
+        List<String[]> resultList = new ArrayList<>();
+        String[] result;
+        Statement statement;
+        ResultSet resultSet;
+        ResultSetMetaData resultSetMetaData;
+        Connection connection = null;
+
+        try {
+            //Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
+            statement = connection.createStatement();
+            for(int i=0;i<aliasSQL.length;i++){
+                statement.execute(aliasSQL[i]);
+            }
+
+
+            if (sql.substring(0, 6).equalsIgnoreCase("SELECT")) {
+                resultSet = statement.executeQuery(sql);
+                resultSetMetaData = resultSet.getMetaData();
+
+                while (resultSet.next()) {
+                    result = new String[resultSetMetaData.getColumnCount()];
+                    for (int idx = 0; idx < result.length; idx++) {
+                        result[idx] = resultSet.getString(idx + 1);
+                    }
+                    resultList.add(result);
+                }
+            } else {
+                String rowCount = Integer.toString(statement.executeUpdate(sql));
+                result = new String[] {rowCount};
+                resultList.add(result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        return resultList;
+    }
     public static List<String[]> executeSQL(String sql) {
         List<String[]> resultList = new ArrayList<>();
         String[] result;
@@ -150,6 +200,50 @@ public class iSeries {
         return resultList;
     }
 
+    public static List<String[]> executeSelectSQL(String sql) {
+        System.out.println("Preparing SELECT statement");
+
+        List<String[]> resultList = new ArrayList<>();
+        String[] result;
+        Statement statement = null;
+        ResultSet resultSet;
+        ResultSetMetaData resultSetMD;
+        try {
+            Connection connection = null;
+            connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            resultSetMD = resultSet.getMetaData();
+            // System.out.println("Start of RESULT_SET_MAPPING loop.");
+            while (resultSet.next()) {
+                result = new String[resultSetMD.getColumnCount()];
+                for (int idx = 0; idx < result.length; idx++) {
+                    result[idx] = resultSet.getString(idx + 1);
+                }
+                resultList.add(result);
+            }
+            statement.close();
+            //  System.out.println("End of RESULT_SET_MAPPING loop.");
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+            }
+        return resultList;
+    }
+    public static boolean createAlias(String[] aliasNameList, String[] fileNameList) {
+        System.out.println("Preparing multiple aliases.");
+        boolean isCreated;
+        int idx = 0;
+        System.out.println("Start of MULT_ALIAS_CREATE loop.");
+
+        do {
+            createAlias(aliasNameList[idx], fileNameList[idx]);
+
+            idx++;
+        }
+        while (idx < aliasNameList.length && idx < fileNameList.length);
+        System.out.println("End of MULT_ALIAS_CREATE loop.");
+        return idx == aliasNameList.length && idx == fileNameList.length;
+    }
     public static void createAlias(String alias, String file) {
         String aliasSQL = "CREATE ALIAS " + alias + " FOR " + file;
         List<String[]> resultList = new ArrayList<>();
