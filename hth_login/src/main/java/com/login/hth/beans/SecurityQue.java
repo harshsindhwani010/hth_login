@@ -5,9 +5,7 @@ import com.login.hth.dto.QuestionsAnswer;
 import com.login.hth.dto.SecurityQuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,13 +13,13 @@ import java.util.List;
 
 @Service
 public class SecurityQue {
-    public ResponseEntity<Object> checkSecurity(String email) {
-        String[] securityQuestions = SignupUser.securityQuestions(email);
-        String[] securityQuestions2 = new String[securityQuestions.length];
-        for (int i = 0; i < securityQuestions.length; i++) {
-            securityQuestions2[i] = securityQuestions[i].trim();
+    public ResponseEntity<Object> getSecurityQuestions(String email) {
+        String[] tempQuestion = SignupUser.securityQuestions(email);
+        String[] securityQuestionss = new String[tempQuestion.length];
+        for (int i = 0; i < tempQuestion.length; i++) {
+            securityQuestionss[i] = tempQuestion[i].trim();
         }
-        return new ResponseEntity(securityQuestions2, HttpStatus.OK);
+        return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
 
     public ResponseEntity<Object> securityAns(SecurityQuestionDTO securityQuestionDTO, String email) {

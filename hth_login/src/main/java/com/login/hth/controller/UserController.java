@@ -40,7 +40,6 @@ public class UserController {
     @Autowired
     SecurityQue securityQue;
 
-
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
         try {
@@ -164,10 +163,19 @@ public class UserController {
         }
     }
 
-    @GetMapping("/securityQuestions/{email}")
-    public ResponseEntity<Object> securityQue(@PathVariable("email") String email) {
-        return securityQue.checkSecurity(email);
-    }
+    @GetMapping("/securityQuestions")
+    public ResponseEntity<Object> securityQue(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO err = new MessageDTO();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("email").toString() !="") {
+            return securityQue.getSecurityQuestions(claims.get("email").toString());
+        }else {
+                err.setMessage("User Not found.");
+                return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+            }
+        }
+
 
     @PostMapping("/securityAnswers")
     public ResponseEntity<Object> securityAns(@RequestHeader("Authorization") String bearerToken, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
@@ -177,7 +185,7 @@ public class UserController {
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("email").toString() != " ") {
 //            return securityQue.securityAns(claims.get("ssn").toString());
-            return securityQue.securityAns(securityQuestionDTO,claims.get("email").toString());
+            return securityQue.securityAns(securityQuestionDTO, claims.get("email").toString());
         } else {
             err.setMessage("User Not found.");
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
