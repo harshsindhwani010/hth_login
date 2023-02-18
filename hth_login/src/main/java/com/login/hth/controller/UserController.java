@@ -6,7 +6,6 @@ import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -58,6 +57,7 @@ public class UserController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         return userLogin.checkUser(userDTO);
     }
 
@@ -140,7 +140,7 @@ public class UserController {
         if (claims.get("ssn").toString() != " ") {
             return claimsData.checkClaim(claims.get("ssn").toString());
         } else {
-            er.setMessage("SSN Not found.");
+            er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
@@ -169,9 +169,19 @@ public class UserController {
         return securityQue.checkSecurity(email);
     }
 
-    @PostMapping("/securityAnswers/{email}")
-    public ResponseEntity<Object> securityAns(@PathVariable("email") String email, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
-        return securityQue.checkAns(securityQuestionDTO, email);
+    @PostMapping("/securityAnswers")
+    public ResponseEntity<Object> securityAns(@RequestHeader("Authorization") String bearerToken, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO err = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("email").toString() != " ") {
+//            return securityQue.securityAns(claims.get("ssn").toString());
+            return securityQue.securityAns(securityQuestionDTO,claims.get("email").toString());
+        } else {
+            err.setMessage("User Not found.");
+            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        }
     }
-
 }
+

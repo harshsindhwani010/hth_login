@@ -4,18 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Sign up changes">
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ResendOtpDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/OtpValidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/OtpValidate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityQue.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityQue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SendEmail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/AppUserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/AppUserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ClaimResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ClaimResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SecurityDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SecurityQuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SecurityQuestionDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/security/iSeries.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/security/iSeries.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,7 +55,8 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ditsdev/Downloads/tinorchid-be&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/ditsdev/Downloads/tinorchid-be&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
 }</component>
   <component name="RunManager">
@@ -63,17 +77,39 @@
       <option name="presentableId" value="Default" />
       <updated>1676530195352</updated>
     </task>
+    <task id="LOCAL-00001" summary="Sign up changes">
+      <created>1676638312258</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676638312258</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Sign up changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sign up changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityQue.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="15" />
+          <line>18</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.login.hth.dto.SecurityQuestionDTO" memberName="securityQuestions" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

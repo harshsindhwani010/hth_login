@@ -73,6 +73,7 @@ public class SendEmail {
 
     public ResponseEntity<Object> insertOtp(String[] user) {
         MessageDTO dto = new MessageDTO();
+
         try {
             String randomNumber = getRandomNumberString();
             String content = "This is your otp for validate " + randomNumber;
@@ -107,4 +108,6 @@ public class SendEmail {
         String[] dateTime = formatter.format(date).split(" ");
         return dateTime;
     }
+
+
 }

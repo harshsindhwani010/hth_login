@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 public class UserLogin {
     @Autowired
     JWTUtility jWTUtility;
+    @Autowired
+    SendEmail sendEmail;
     public String[] getUserDetail(String email) {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
@@ -41,6 +43,7 @@ public class UserLogin {
         } else {
             if (result[1].trim().equals(user.getPassword())) {
                 er.setMessage("Success");
+               sendEmail.checkUser(user.getEmail());
                 return new ResponseEntity<>(er, HttpStatus.OK);
             } else {
                 er.setMessage("Invalid Email/Password");

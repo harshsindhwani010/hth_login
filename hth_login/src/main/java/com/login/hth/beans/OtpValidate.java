@@ -23,6 +23,9 @@ public class OtpValidate {
     @Autowired
     UserLogin userLogin;
 
+
+
+
     public void updateStatus(OtpValidateDTO otpValidateDTO, String time) {
         List<String[]> result = null;
         String alias = "QTEMP.USREML";
