@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Security Question Api Updated">
+    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Sign Up API Enhanced">
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserProfile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ChangeSecurity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/UserProfileDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SendEmail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ForgetPasswordDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ForgetPasswordDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/test/java/com/login/hth/HthLoginApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ResendOtpDTO.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,23 +114,26 @@
       <option name="project" value="LOCAL" />
       <updated>1676727458273</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Sign Up API Enhanced">
+      <created>1676796017122</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676796017122</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sign up changes" />
     <MESSAGE value="Sign up APi Security Question Update" />
     <MESSAGE value="Security Question Api Updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Security Question Api Updated" />
+    <MESSAGE value="Sign Up API Enhanced" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sign Up API Enhanced" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
-          <line>107</line>
-          <option name="timeStamp" value="44" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java</url>
           <line>22</line>
@@ -136,8 +141,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
-          <line>75</line>
+          <line>79</line>
           <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserProfile.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
