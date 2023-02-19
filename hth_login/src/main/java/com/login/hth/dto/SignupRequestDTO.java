@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class SignupRequestDTO {
+
     private String userName;
     private String phoneNo;
     private String employPolicy;

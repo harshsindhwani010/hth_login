@@ -75,13 +75,24 @@ public class UserController {
         MessageDTO er = new MessageDTO();
         List<String[]> userExist = signupUser.checkUserName(signupRequestDTO);
         if (userExist.size() > 0) {
+        if(userExist.get(0)[0].trim().equals(signupRequestDTO.getUserName())){
+            er.setMessage("Username Already in use");
+        } else if (userExist.get(0)[1].trim().equals(signupRequestDTO.getEmail())) {
+            er.setMessage("Phone No. Already in use");
+        } else if (userExist.get(0)[2].trim().equals(signupRequestDTO.getPhoneNo())) {
+            er.setMessage("Email Already in use");
+        }else{
             er.setMessage("User Already Registered");
+        }
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         } else if (!signupRequestDTO.getPassword().equals(signupRequestDTO.getConfirmPassword())) {
             er.setMessage("Password Mismatched.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         } else {
-            signupUser.insertUserDetails(signupRequestDTO);
+            List<String[]> result = signupUser.insertUserDetails(signupRequestDTO);
+            if(result==null)
+                er.setMessage("Invalid Data");
+            else
             er.setMessage("User Created Successfully");
             return new ResponseEntity<>(er, HttpStatus.OK);
         }
@@ -100,7 +111,7 @@ public class UserController {
         String email = claims.get("email").toString();
         if (userLogin.getUserDetail(email).length > 0) {
             if (!forgetPasswordDTO.getNewPassword().equals(forgetPasswordDTO.getConfirmPassword())) {
-                er.setMessage("Password not Matched");
+                er.setMessage("Incorrect Values"); // Changes Done For Testing According to QA FEEDBACK
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             } else {
                 return sendEmail.updatePassword(forgetPasswordDTO.getNewPassword(), email);

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Sign up APi Security Question Update">
+    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Security Question Api Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityQue.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SecurityQue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ForgetPasswordDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/ForgetPasswordDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/SignupRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/test/java/com/login/hth/HthLoginApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +26,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="525cb250-1e60-4fef-8795-c9d536e3c641" />
+        <option name="url" value="https://github.com/harshditstek/hth_login.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -82,19 +98,56 @@
       <option name="project" value="LOCAL" />
       <updated>1676724060880</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Security Question Api Updated">
+      <created>1676727439506</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676727439506</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Security Question Api Updated">
+      <created>1676727458273</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676727458273</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sign up changes" />
     <MESSAGE value="Sign up APi Security Question Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sign up APi Security Question Update" />
+    <MESSAGE value="Security Question Api Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Security Question Api Updated" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/SignupUser.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/controller/UserController.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.login.hth.dto.SecurityQuestionDTO" memberName="securityQuestions" />
       </pinned-members>
     </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/hth_login$Application.ic" NAME="Application Coverage Results" MODIFIED="1676791085410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

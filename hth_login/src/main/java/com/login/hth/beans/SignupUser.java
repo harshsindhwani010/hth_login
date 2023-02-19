@@ -12,22 +12,19 @@ public class SignupUser {
         List<String[]> result = null;
         String[] aliases = {"QTEMP.INSURE","QTEMP.USERPROF"};
         String[] files = {"TESTDATA.INSURE(TRT)","TESTDATA.USERPROF(TRT)"};
-        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE JOIN qtemp.userprof on ISSN=USSN  WHERE  IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or issn='" + signupRequestDTO.getEmployPolicy() + "'";
+        String sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE JOIN qtemp.userprof on ISSN=USSN  WHERE  IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or ISSN='" + signupRequestDTO.getEmployPolicy() + "'";
         result =iSeries.executeSQLByAlias(sql,aliases,files);
         if(result.size()>0) {
         return null;
         }else {
-
-            String alias = "QTEMP.INSURE";
-            String file = "TESTDATA.INSURE(TRT)";
-            sql = "Select ISSN from insure where IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or issn='" + signupRequestDTO.getEmployPolicy() + "'";
-
-            List<String[]> temp = iSeries.executeSQLByAlias(sql,alias,file);
-
-            String ssn = temp.get(0)[0];
-
-            alias = "QTEMP.USERPROF";
-            file = "TESTDATA.USERPROF(TRT)";
+             sql = "SELECT IFNAM,ILNAM,IDOB,ISSN FROM QTEMP.INSURE WHERE  IEMPID ='" + signupRequestDTO.getEmployPolicy() + "' or IPOLCY = '" + signupRequestDTO.getEmployPolicy() + "' or ISSN='" + signupRequestDTO.getEmployPolicy() + "'";
+            result =iSeries.executeSQLByAlias(sql,aliases,files);
+            if(result.size()==0){
+                return null;
+            }
+            String ssn = result.get(0)[3].trim();
+            String alias = "QTEMP.USERPROF";
+            String file = "TESTDATA.USERPROF(TRT)";
             sql = "INSERT INTO QTEMP.USERPROF(usrnme,uemail,uphone,USSN,upass1,usec1,usec2,usec3,uans1,uans2,uans3) values('" + signupRequestDTO.getUserName() + "'" +
                     ",'" + signupRequestDTO.getEmail() + "','" + signupRequestDTO.getPhoneNo() + "','" + ssn + "','" + signupRequestDTO.getPassword() + "'" +
                     ",'" + signupRequestDTO.getSecurityQuestion1() + "','" + signupRequestDTO.getSecurityQuestion2() + "','" + signupRequestDTO.getSecurityQuestion3() + "'" +
@@ -64,7 +61,7 @@ public class SignupUser {
         String email = signupRequestDTO.getEmail();
         String alias = "qtemp.usrprof";
         String file = "testdata.userprof(TRT)";
-        String sql = "SELECT * FROM qtemp.usrprof where USRNME='" + user + "' or UEMAIL='" + email + "' or UPHONE = '" + mobile + "'";
+        String sql = "SELECT USRNME,UEMAIL,UPHONE FROM qtemp.usrprof where USRNME='" + user + "' or UEMAIL='" + email + "' or UPHONE = '" + mobile + "'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
         return result;
     }
