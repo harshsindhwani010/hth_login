@@ -108,6 +108,7 @@ public class SendEmail {
         String[] dateTime = formatter.format(date).split(" ");
         return dateTime;
     }
+    }
 
 
-}
+
