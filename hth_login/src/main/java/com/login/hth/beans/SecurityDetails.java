@@ -6,9 +6,11 @@ import com.login.hth.dto.SecurityQuestionDTO;
 import com.login.hth.security.iSeries;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SecurityDetails {
     public ResponseEntity<Object> updateSecurity(SecurityQuestionDTO securityQuestionDTO, String email) {
         MessageDTO er = new MessageDTO();
@@ -21,7 +23,7 @@ public class SecurityDetails {
         if (result != null) {
 
             er.setMessage("Data Updated");
-            return new ResponseEntity<>(er, HttpStatus.OK);
+            return new ResponseEntity<>(securityQuestionDTO, HttpStatus.OK);
         } else {
             er.setMessage("Bad Request.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);

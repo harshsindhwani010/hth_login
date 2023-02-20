@@ -5,6 +5,7 @@ import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -250,12 +251,12 @@ public class UserController {
         }
         return new  ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
     }
-//
-//    @GetMapping("/Questions")
-//    public ResponseEntity<Object> securityQue(Qu) {
-//        return securityQue();
-//    }
+
+    @GetMapping("/questions")
+    public ResponseEntity<Object> Questions(QuestionsDTO questionsDTO) {
+        return new ResponseEntity<>(questionsDTO,HttpStatus.OK);
     }
+}
 
 
 

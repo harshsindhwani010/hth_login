@@ -15,9 +15,7 @@ public class QuestionVerifyDTO {
     public String securityQuestions;
     public String securityQuestions1;
     public String securityQuestions2;
-//    private String securityQuestion1;
-//    private String securityQuestion2;
-//    private String securityQuestion3;
+
 
 
 
