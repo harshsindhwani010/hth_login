@@ -1,7 +1,7 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.MessageDTO;
-import com.login.hth.dto.QuestionsAnswer;
+import com.login.hth.dto.QuestionsAnswerDTO;
 import com.login.hth.dto.SecurityQuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +29,11 @@ public class SecurityQue {
         String[] securityAnswers = SignupUser.questionAnswer(email);
         securityAnswers=Arrays.stream(securityAnswers).map(String::trim).toArray(String[]::new);
         System.out.println(securityQuestionDTO);
-        List<QuestionsAnswer> questionsAnswers = securityQuestionDTO.getSecurityQuestions();
-        for(QuestionsAnswer questionsAnswer : securityQuestionDTO.getSecurityQuestions()){
-            int questionIndex = Arrays.asList(securityAnswers).indexOf(questionsAnswer.getQuestion());
+        List<QuestionsAnswerDTO> questionsAnswerDTOS = securityQuestionDTO.getSecurityQuestions();
+        for(QuestionsAnswerDTO questionsAnswerDTO : securityQuestionDTO.getSecurityQuestions()){
+            int questionIndex = Arrays.asList(securityAnswers).indexOf(questionsAnswerDTO.getQuestion());
             int answerIndex =questionIndex+3;
-            if(questionsAnswer.getAnswer().trim().equals(securityAnswers[answerIndex]) && questionsAnswer.getQuestion().trim().equals(securityAnswers[questionIndex])){
+            if(questionsAnswerDTO.getAnswer().trim().equals(securityAnswers[answerIndex]) && questionsAnswerDTO.getQuestion().trim().equals(securityAnswers[questionIndex])){
                 pass=true;
             }else{
                 pass=false;

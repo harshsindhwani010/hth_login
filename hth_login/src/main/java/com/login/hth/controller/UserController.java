@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.System.err;
+
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -39,6 +41,12 @@ public class UserController {
     IdCardData idCardData;
     @Autowired
     SecurityQue securityQue;
+    @Autowired
+    UserProfile userProfile;
+    @Autowired
+    SecurityDetails securityDetails;
+
+
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -73,6 +81,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<Object> signupUser(@RequestBody SignupRequestDTO signupRequestDTO) {
         MessageDTO er = new MessageDTO();
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         List<String[]> userExist = signupUser.checkUserName(signupRequestDTO);
         if (userExist.size() > 0) {
         if(userExist.get(0)[0].trim().equals(signupRequestDTO.getUserName())){
@@ -84,17 +93,19 @@ public class UserController {
         }else{
             er.setMessage("User Already Registered");
         }
-            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(er, httpStatus);
         } else if (!signupRequestDTO.getPassword().equals(signupRequestDTO.getConfirmPassword())) {
             er.setMessage("Password Mismatched.");
-            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(er, httpStatus);
         } else {
             List<String[]> result = signupUser.insertUserDetails(signupRequestDTO);
             if(result==null)
                 er.setMessage("Invalid Data");
-            else
-            er.setMessage("User Created Successfully");
-            return new ResponseEntity<>(er, HttpStatus.OK);
+            else{
+                httpStatus = HttpStatus.OK;
+                er.setMessage("User Created Successfully");
+            }
+            return new ResponseEntity<>(er,httpStatus);
         }
     }
 
@@ -155,6 +166,29 @@ public class UserController {
         }
     }
 
+    @GetMapping("/userProfile")
+    public ResponseEntity<Object> userProfile(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("ssn").toString() != "") {
+            UserProfileDTO userProfileDTO = new UserProfileDTO();
+            List<String[]> result = userProfile.getuserProfile(String.valueOf(claims.get("ssn")));
+            userProfileDTO.setFirstName(result.get(0)[0].trim());
+            userProfileDTO.setLastName(result.get(0)[1].trim());
+            userProfileDTO.setDateOfBirth(result.get(0)[2].trim());
+            userProfileDTO.setPhoneNo(result.get(0)[3].trim());
+            userProfileDTO.setUsername(result.get(0)[4].trim());
+            userProfileDTO.setEmail(result.get(0)[5].trim());
+            userProfileDTO.setPolicy(result.get(0)[6].trim());
+            return new ResponseEntity<>(userProfileDTO,HttpStatus.OK);
+        } else {
+            er.setMessage("Invalid User");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/idCard")
     public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
@@ -190,17 +224,39 @@ public class UserController {
 
     @PostMapping("/securityAnswers")
     public ResponseEntity<Object> securityAns(@RequestHeader("Authorization") String bearerToken, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
-        bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO err = new MessageDTO();
+        bearerToken = bearerToken.substring(7, bearerToken.length());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("email").toString() != " ") {
-//            return securityQue.securityAns(claims.get("ssn").toString());
             return securityQue.securityAns(securityQuestionDTO, claims.get("email").toString());
         } else {
             err.setMessage("User Not found.");
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
     }
-}
+
+    @PostMapping("/securityDetails")
+    public ResponseEntity<Object> changeSecurity(@RequestBody SecurityQuestionDTO securityQuestionDTO, @RequestHeader("Authorization") String bearerToken) {
+        MessageDTO err = new MessageDTO();
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        String email = claims.get("email").toString();
+        if (userLogin.getUserDetail(email).length > 0) {
+            return securityDetails.updateSecurity(securityQuestionDTO,email);
+
+        }else {
+            err.setMessage("Incorrect Data");
+        }
+        return new  ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+    }
+//
+//    @GetMapping("/Questions")
+//    public ResponseEntity<Object> securityQue(Qu) {
+//        return securityQue();
+//    }
+    }
+
+
+
 

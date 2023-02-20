@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class SecurityQuestionDTO {
 
-    List<QuestionsAnswer> securityQuestions;
+    List<QuestionsAnswerDTO> securityQuestions;
 }
