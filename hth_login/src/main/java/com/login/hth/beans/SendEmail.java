@@ -66,7 +66,7 @@ public class SendEmail {
             return insertOtp(result);
 
         } else {
-            er.setMessage("Password not matched.");
+            er.setMessage("Invalid Data");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }

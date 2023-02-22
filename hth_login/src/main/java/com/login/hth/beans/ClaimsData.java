@@ -53,7 +53,7 @@ public class ClaimsData {
                 processDate = "0" + processDate;
             }
             Date d = new SimpleDateFormat("MMddyy").parse(processDate);
-            SimpleDateFormat d2 = new SimpleDateFormat("MM-dd-yyyy");
+            SimpleDateFormat d2 = new SimpleDateFormat("MM/dd/yyyy");
             formattedProcessDate = d2.format(d).toString();
         } catch (Exception e) {
 

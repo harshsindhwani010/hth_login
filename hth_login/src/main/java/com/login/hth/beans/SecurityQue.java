@@ -21,6 +21,14 @@ public class SecurityQue {
         }
         return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
+    public ResponseEntity<Object> getSecurityAnswer(String email) {
+        String[] tempAnswer = SignupUser.questionAnswer(email);
+        String[] securityAnswer = new String[tempAnswer.length];
+        for (int i = 0; i < tempAnswer.length; i++) {
+            securityAnswer[i] = tempAnswer[i].trim();
+        }
+        return new ResponseEntity(securityAnswer, HttpStatus.OK);
+    }
 
     public ResponseEntity<Object> securityAns(SecurityQuestionDTO securityQuestionDTO, String email) {
         boolean pass= false;
