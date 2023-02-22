@@ -12,4 +12,6 @@ import java.util.List;
 public class SecurityQuestionDTO {
 
     List<QuestionsAnswerDTO> securityQuestions;
+    List<QuestionsAnswerDTO> securityAnswer;
+
 }

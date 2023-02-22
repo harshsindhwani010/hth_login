@@ -16,9 +16,10 @@ public class SecurityDetails {
         MessageDTO er = new MessageDTO();
         List<String[]> result = null;
         List<QuestionsAnswerDTO> list = securityQuestionDTO.getSecurityQuestions();
+        List<QuestionsAnswerDTO> list1 = securityQuestionDTO.getSecurityAnswer();
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "UPDATE QTEMP.USERPROF  usec1 = '"+list.get(0).getQuestion()+"' , usec2 = '"+list.get(1).getQuestion()+"'',usec3 = '"+list.get(2).getQuestion()+"',uans1 = '"+list.get(0).getAnswer()+"',uans2 = '"+list.get(1).getAnswer()+"',uans3 = '"+list.get(0).getAnswer()+"'   WHERE UEMAIL= '" + email + "' or usrnme='" + email + "'";
+        String sql = "UPDATE QTEMP.USERPROF set usec1 = '"+list.get(0).getQuestion()+"' , usec2 = '"+list.get(1).getQuestion()+"'',usec3 = '"+list.get(2).getQuestion()+"',uans1 = '"+list1.get(0).getAnswer()+"',uans2 = '"+list1.get(1).getAnswer()+"',uans3 = '"+list.get(2).getAnswer()+"'   WHERE UEMAIL= '" + email + "' or usrnme='" + email + "'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
         if (result != null) {
 
