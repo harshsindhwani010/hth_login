@@ -6,7 +6,6 @@ import com.login.hth.dto.SecurityQuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class PaymentDetailDTO {
     private String total;
-    private String discount;
-    private String patientResponsibility;
+    private String planPaid;
+    private double patientResponsibility;
 
 
 }

@@ -24,20 +24,26 @@ public class ClaimsData {
             String[] header = headerList.get(i);
 
             List<String[]> detailList = CLMDET.getDetailData(header[0]);
+
                 for(String[] detail : detailList){
+
+                    double copay = Double.valueOf(detail[2].trim());
+                    double notCoverd= Double.valueOf(detail[4]);;
+                    double deducatable = Double.valueOf(detail[5].trim());
+
                     PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
-                    paymentDetail.setTotal(header[2]);
-                    paymentDetail.setDiscount(header[1]);
-                    paymentDetail.setPatientResponsibility(detail[2]);
+                    paymentDetail.setTotal(header[1]);
+                    paymentDetail.setPlanPaid(detail[3]);
+                    paymentDetail.setPatientResponsibility(copay+notCoverd+deducatable);
                     ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
                     claimResponseDTO.setClaimNumber(header[0]);
                     claimResponseDTO.setDateOfService(formattedDate(detail[1].trim()));
-                    claimResponseDTO.setPatientResponsibilityDetails(detail[2]);
-                    claimResponseDTO.setClaimType(header[3]);
+                    claimResponseDTO.setPatientResponsibilityDetails(copay+notCoverd+deducatable);
+                    claimResponseDTO.setClaimType(header[2]);
+                    claimResponseDTO.setPatientRelatipnship(header[4]);
                     claimResponseDTO.setPaymentDetails(paymentDetail);
                     claimResponseDTO.setPatient(fullName);
                     wholeDTOList.add(claimResponseDTO);
-
                 }
         }
         return ResponseEntity.ok().body(wholeDTOList);

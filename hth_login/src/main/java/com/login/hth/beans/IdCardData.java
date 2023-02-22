@@ -35,7 +35,6 @@ public class IdCardData {
         return startPrint(claims.get("name").toString(), claims.get("ssn").toString());
     }
 
-
     private ResponseEntity<Object> startPrint(String user, String ussn) {
         List<String[]> data = null;
         final String[] idList = IDWORK.getInQueueID(user, ussn); // new String[] {"485235826"}; // new String[] {"003565315", "012521333", "237359347", "036607230"};

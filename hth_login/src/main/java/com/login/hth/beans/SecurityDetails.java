@@ -24,7 +24,7 @@ public class SecurityDetails {
         if (result != null) {
 
             er.setMessage("Data Updated");
-            return new ResponseEntity<>(securityQuestionDTO, HttpStatus.OK);
+            return new ResponseEntity<>(er, HttpStatus.OK);
         } else {
             er.setMessage("Bad Request.");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);

@@ -15,5 +15,5 @@ public class ClaimResponseDTO {
     private String claimType;
     private String patientRelatipnship;
     private PaymentDetailDTO paymentDetails;
-    private String patientResponsibilityDetails;
+    private double patientResponsibilityDetails;
 }
