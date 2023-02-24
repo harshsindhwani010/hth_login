@@ -35,5 +35,4 @@ public class CoverageDTO {
     private String dDateOfBirth;
     private String dEffectiveDate;
 
-
 }
