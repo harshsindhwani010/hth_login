@@ -78,7 +78,7 @@
     </dependencies>
 
     <build>
-        <finalName>hi-tech/staging</finalName>
+        <finalName>hi-tech-staging</finalName>
 <!--        <plugins>-->
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->

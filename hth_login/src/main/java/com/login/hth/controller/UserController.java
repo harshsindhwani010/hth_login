@@ -5,7 +5,6 @@ import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.login.hth.beans.ClaimsData.formattedDate;
 import static java.lang.System.err;
 
 @RestController
@@ -46,7 +46,8 @@ public class UserController {
     UserProfile userProfile;
     @Autowired
     SecurityDetails securityDetails;
-
+    @Autowired
+    CoverageDetails coverageDetails;
 
 
     @PostMapping("/userLogin")
@@ -85,28 +86,28 @@ public class UserController {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         List<String[]> userExist = signupUser.checkUserName(signupRequestDTO);
         if (userExist.size() > 0) {
-        if(userExist.get(0)[0].trim().equals(signupRequestDTO.getUserName())){
-            er.setMessage("Username Already in use");
-        } else if (userExist.get(0)[1].trim().equals(signupRequestDTO.getEmail())) {
-            er.setMessage("Phone No. Already in use");
-        } else if (userExist.get(0)[2].trim().equals(signupRequestDTO.getPhoneNo())) {
-            er.setMessage("Email Already in use");
-        }else{
-            er.setMessage("User Already Registered");
-        }
+            if (userExist.get(0)[0].trim().equals(signupRequestDTO.getUserName())) {
+                er.setMessage("Username Already in use");
+            } else if (userExist.get(0)[1].trim().equals(signupRequestDTO.getEmail())) {
+                er.setMessage("Phone No. Already in use");
+            } else if (userExist.get(0)[2].trim().equals(signupRequestDTO.getPhoneNo())) {
+                er.setMessage("Email Already in use");
+            } else {
+                er.setMessage("User Already Registered");
+            }
             return new ResponseEntity<>(er, httpStatus);
         } else if (!signupRequestDTO.getPassword().equals(signupRequestDTO.getConfirmPassword())) {
             er.setMessage("Password Mismatched.");
             return new ResponseEntity<>(er, httpStatus);
         } else {
             List<String[]> result = signupUser.insertUserDetails(signupRequestDTO);
-            if(result==null)
+            if (result == null)
                 er.setMessage("Invalid Data");
-            else{
+            else {
                 httpStatus = HttpStatus.OK;
                 er.setMessage("User Created Successfully");
             }
-            return new ResponseEntity<>(er,httpStatus);
+            return new ResponseEntity<>(er, httpStatus);
         }
     }
 
@@ -178,12 +179,12 @@ public class UserController {
             List<String[]> result = userProfile.getuserProfile(String.valueOf(claims.get("ssn")));
             userProfileDTO.setFirstName(result.get(0)[0].trim());
             userProfileDTO.setLastName(result.get(0)[1].trim());
-            userProfileDTO.setDateOfBirth(result.get(0)[2].trim());
+            userProfileDTO.setDateOfBirth(formattedDate(result.get(0)[2].trim()));
             userProfileDTO.setPhoneNo(result.get(0)[3].trim());
             userProfileDTO.setUsername(result.get(0)[4].trim());
             userProfileDTO.setEmail(result.get(0)[5].trim());
             userProfileDTO.setPolicy(result.get(0)[6].trim());
-            return new ResponseEntity<>(userProfileDTO,HttpStatus.OK);
+            return new ResponseEntity<>(userProfileDTO, HttpStatus.OK);
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -214,13 +215,13 @@ public class UserController {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO err = new MessageDTO();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-        if (claims.get("email").toString() !="") {
+        if (claims.get("email").toString() != "") {
             return securityQue.getSecurityQuestions(claims.get("email").toString());
-        }else {
-                err.setMessage("User Not found.");
-                return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
-            }
+        } else {
+            err.setMessage("User Not found.");
+            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
+    }
 
 
     @PostMapping("/securityAnswers")
@@ -244,19 +245,33 @@ public class UserController {
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         String email = claims.get("email").toString();
         if (userLogin.getUserDetail(email).length > 0) {
-            return securityDetails.updateSecurity(securityQuestionDTO,email);
+            return securityDetails.updateSecurity(securityQuestionDTO, email);
 
-        }else {
+        } else {
             err.setMessage("Incorrect Data");
         }
-        return new  ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/questions")
     public ResponseEntity<Object> Questions(QuestionsDTO questionsDTO) {
-        return new ResponseEntity<>(questionsDTO,HttpStatus.OK);
+        return new ResponseEntity<>(questionsDTO, HttpStatus.OK);
     }
-}
+
+//    @GetMapping("/coverageProfileMedical")
+//    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
+//        bearerToken = bearerToken.substring(7, bearerToken.length());
+//        MessageDTO er = new MessageDTO();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+//        String email = claims.get("ssn").toString();
+//        if (claims.get("ssn").toString() != "") {
+//            return coverageDetails.coverageProfiles()
+//        } else {
+////            err.setMessage("User Not found.");
+////            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+//        }
+  }
 
 
 

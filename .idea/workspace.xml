@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="forgot password api updated">
-      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/CoverageDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/Covrage.java" afterDir="false" />
+    <list default="true" id="9e52de80-4476-43a2-8c97-2606510c5cb0" name="Changes" comment="Coverage profile api">
+      <change afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/coverageProfile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserVerify.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/UserVerify.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/CoverageDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/CoverageDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/beans/Covrage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/QuestionsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hth_login/src/main/java/com/login/hth/dto/QuestionsDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677047742126</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Coverage profile api">
+      <created>1677143504447</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677143504448</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -192,7 +199,8 @@
     <MESSAGE value="Security Question Update APIs" />
     <MESSAGE value="Security Question Update APIs enhancement" />
     <MESSAGE value="forgot password api updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot password api updated" />
+    <MESSAGE value="Coverage profile api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coverage profile api" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
