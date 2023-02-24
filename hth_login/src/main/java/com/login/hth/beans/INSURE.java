@@ -18,7 +18,7 @@ public class INSURE {
     }
 
     public static List<String[]> getgrpmstData(String grpno) {
-        List <String[]> resultList = null;/
+        List <String[]> resultList = null;
         String alias = "QTEMP.GRPMST";
         String file = "TESTDATA.GRPMST(TRT)";
         String sql = "SELECT * FROM QTEMP.GRPMSTN INNER JOIN QTEMP.BLCKPLN ON GRPMST.GCARR = BLCKPLN.CPNBR AND GRPMST.GPL1 = BLCKPLN.CPPLN" ;
