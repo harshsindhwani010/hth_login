@@ -4,7 +4,6 @@ import com.login.hth.dto.ClaimResponseDTO;
 import com.login.hth.dto.PaymentDetailDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +26,8 @@ public class ClaimsData {
 
                 for(String[] detail : detailList){
 
-                    double copay = Double.valueOf(detail[2].trim());
-                    double notCoverd= Double.valueOf(detail[4]);;
+                    double copay       = Double.valueOf(detail[2].trim());
+                    double notCoverd   = Double.valueOf(detail[4]);;
                     double deducatable = Double.valueOf(detail[5].trim());
 
                     PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
