@@ -47,7 +47,7 @@ public class UserController {
     @Autowired
     SecurityDetails securityDetails;
     @Autowired
-    CoverageDetails coverageDetails;
+    CoverageImp coverageImp;
 
 
     @PostMapping("/userLogin")
@@ -258,20 +258,21 @@ public class UserController {
         return new ResponseEntity<>(questionsDTO, HttpStatus.OK);
     }
 
-//    @GetMapping("/coverageProfileMedical")
-//    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
-//        bearerToken = bearerToken.substring(7, bearerToken.length());
-//        MessageDTO er = new MessageDTO();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-//        String email = claims.get("ssn").toString();
-//        if (claims.get("ssn").toString() != "") {
-//            return coverageDetails.coverageProfiles()
-//        } else {
-////            err.setMessage("User Not found.");
-////            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
-//        }
-  }
+    @GetMapping("/coverageProfile")
+    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        //String email = claims.get("ssn").toString();
+        if (claims.get("ssn").toString() != " ") {
+            return coverageImp.coverageProfile(claims.get("ssn").toString());
+        } else {
+            er.setMessage("Invalid User");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+        }
+    }
+}
 
 
 
