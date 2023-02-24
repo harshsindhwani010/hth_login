@@ -49,6 +49,9 @@ public class UserController {
     @Autowired
     CoverageDetails coverageDetails;
 
+    @Autowired
+    CoverageImp coverageImp;
+
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -61,12 +64,12 @@ public class UserController {
             );
         } catch (BadCredentialsException e) {
             MessageDTO er = new MessageDTO();
+            HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
             er.setMessage("INVALID CREDENTIALS");
-            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(er, httpStatus);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return userLogin.checkUser(userDTO);
     }
 
@@ -89,9 +92,9 @@ public class UserController {
             if (userExist.get(0)[0].trim().equals(signupRequestDTO.getUserName())) {
                 er.setMessage("Username Already in use");
             } else if (userExist.get(0)[1].trim().equals(signupRequestDTO.getEmail())) {
-                er.setMessage("Phone No. Already in use");
-            } else if (userExist.get(0)[2].trim().equals(signupRequestDTO.getPhoneNo())) {
                 er.setMessage("Email Already in use");
+            } else if (userExist.get(0)[2].trim().equals(signupRequestDTO.getPhoneNo())) {
+                er.setMessage("Phone No. Already in use");
             } else {
                 er.setMessage("User Already Registered");
             }
@@ -258,19 +261,20 @@ public class UserController {
         return new ResponseEntity<>(questionsDTO, HttpStatus.OK);
     }
 
-//    @GetMapping("/coverageProfileMedical")
-//    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
-//        bearerToken = bearerToken.substring(7, bearerToken.length());
-//        MessageDTO er = new MessageDTO();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-//        String email = claims.get("ssn").toString();
-//        if (claims.get("ssn").toString() != "") {
-//            return coverageDetails.coverageProfiles()
-//        } else {
-////            err.setMessage("User Not found.");
-////            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
-//        }
+    @GetMapping("/coverageProfile")
+    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
+        MessageDTO er = new MessageDTO();
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        String email = claims.get("ssn").toString();
+        if (claims.get("ssn").toString() != "") {
+            return medicalCoverage(claims.get("ssn").toString());
+        } else {
+            er.setMessage("User Not found.");
+           return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        }
+  }
   }
 
 
