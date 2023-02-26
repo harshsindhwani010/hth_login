@@ -275,6 +275,19 @@ public class UserController {
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/securityAnswers")
+    public ResponseEntity<Object> securityAnswer(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO err = new MessageDTO();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("email").toString() != "") {
+            return securityQue.securityAnswers(claims.get("email").toString());
+        } else {
+            err.setMessage("User Not found.");
+            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 
 
