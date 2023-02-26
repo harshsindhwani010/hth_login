@@ -24,6 +24,7 @@ public class CoverageImp {
 
             List<String[]> grpmst = INSURE.getgrpmstData(insureList[2]);
             List<String[]> inshst = INSURE.getInshstData(ssn);
+//            List<String[]> blckpln = INSURE.getblckplnData(coverageProfile([5]));
             // String[] planList = new String[resultList.size()];
 
             for (String[] detail : grpmst) {
@@ -36,7 +37,7 @@ public class CoverageImp {
                     coverageDTO.setPrimaryInsureName(fullName);
                     coverageDTO.setPrimaryInsureID(ssn);
                     // coverageDTO.setPlan(grpmst);
-                    //coverageDTO.setTypeOfCoverage();
+//                    coverageDTO.setTypeOfCoverage([6]);
                     for (String[] detailed : inshst) {
                         if (insureList[6].equals(null)) {
 

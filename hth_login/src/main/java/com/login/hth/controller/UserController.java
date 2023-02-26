@@ -140,19 +140,20 @@ public class UserController {
     @PostMapping("/changePassword")
     public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO, @RequestHeader("Authorization") String bearerToken) {
         MessageDTO er = new MessageDTO();
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         bearerToken = bearerToken.substring(7, bearerToken.length());
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         String email = claims.get("email").toString();
         if (userLogin.getUserDetail(email).length > 0) {
             if (!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmPassword())) {
                 er.setMessage("Password not Matched");
-                return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(er, httpStatus);
             } else {
                 return sendEmail.changePassword(changePasswordDTO, email);
             }
         } else {
             er.setMessage("Bad Request");
-            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(er, httpStatus);
         }
     }
 
