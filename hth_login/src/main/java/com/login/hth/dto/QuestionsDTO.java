@@ -11,8 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 public class QuestionsDTO {
 
-//    List<QuestionsAnswerDTO> securityQuestions;
+//    List<QuestionsAnswerDTO> questions;
+
+
     private String question1 = "question1";
-    private String question2 = "question3";
+    private String question2 = "question2";
     private String question3 = "question3";
 }

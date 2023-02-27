@@ -2,10 +2,12 @@ package com.login.hth.beans;
 
 import com.login.hth.dto.MessageDTO;
 import com.login.hth.dto.QuestionsAnswerDTO;
+import com.login.hth.dto.QuestionsDTO;
 import com.login.hth.dto.SecurityQuestionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,23 @@ public class SecurityQue {
         }
         return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
+    public List<String> questions(QuestionsDTO questionsDTO, HttpStatus ok) {
+//      List<QuestionsDTO> question = new ArrayList<>();
+        List<String> question = Arrays.asList("Question1","Question2","Question3");
+        String [] arrayOfQuestion = new String[question.size()];
+        question.toArray(arrayOfQuestion);
+//            question.add(new QuestionsDTO());
+//       question.add(new QuestionsDTO());
+       // List<QuestionsAnswerDTO> queList = questionsDTO.getQuestions();
+//        question.add(new QuestionsDTO());
+
+//        for (int i = 0; i < question.size(); i++) {
+        return question;
+    }
+//        return new ResponseEntity(arrayOfQuestion, HttpStatus.OK);
+//    }
+
+
     public ResponseEntity<Object> securityAnswers(String email) {
         String[] tempAnswer = SignupUser.securityAnswers(email);
         String[] securityAnswer = new String[tempAnswer.length];
@@ -56,6 +75,7 @@ public class SecurityQue {
         }
         return new ResponseEntity<>(messageDTO,httpStatus);
     }
+
 
 
 }

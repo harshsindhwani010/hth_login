@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.login.hth.beans.ClaimsData.formattedDate;
-import static java.lang.System.err;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -225,7 +224,10 @@ public class UserController {
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping("/questions")
+    public List<String> questions(QuestionsDTO questionsDTO) {
+        return  securityQue.questions(questionsDTO,HttpStatus.OK);
+    }
 
     @PostMapping("/securityAnswers")
     public ResponseEntity<Object> securityAns(@RequestHeader("Authorization") String bearerToken, @RequestBody SecurityQuestionDTO securityQuestionDTO) {
@@ -256,10 +258,7 @@ public class UserController {
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/questions")
-    public ResponseEntity<Object> Questions(QuestionsDTO questionsDTO) {
-        return new ResponseEntity<>(questionsDTO, HttpStatus.OK);
-    }
+
 
     @GetMapping("/coverageProfile")
     public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
