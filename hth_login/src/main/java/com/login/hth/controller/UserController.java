@@ -155,7 +155,10 @@ public class UserController {
             return new ResponseEntity<>(er, httpStatus);
         }
     }
-
+    @GetMapping("/questions")
+    public List<String> question(QuestionsDTO questionsDTO) {
+        return (List<String>) securityQue.questions(questionsDTO).listIterator();
+    }
     @GetMapping("/claims")
     public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
@@ -224,10 +227,7 @@ public class UserController {
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/questions")
-    public List<String> questions(QuestionsDTO questionsDTO) {
-        return  securityQue.questions(questionsDTO,HttpStatus.OK);
-    }
+
 
     @PostMapping("/securityAnswers")
     public ResponseEntity<Object> securityAns(@RequestHeader("Authorization") String bearerToken, @RequestBody SecurityQuestionDTO securityQuestionDTO) {

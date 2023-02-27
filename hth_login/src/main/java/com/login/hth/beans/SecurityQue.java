@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class SecurityQue {
+
     public ResponseEntity<Object> getSecurityQuestions(String email) {
         String[] tempQuestion = SignupUser.securityQuestions(email);
         String[] securityQuestionss = new String[tempQuestion.length];
@@ -22,20 +23,21 @@ public class SecurityQue {
         }
         return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
-    public List<String> questions(QuestionsDTO questionsDTO, HttpStatus ok) {
-//      List<QuestionsDTO> question = new ArrayList<>();
-        List<String> question = Arrays.asList("Question1","Question2","Question3");
-        String [] arrayOfQuestion = new String[question.size()];
-        question.toArray(arrayOfQuestion);
-//            question.add(new QuestionsDTO());
-//       question.add(new QuestionsDTO());
-       // List<QuestionsAnswerDTO> queList = questionsDTO.getQuestions();
-//        question.add(new QuestionsDTO());
-
-//        for (int i = 0; i < question.size(); i++) {
-        return question;
+    public List<String> questions(QuestionsDTO questionsDTO) {
+        List<String> question = Arrays.asList("Question1","Question2","Question3","Question4","Question5");
+        String [] Question = new String[question.size()];
+        question.toArray(Question);
+        return (List<String>) new ResponseEntity<>(questionsDTO,HttpStatus.OK);
     }
-//        return new ResponseEntity(arrayOfQuestion, HttpStatus.OK);
+
+
+//    public ResponseEntity question1(QuestionsDTO questionsDTO) {
+//        String[] tempQuestion = new SecurityQue(questionsDTO.setQuestion(String.valueOf(questionsDTO));
+//        String[] securityQuestion = new String[tempQuestion.length];
+//        for (int i = 0; i < tempQuestion.length; i++) {
+//            securityQuestion[i] = tempQuestion[i].trim();
+//        }
+//        return new ResponseEntity(questionsDTO, HttpStatus.OK);
 //    }
 
 
