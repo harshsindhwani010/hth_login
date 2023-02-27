@@ -276,7 +276,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/securityAnswers")
+    @GetMapping("/securityAns")
     public ResponseEntity<Object> securityAnswer(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO err = new MessageDTO();

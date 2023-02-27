@@ -16,8 +16,8 @@ public class CoverageImp {
         String[] name = Arrays.stream(insure.get(0)).map(String::trim).toArray(String[]::new);
         String fullName = String.join(" ", name);
 
-        String[] insured_name = Arrays.stream(insured.get(0)).map(String::trim).toArray(String[]::new);
-        String insured_fullName = String.join(" ", name);
+        String[] insured_name= Arrays.stream(insured.get(0)).map(String::trim).toArray(String[]::new);
+        String insured_fullName = String.join(" ", insured_name);
 
         for (int i = 0; i < insure.size(); i++) {
             String[] insureList = insure.get(i);
@@ -25,7 +25,7 @@ public class CoverageImp {
             List<String[]> grpmst = INSURE.getgrpmstData(insureList[2]);
             List<String[]> inshst = INSURE.getInshstData(ssn);
 //            List<String[]> blckpln = INSURE.getblckplnData(coverageProfile([5]));
-            // String[] planList = new String[resultList.size()];
+//             String[] planList = new String[resultList.size()];
 
             for (String[] detail : grpmst) {
                 for (String[] insuredDetail : insured) {

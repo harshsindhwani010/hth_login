@@ -24,8 +24,6 @@ public class OtpValidate {
     UserLogin userLogin;
 
 
-
-
     public void updateStatus(OtpValidateDTO otpValidateDTO, String time) {
         List<String[]> result = null;
         String alias = "QTEMP.USREML";
@@ -40,7 +38,7 @@ public class OtpValidate {
         String[] result = null;
         String alias = "QTEMP.USERPROF";
         String file = "TESTDATA.USERPROF(TRT)";
-        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" +email + "' OR USRNME= '"+ email+ "'";
+        String sql = "SELECT USRNME,UGROUP,UEMAIL FROM QTEMP.USERPROF where UEMAIL='" + email + "' OR USRNME= '" + email + "'";
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         if (result != null) {
             return result;
@@ -57,7 +55,7 @@ public class OtpValidate {
             String[] userData = getUsername(otpValidateDTO.getUserName());
             String alias = "QTEMP.USREML";
             String file = "TESTDATA.USREML(TRT)";
-            String sql = "SELECT * FROM QTEMP.USREML where PUSRNME='" + userData[0].trim() +  "' and PEMAILK=" +
+            String sql = "SELECT * FROM QTEMP.USREML where PUSRNME='" + userData[0].trim() + "' and PEMAILK=" +
                     "'" + otpValidateDTO.getOtp() + "' and PDATE ='" + removeZero(SendEmail.getCurrentDateAndTime()[0]) + "' order by PTIME desc limit 1";
             result = iSeries.executeSQLByAliasArray(sql, alias, file);
             if (result != null) {
@@ -78,7 +76,7 @@ public class OtpValidate {
                         data.put("group", userData1[3].trim());
 
                         ArrayList<AppUserRole> roles = new ArrayList<>();
-                                                                                    roles.add(AppUserRole.ROLE_ADMIN);
+                        roles.add(AppUserRole.ROLE_ADMIN);
                         String token = jWTUtility.createToken(otpValidateDTO.getUserName(), roles, data);
 
                         JWTTokenResponseDTO dto = new JWTTokenResponseDTO();
