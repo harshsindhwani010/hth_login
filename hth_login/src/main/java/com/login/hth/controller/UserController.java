@@ -4,6 +4,7 @@ import com.login.hth.beans.*;
 import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +48,6 @@ public class UserController {
     SecurityDetails securityDetails;
     @Autowired
     CoverageImp coverageImp;
-
-    
 
 
     @PostMapping("/userLogin")
@@ -155,10 +154,12 @@ public class UserController {
             return new ResponseEntity<>(er, httpStatus);
         }
     }
+
     @GetMapping("/questions")
-    public List<String> question(QuestionsDTO questionsDTO) {
-        return (List<String>) securityQue.questions(questionsDTO).listIterator();
+    public JSONObject question() {
+        return securityQue.questions();
     }
+
     @GetMapping("/claims")
     public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
@@ -257,7 +258,6 @@ public class UserController {
         }
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
-
 
 
     @GetMapping("/coverageProfile")

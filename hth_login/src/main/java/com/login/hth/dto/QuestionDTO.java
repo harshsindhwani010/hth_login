@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionsDTO {
-
-//    List<QuestionsAnswerDTO> questions;
-
-
+public class QuestionDTO {
     private String question1;
     private String question2;
     private String question3;
