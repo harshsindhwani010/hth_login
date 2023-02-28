@@ -43,6 +43,16 @@ public class SignupUser {
 
         return result;
     }
+    public static String[] securityAnswers(String email) {
+        String[] result = null;
+        String alias = "QTEMP.USERPROF";
+        String file = "TESTDATA.USERPROF(TRT)";
+        String sql = "SELECT uans1,uans2,uans3 FROM QTEMP.USERPROF WHERE UEMAIL= '" + email + "' or USRNME= '" + email + "'";
+        result = iSeries.executeSQLByAliasArray(sql, alias, file);
+
+        return result;
+    }
+
 
     public static String[] questionAnswer(String email) {
         String[] result = null;

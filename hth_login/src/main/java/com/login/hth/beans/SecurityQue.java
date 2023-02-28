@@ -20,8 +20,8 @@ public class SecurityQue {
         }
         return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
-    public ResponseEntity<Object> getSecurityAnswer(String email) {
-        String[] tempAnswer = SignupUser.questionAnswer(email);
+    public ResponseEntity<Object> securityAnswers(String email) {
+        String[] tempAnswer = SignupUser.securityAnswers(email);
         String[] securityAnswer = new String[tempAnswer.length];
         for (int i = 0; i < tempAnswer.length; i++) {
             securityAnswer[i] = tempAnswer[i].trim();
@@ -56,6 +56,7 @@ public class SecurityQue {
         }
         return new ResponseEntity<>(messageDTO,httpStatus);
     }
+
 
 }
 
