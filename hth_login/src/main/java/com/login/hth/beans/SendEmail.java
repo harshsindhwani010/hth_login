@@ -76,6 +76,7 @@ public class SendEmail {
 
         try {
             String randomNumber = getRandomNumberString();
+
             String content = "This is your otp for validation " + randomNumber;
             String[] dateTime = getCurrentDateAndTime();
             List<String[]> result = null;
