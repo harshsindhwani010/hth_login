@@ -267,7 +267,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         //String email = claims.get("ssn").toString();
-        if (claims.get("ssn").toString() != " ") {
+        if (claims.get("ssn").toString() != "") {
             return coverageImp.coverageProfile(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
