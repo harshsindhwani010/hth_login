@@ -11,6 +11,7 @@ public class PaymentDetailDTO {
     private String total;
     private String planPaid;
     private double patientResponsibility;
+    //private ClaimResponseDTO claimResponseDTO;
 
 
 }
