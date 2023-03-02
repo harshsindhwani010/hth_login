@@ -1,17 +1,20 @@
 package com.login.hth.beans;
 
-import com.login.hth.dto.MessageDTO;
-import com.login.hth.dto.QuestionsAnswerDTO;
-import com.login.hth.dto.SecurityQuestionDTO;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.login.hth.dto.*;
+import org.apache.tomcat.util.json.JSONFilter;
+import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.Arrays;
 import java.util.List;
 
 
 @Service
 public class SecurityQue {
+
     public ResponseEntity<Object> getSecurityQuestions(String email) {
         String[] tempQuestion = SignupUser.securityQuestions(email);
         String[] securityQuestionss = new String[tempQuestion.length];
@@ -20,6 +23,19 @@ public class SecurityQue {
         }
         return new ResponseEntity(securityQuestionss, HttpStatus.OK);
     }
+
+
+    public JSONObject questions() {
+        JSONObject jsonObject = new JSONObject();
+     List<String> question = Arrays.asList("What Is Your Best Friend's Name","What Is Your Favorite Colour","What Is Your Favorite Food","What Is Your First Name","What Is Your Last Name");
+     jsonObject.put("questions", question);
+
+        return jsonObject;
+    }
+
+
+
+
     public ResponseEntity<Object> securityAnswers(String email) {
         String[] tempAnswer = SignupUser.securityAnswers(email);
         String[] securityAnswer = new String[tempAnswer.length];
@@ -56,6 +72,7 @@ public class SecurityQue {
         }
         return new ResponseEntity<>(messageDTO,httpStatus);
     }
+
 
 
 }
