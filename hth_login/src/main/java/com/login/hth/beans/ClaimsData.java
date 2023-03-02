@@ -4,11 +4,10 @@ import com.login.hth.dto.ClaimResponseDTO;
 import com.login.hth.dto.PaymentDetailDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import javax.swing.text.html.parser.Parser;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 
@@ -36,7 +35,7 @@ public class ClaimsData {
                     paymentDetail.setPatientResponsibility(copay+notCoverd+deducatable);
                     ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
                     claimResponseDTO.setClaimNumber(header[0]);
-                    claimResponseDTO.setDateOfService(formattedDate(detail[1].trim()));
+                    claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
                     claimResponseDTO.setPatientResponsibilityDetails(copay+notCoverd+deducatable);
                     claimResponseDTO.setClaimType(header[2]);
                     claimResponseDTO.setPatientRelatipnship(header[4]);
@@ -65,4 +64,21 @@ public class ClaimsData {
         }
         return formattedProcessDate;
     }
+    public static String formatDate(String processDate) {
+        String formattedProcessDate = "";
+        try {
+            if (processDate.equals("")) {
+                return formattedProcessDate;
+            }
+            if (processDate.length() == 5) {
+                processDate = "0" + processDate;
+            }
+            Date d = new SimpleDateFormat("MMddyy", Locale.ENGLISH).parse(processDate);
+            SimpleDateFormat d2 = new SimpleDateFormat("MMM dd,yyyy");
+            formattedProcessDate = d2.format(d).toString();
+        } catch (Exception e) {
+
+        }
+        return formattedProcessDate;
+}
 }
