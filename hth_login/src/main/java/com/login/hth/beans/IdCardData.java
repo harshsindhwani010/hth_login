@@ -24,12 +24,12 @@ public class IdCardData {
         format.setTimeZone(TimeZone.getTimeZone("GWT"));
         String date = format.format(today);
 
-        String parameter = "BI1" + " " + claims.get("name").toString().trim() + " " + claims.get("group").toString().trim() + " " + nameS.trim()+ " " + nameE.trim() + " " + date.trim();
+        String parameter = "ART" + " " + claims.get("name").toString().trim() + " " + claims.get("group").toString().trim() + " " + nameS.trim()+ " " + nameE.trim() + " " + date.trim();
         StringBuilder parm = new StringBuilder(parameter);
         while (parm.length() < 60) {
             parm.append(" ");
         }
-
+        System.out.println("param"+parm);
         String loadCardCL = "CALL pdlib/LOADGRPID PARM('" + parm + "')";
         iSeries.executeCL(loadCardCL);
         return startPrint(claims.get("name").toString(), claims.get("ssn").toString());
@@ -41,9 +41,9 @@ public class IdCardData {
         final String[] grpList = IDWORK.getGrpList(); // new String[] {"NAIFA"}; // new String[] {"ARCB", "ARCB", "FLT", "FLT"};
         System.out.println("ID_PrinterSelection: IDLIST from IDWORK: " + idList.length);
 
-        if (idList.length == 1) {
+        if (idList.length >0) {
             StringBuilder idValue = new StringBuilder(idList[0]);
-            String clCommand = "CALL DFLIB/LOADIDC PARM('" + "BI1" + "' '" + "PRT" + " ' '%s')";
+            String clCommand = "CALL DFLIB/LOADIDC PARM('" + "ART" + "' '" + "PRT" + " ' '%s')";
             iSeries.executeCL(String.format(clCommand, idValue));
 
             IdCardResponseDTO cardList = IDCPRV.generateIDCARD(grpList, idList, "PRT");
