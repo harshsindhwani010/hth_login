@@ -2,6 +2,8 @@ package com.login.hth.dto;
 
 import lombok.Data;
 
+import java.awt.*;
+
 @Data
 public class IdCardResponseDTO {
     private String group;
@@ -21,4 +23,8 @@ public class IdCardResponseDTO {
     private String[] frontLogo;
     //back logo upto 9
     private String[] backLogo;
+    private String[] logos;
+//    private Image[] images;
+
+
 }
