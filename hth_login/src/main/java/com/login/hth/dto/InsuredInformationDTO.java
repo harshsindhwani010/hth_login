@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class InsuredInformationDTO {
 
     //Insured Information
-    JSONObject jsonObject = new JSONObject();
+    //JSONObject jsonObject = new JSONObject();
     private String groupName;
     private String groupNumber;
     private String division;
