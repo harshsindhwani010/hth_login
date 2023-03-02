@@ -10,9 +10,9 @@ public class IDWORK {
 	public static String[] getInQueueID(String usr, String ssn) {
 		List<String[]> resultList;
 		String alias = "QTEMP.IDWORK";
-		String file = "HTHDATV1.IDWORK(BI1)";
+		String file = "HTHDATV1.IDWORK(ART)";
 
-		String sql = "SELECT IEMPID, IGRP FROM QTEMP.IDWORK WHERE IUSER = '" + usr + "' OR IEMPID= '"+ssn+"'";
+		String sql = "SELECT DISTINCT IEMPID, IGRP FROM QTEMP.IDWORK WHERE IUSER = '" + usr + "' OR IEMPID= '"+ssn+"'";
 		resultList = iSeries.executeSQLByAlias(sql, alias, file);
 
 		String[] idList = new String[resultList.size()];
@@ -33,7 +33,7 @@ public class IDWORK {
     
 	private static void cleanInQueueID(String usr) {
 		String alias = "QTEMP.IDWORK";
-		String file = "HTHDATV1.IDWORK(BI1)";
+		String file = "HTHDATV1.IDWORK(ART)";
 
 		String sql = "DELETE FROM QTEMP.IDWORK WHERE IUSER='" + usr + "'";
 		iSeries.executeSQLByAlias(sql, alias, file);
