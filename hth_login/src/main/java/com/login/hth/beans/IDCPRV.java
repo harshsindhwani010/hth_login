@@ -2,8 +2,12 @@ package com.login.hth.beans;
 
 import com.login.hth.security.iSeries;
 import com.login.hth.dto.IdCardResponseDTO;
+import com.login.hth.utils.IDCard;
+
+import java.awt.*;
 
 public class IDCPRV {
+    //static Image[] images;
 
     public static IdCardResponseDTO generateIDCARD(String[] grpList, String[] ssnList, String device) {
         IdCardResponseDTO response = new IdCardResponseDTO();
@@ -13,7 +17,9 @@ public class IDCPRV {
         String[] frontModifier = new String[18];
         String[] frontLogo = new String[9];
         String[] backLogo = new String[9];
-        String member = "BI1";
+        String[] logos = new String[18];
+        Image[] imgList = new Image[logos.length];
+        String member = "ART";
         String alias = "QTEMP.IDCPRV";
         String file = "DFLIB.IDCPRV(" + member + ")";
         String sql;
@@ -76,6 +82,7 @@ public class IDCPRV {
 
             if (i >= 77 && i <= 85) {
                 frontLogo[i - 77] = resultList[i].trim();
+
             }
             if (i == 85) {
                 response.setFrontLogo(frontLogo);
@@ -87,16 +94,50 @@ public class IDCPRV {
             if (i == 94) {
                 response.setBackLogo(backLogo);
             }
+            if (i >= 77 && i <= 94) {
+                if (!resultList[i].trim().equals("")) {
+                    logos[i - 77] = "/MobileApp/"+member+"/Logos/" + resultList[i].trim();
+//                    Image images = iSeries.downloadImages(logos[i - 77]);
+//                    imgList[i - 77] = images;
+                } else {
+                    logos[i - 77] = resultList[i].trim();
+//                    Image images = iSeries.downloadImages(logos[i - 77]);
+//                    imgList[i - 77] = images;
+                }
+
+            }
+//            response.setImages(imgList);
+             response.setLogos(logos);
 
         }
 
+//        for (int i = 0; i < logos.length; i++) {
+//
+//        }
+
+
         clearIDCARD(grpList, ssnList, device);
+
         return response;
     }
 
+//    private static class DownloadLogoTask implements Runnable {
+//        String[] logoPaths;
+//
+//        DownloadLogoTask(String[] logoPaths) {
+//            this.logoPaths = logoPaths;
+//        }
+//
+//        @Override
+//        public void run() {
+//            images = iSeries.downloadImages(logoPaths);
+//
+//        }
+//    }
+
     private static void clearIDCARD(String[] grpList, String[] ssnList, String device) {
         String alias = "QTEMP.IDCPRV";
-        String file = "DFLIB.IDCPRV(BI1)";
+        String file = "DFLIB.IDCPRV(ART)";
         String sql;
 
         StringBuilder whereClause = new StringBuilder("(");
@@ -111,3 +152,4 @@ public class IDCPRV {
         iSeries.executeSQLByAlias(sql, alias, file);
     }
 }
+
