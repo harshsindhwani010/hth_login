@@ -44,7 +44,7 @@ public class SendEmail {
         result = iSeries.executeSQLByAliasArray(sql, alias, file);
         if (result != null && result.length > 0) {
             if (!result[0].trim().equals(changePasswordDTO.getCurrentPassword())) {
-                er.setMessage("Current Password not matched");
+                er.setMessage("Current Password Not matched");
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             } else {
                 return updatePassword(changePasswordDTO.getNewPassword(), email);

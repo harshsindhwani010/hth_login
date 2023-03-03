@@ -63,7 +63,10 @@ public class OtpValidate {
                     er.setMessage("Invalid OTP");
                     return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
                 } else {
-                    long store = getTimeInMilliseconds(result[4]);
+                    String time=result[4];
+                    if(time.length()==5)
+                        time="0"+time;
+                    long store = getTimeInMilliseconds(time);
                     long current = getCurrentTimeInMilliSeconds();
                     long diff = current - store;
                     if (diff <= 900) {
@@ -83,18 +86,18 @@ public class OtpValidate {
                         dto.setToken(token);
                         return new ResponseEntity<>(dto, HttpStatus.OK);
                     } else {
-                        er.setMessage("Bad Request");
+                        er.setMessage("OTP Expired");
                         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
                     }
                 }
             } else {
-                er.setMessage("Bad Request");
+                er.setMessage("Invalid OTP");
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            er.setMessage("Exception " + ex.getMessage());
         }
-        er.setMessage("Bad Request");
         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
     }
 

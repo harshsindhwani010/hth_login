@@ -144,7 +144,7 @@ public class UserController {
         String email = claims.get("email").toString();
         if (userLogin.getUserDetail(email).length > 0) {
             if (!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmPassword())) {
-                er.setMessage("Password not Matched");
+                er.setMessage("New Password Not Matched");
                 return new ResponseEntity<>(er, httpStatus);
             } else {
                 return sendEmail.changePassword(changePasswordDTO, email);
