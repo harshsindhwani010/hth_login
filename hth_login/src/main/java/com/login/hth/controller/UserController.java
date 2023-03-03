@@ -189,7 +189,15 @@ public class UserController {
             userProfileDTO.setPhoneNo(result.get(0)[3].trim());
             userProfileDTO.setUsername(result.get(0)[4].trim());
             userProfileDTO.setEmail(result.get(0)[5].trim());
+            if (!result.get(0)[6].trim().equals("")){
             userProfileDTO.setPolicy(result.get(0)[6].trim());
+            }else if (!result.get(0)[7].trim().equals("")){
+                userProfileDTO.setPolicy(result.get(0)[7].trim());
+            }else {
+                userProfileDTO.setPolicy(result.get(0)[4].trim());
+            }
+//                    result.get(0)[7].trim());
+//            userProfileDTO.setEmployId(result.get(0)[7].trim());
             return new ResponseEntity<>(userProfileDTO, HttpStatus.OK);
         } else {
             er.setMessage("Invalid User");

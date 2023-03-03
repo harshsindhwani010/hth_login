@@ -12,7 +12,7 @@ public class UserProfile {
         List<String[]> result = null;
         String[] aliases = {"QTEMP.INSURE", "QTEMP.USERPROF"};
         String[] files = {"TESTDATA.INSURE(TRT)", "TESTDATA.USERPROF(TRT)"};
-        String sql = "SELECT IFNAM,ILNAM,IDOB,UPHONE,USRNME,UEMAIL,IPOLCY FROM QTEMP.INSURE JOIN qtemp.userprof on ISSN=USSN  WHERE ISSN='"+ssn+"'";
+        String sql = "SELECT IFNAM,ILNAM,IDOB,UPHONE,USRNME,UEMAIL,IPOLCY,IEMPID FROM QTEMP.INSURE JOIN qtemp.userprof on ISSN=USSN  WHERE ISSN='"+ssn+"'";
         result = iSeries.executeSQLByAlias(sql, aliases, files);
         if (result.size() == 0) {
             return null;
@@ -20,6 +20,7 @@ public class UserProfile {
             return result;
 
         }
+
     }
 
 }
