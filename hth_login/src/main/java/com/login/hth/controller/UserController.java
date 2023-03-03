@@ -101,7 +101,7 @@ public class UserController {
             return new ResponseEntity<>(er, httpStatus);
         } else {
             List<String[]> result = signupUser.insertUserDetails(signupRequestDTO);
-            if (result == null)
+            if (result == null || result.size()==0)
                 er.setMessage("Invalid Data");
             else {
                 httpStatus = HttpStatus.OK;

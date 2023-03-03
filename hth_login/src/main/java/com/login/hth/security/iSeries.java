@@ -200,6 +200,48 @@ public class iSeries {
         return resultList;
     }
 
+
+    public static List<String[]> executeSQLByAlias(String sql,String[] inputs, String alias, String file) {
+        String aliasSQL = "CREATE ALIAS " + alias + " FOR " + file;
+        List<String[]> resultList = new ArrayList<>();
+        String[] result;
+        Statement statement;
+        ResultSet resultSet;
+        ResultSetMetaData resultSetMetaData;
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection(URL, HOSTNAME, PASSWORD);
+            statement = connection.createStatement();
+            System.out.println("::" + aliasSQL);
+            statement.execute(aliasSQL);
+
+            if (sql.substring(0, 6).equalsIgnoreCase("INSERT")) {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                for(int i=0;i<inputs.length;i++)
+                preparedStatement.setString((i+1),inputs[i]);
+                preparedStatement.executeUpdate();
+                String rowCount = Integer.toString(preparedStatement.getUpdateCount());
+                result = new String[]{rowCount};
+                resultList.add(result);
+        } else{
+                return resultList;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+
+        return resultList;
+    }
+
     public static List<String[]> executeSelectSQL(String sql) {
         System.out.println("Preparing SELECT statement");
 
