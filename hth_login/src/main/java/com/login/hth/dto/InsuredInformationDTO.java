@@ -12,14 +12,17 @@ import org.json.JSONObject;
 public class InsuredInformationDTO {
 
     //Insured Information
-    //JSONObject jsonObject = new JSONObject();
+
     private String groupName;
     private String groupNumber;
     private String division;
     private String primaryInsureName;
     private String primaryInsureID;
     private String dateOfBirth;
-    private CoverageInfoDTO coverageInfoDTO;
-    private DependentInfoDTO dependentInfoDTO;
+//    private CoverageInfoDTO CoverageInformation;
+//    private DependentInfoDTO DependentInformation;
+
+
+
 
 }

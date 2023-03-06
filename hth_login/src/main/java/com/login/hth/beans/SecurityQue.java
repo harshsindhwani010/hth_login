@@ -33,9 +33,6 @@ public class SecurityQue {
         return jsonObject;
     }
 
-
-
-
     public ResponseEntity<Object> securityAnswers(String email) {
         String[] tempAnswer = SignupUser.securityAnswers(email);
         String[] securityAnswer = new String[tempAnswer.length];
