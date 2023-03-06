@@ -8,17 +8,19 @@ import java.util.List;
 
 @Component
 public class CoverageImp {
-    Medical medical;
+
+
 
     public ResponseEntity<Object> coverageProfile(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
-        List<String[]> insured = INSURE.getDependentData(ssn);
+        List<String[]> insured =INSURE.getDependentData(ssn);
         List<String[]> inshst = INSURE.getInshstData(ssn);
+        List<Coverage> coverage = new ArrayList<>();
 
-        CoverageProfile coverageProfile = new CoverageProfile();
-      //  List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
+        CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
+        List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
         List<InsuredInformationDTO> informationDTO= new ArrayList<>();
-        List<DependentInfoDTO> dependentDTO = new ArrayList<>() ;
+        List<DependentInfoDTO> dependentDTO = new ArrayList<>();
         List<CoverageInfoDTO> coverageDTO = new ArrayList<>() ;
 
         String duplicate = "$150.00";
@@ -46,9 +48,10 @@ public class CoverageImp {
 
             CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
 
+            List<String[]> blackpln = null;
             for (String[] groupDetail : grpmst) {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
-               // List<String[]> blackpln = INSURE.getBlckplnData(groupDetail[0]);
+                blackpln = INSURE.getBlckplnData(groupDetail[0]);
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
                 insuredInformationDTO.setGroupNumber(insureList[2].trim());
@@ -59,43 +62,45 @@ public class CoverageImp {
                 informationDTO.add(insuredInformationDTO);
             }
 
-                for (String[] dependent : insured) {
-                    DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
-                    dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
-                    dependentInfoDTO.setRelationship(dependent[2].trim());
-                    dependentInfoDTO.setGender(dependent[3].trim());
-                    dependentInfoDTO.setDDateOfBirth(dependent[4].trim());
-                    dependentInfoDTO.setDEffectiveDate(dependent[5].trim());
-                    dependentDTO.add(dependentInfoDTO);
-                }
-                Medical medical1 = new Medical();
-                medical1.setInsuredInformation(informationDTO);
-                medical1.setDependentInformation(dependentDTO);
-                coverageProfile.medical = medical1;
-                coverageProfile.dental = medical1;
+            for (String[] dependent : insured) {
+                DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
+                dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
+                dependentInfoDTO.setRelationship(dependent[2].trim());
+                dependentInfoDTO.setGender(dependent[3].trim());
+                dependentInfoDTO.setDDateOfBirth(dependent[4].trim());
+                dependentInfoDTO.setDEffectiveDate(dependent[5].trim());
+                dependentDTO.add(dependentInfoDTO);
+            }
 
-//                    for (String[] bPlan : blackpln) {
-//                        coverageInfoDTO.setPlan(plan);
-//                        coverageInfoDTO.setTypeOfCoverage(bPlan[1]);
-//                        coverageInfoDTO.setEffectiveDate(effectiveDate[planIndex]);
-//                        coverageInfoDTO.setTerminationDate(bPlan[0]);
-//                        coverageInfoDTO.setDeductable(duplicate);
-//                        coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
-//                        coverageDTO.setCoverageInformation(coverageInfoDTO);
-//
-//                        wholeDTOList.add(coverageDTO);
-//                        Medical medical1 = new Medical();
-//                        medical1.setInsuredInformationDTOS(wholeDTOList);
-//                        Dental dental1 = new Dental();
-//                        dental1.setInsuredInformationDTO(wholeDTOList);
-//                        Vision vision = new Vision();
-//                        vision.setInsuredInformationDTO2(wholeDTOList);
-//                        System.out.println(groupDetail[i]);
-//                    }
-                }
+            MedicalDTO medical = new MedicalDTO();
+            medical.setInsuredInformation(informationDTO);
+            medical.setDependentInformation(dependentDTO);
+            coverageProfileDTO.medical = medical;
+            coverageProfileDTO.dental = medical;
 
+            for (String[] bPlan : blackpln) {
+                coverageInfoDTO.setPlan(plan);
+                coverageInfoDTO.setTypeOfCoverage(bPlan[1]);
+                coverageInfoDTO.setEffectiveDate(effectiveDate[planIndex]);
+                coverageInfoDTO.setTerminationDate(bPlan[0]);
+                coverageInfoDTO.setDeductable(duplicate);
+                coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
+//                        coverageDTO.setCoverageInfoDTO(coverageInfoDTO);
+                coverageInfoDTO.setTypeOfCoverage(coverageInfoDTO.getTypeOfCoverage());
 
-        return ResponseEntity.ok().body(coverageProfile);
+//                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
+                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
+                MedicalDTO medical1 = new MedicalDTO();
+                medical1.setInsuredInformation(wholeDTOList);
+//                 dental = new Dental();
+//                dental.setInsuredInformationDTO(wholeDTOList);
+//                VisionDTO vision = new VisionDTO();
+//                vision.getInsuredInfo(wholeDTOList);
+//                System.out.println(grpmst.get(i));
+            }
+        }
+
+        return ResponseEntity.ok().body(coverageProfileDTO);
     }
 
 

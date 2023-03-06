@@ -3,7 +3,7 @@ package com.login.hth.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.json.JSONObject;
+
 
 
 @Data
@@ -19,8 +19,8 @@ public class InsuredInformationDTO {
     private String primaryInsureName;
     private String primaryInsureID;
     private String dateOfBirth;
-//    private CoverageInfoDTO CoverageInformation;
-//    private DependentInfoDTO DependentInformation;
+    private CoverageInfoDTO CoverageInformation;
+    private DependentInfoDTO DependentInformation;
 
 
 

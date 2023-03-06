@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vision {
+public class VisionDTO {
 
-    List<InsuredInformationDTO> insuredInformationDTO2;
+    List<InsuredInformationDTO> insuredInfo;
 
 }

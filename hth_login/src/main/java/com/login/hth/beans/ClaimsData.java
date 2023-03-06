@@ -6,17 +6,11 @@ import com.login.hth.utils.ClaimType;
 import com.login.hth.utils.RelationType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
-
-
 @Component
 public class ClaimsData {
-
-
     public ResponseEntity<Object> checkClaim(String ssn){
         List<String[]> headerList = CLMDET.getHeaderData(ssn);
         List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
@@ -25,15 +19,12 @@ public class ClaimsData {
         String fullName = String.join(" ", name);
         for(int i=0;i<headerList.size();i++){
             String[] header = headerList.get(i);
-
             List<String[]> detailList = CLMDET.getDetailData(header[0]);
 
                 for(String[] detail : detailList){
-
                     double copay       = Double.valueOf(detail[2].trim());
                     double notCoverd   = Double.valueOf(detail[4]);;
                     double deducatable = Double.valueOf(detail[5].trim());
-
                     PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
                     paymentDetail.setTotal(header[1]);
                     paymentDetail.setPlanPaid(detail[3]);
@@ -61,7 +52,8 @@ public class ClaimsData {
             if (processDate.length() == 5) {
                 processDate = "0" + processDate;
             }
-            Date d = new SimpleDateFormat("MMdyyyy").parse(processDate);
+            Date d = new SimpleDateFormat("Mddyyyy",Locale.ENGLISH).parse(processDate);
+//            Date e = new SimpleDateFormat("MMddyyyy",Locale.ENGLISH).parse(processDate);
             SimpleDateFormat d2 = new SimpleDateFormat("MM/dd/yyyy");
             formattedProcessDate = d2.format(d).toString();
         } catch (Exception e) {

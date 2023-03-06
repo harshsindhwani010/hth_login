@@ -95,8 +95,8 @@ public class OtpValidate {
                 return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
-            er.setMessage("Exception " + ex.getMessage());
+//            ex.printStackTrace();
+            er.setMessage("Invalid UserName");
         }
         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
     }

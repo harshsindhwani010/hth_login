@@ -7,6 +7,8 @@ public enum ClaimType {
     D("Dental");
 
 
+
+
     public final String label;
 
     private ClaimType(String label){

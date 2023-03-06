@@ -8,10 +8,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Medical {
+public class MedicalDTO {
 
        public List<InsuredInformationDTO> insuredInformation;
-       //public List<CoverageInfoDTO> coverageInformation;
+       public List<CoverageInfoDTO> coverageInformation;
        public List<DependentInfoDTO> dependentInformation;
 
 }

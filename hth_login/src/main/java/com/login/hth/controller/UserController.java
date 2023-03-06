@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.login.hth.beans.ClaimsData.formatDate;
 import static com.login.hth.beans.ClaimsData.formattedDate;
 
 @RestController
@@ -42,8 +43,8 @@ public class UserController {
     IdCardData idCardData;
     @Autowired
     SecurityQue securityQue;
-    @Autowired
-    UserSignUp userSignUp;
+//    @Autowired
+//    UserSignUp userSignUp;
     @Autowired
     SecurityDetails securityDetails;
     @Autowired
@@ -173,7 +174,6 @@ public class UserController {
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping("/userProfile")
     public ResponseEntity<Object> userProfile(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
@@ -181,12 +181,41 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != "") {
-            return userSignUp.userProfile(claims.get("ssn").toString());
+            UserProfileDTO userProfileDTO = new UserProfileDTO();
+            List<String[]> result = UserProfile.getuserProfile(String.valueOf(claims.get("ssn")));
+            userProfileDTO.setFirstName(result.get(0)[0].trim());
+            userProfileDTO.setLastName(result.get(0)[1].trim());
+            userProfileDTO.setDateOfBirth(formattedDate(result.get(0)[2].trim()));
+            userProfileDTO.setPhoneNo(result.get(0)[3].trim());
+            userProfileDTO.setUsername(result.get(0)[4].trim());
+            userProfileDTO.setEmail(result.get(0)[5].trim());
+            if (!result.get(0)[6].trim().equals("")){
+                userProfileDTO.setPolicy(result.get(0)[6].trim());
+            }else if (!result.get(0)[7].trim().equals("")){
+                userProfileDTO.setPolicy(result.get(0)[7].trim());
+            }else {
+                userProfileDTO.setPolicy(result.get(0)[4].trim());
+            }
+//            userProfileDTO.setPolicy(result.get(0)[6].trim());
+            return new ResponseEntity<>(userProfileDTO, HttpStatus.OK);
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @GetMapping("/userProfile")
+//    public ResponseEntity<Object> userProfile(@RequestHeader("Authorization") String bearerToken) {
+//        bearerToken = bearerToken.substring(7, bearerToken.length());
+//        MessageDTO er = new MessageDTO();
+//        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+//        if (claims.get("ssn").toString() != "") {
+//            return userSignUp.userProfile(claims.get("ssn").toString());
+//        } else {
+//            er.setMessage("Invalid User");
+//            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @GetMapping("/idCard")
     public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
