@@ -2,16 +2,21 @@ package com.login.hth.beans;
 
 import com.login.hth.dto.ClaimResponseDTO;
 import com.login.hth.dto.PaymentDetailDTO;
+import com.login.hth.utils.ClaimType;
+import com.login.hth.utils.RelationType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.parser.Parser;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Component
 
+
+
+@Component
 public class ClaimsData {
+
+
     public ResponseEntity<Object> checkClaim(String ssn){
         List<String[]> headerList = CLMDET.getHeaderData(ssn);
         List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
@@ -37,8 +42,8 @@ public class ClaimsData {
                     claimResponseDTO.setClaimNumber(header[0]);
                     claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
                     claimResponseDTO.setPatientResponsibilityDetails(copay+notCoverd+deducatable);
-                    claimResponseDTO.setClaimType(header[2]);
-                    claimResponseDTO.setPatientRelatipnship(header[4]);
+                    claimResponseDTO.setClaimType(ClaimType.valueOf(header[2].trim()));
+                    claimResponseDTO.setPatientRelationship(RelationType.valueOf(header[4].trim()));
                     claimResponseDTO.setPaymentDetails(paymentDetail);
                     claimResponseDTO.setPatient(fullName);
                     wholeDTOList.add(claimResponseDTO);

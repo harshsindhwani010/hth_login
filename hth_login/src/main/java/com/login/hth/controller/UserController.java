@@ -43,7 +43,7 @@ public class UserController {
     @Autowired
     SecurityQue securityQue;
     @Autowired
-    UserProfile userProfile;
+    UserSignUp userSignUp;
     @Autowired
     SecurityDetails securityDetails;
     @Autowired
@@ -181,16 +181,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != "") {
-            UserProfileDTO userProfileDTO = new UserProfileDTO();
-            List<String[]> result = userProfile.getuserProfile(String.valueOf(claims.get("ssn")));
-            userProfileDTO.setFirstName(result.get(0)[0].trim());
-            userProfileDTO.setLastName(result.get(0)[1].trim());
-            userProfileDTO.setDateOfBirth(formattedDate(result.get(0)[2].trim()));
-            userProfileDTO.setPhoneNo(result.get(0)[3].trim());
-            userProfileDTO.setUsername(result.get(0)[4].trim());
-            userProfileDTO.setEmail(result.get(0)[5].trim());
-            userProfileDTO.setPolicy(result.get(0)[6].trim());
-            return new ResponseEntity<>(userProfileDTO, HttpStatus.OK);
+            return userSignUp.userProfile(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
