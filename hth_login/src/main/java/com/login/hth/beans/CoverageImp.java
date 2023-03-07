@@ -11,11 +11,11 @@ public class CoverageImp {
 
 
 
-    public ResponseEntity<Object> coverageProfile(String ssn) {
+    public ResponseEntity<CoverageProfileDTO> coverageProfile(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
         List<String[]> insured =INSURE.getDependentData(ssn);
-        List<String[]> inshst = INSURE.getInshstData(ssn);
-        List<Coverage> coverage = new ArrayList<>();
+//        List<String[]> inshst = INSURE.getInshstData(ssn);
+//        List<Coverage> coverage = new ArrayList<>();
 
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
         List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
@@ -27,8 +27,8 @@ public class CoverageImp {
         String ytDublicateMet = "$100.00";
         String[] effectiveDate = insure.get(0);
         String[] terminationDate = insure.get(0);
-        String effectDate = null;
-        String terminateDate = null;
+        String effectDate = "";
+        String terminateDate = "";
         int planIndex = 0;
         for(planIndex=7;planIndex<=57;planIndex++){
             if(!effectiveDate[planIndex].equals("0") && terminationDate[planIndex].equals("0")){
@@ -89,7 +89,7 @@ public class CoverageImp {
                 coverageInfoDTO.setTypeOfCoverage(coverageInfoDTO.getTypeOfCoverage());
 
 //                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
-                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
+//                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
                 MedicalDTO medical1 = new MedicalDTO();
                 medical1.setInsuredInformation(wholeDTOList);
 //                 dental = new Dental();
