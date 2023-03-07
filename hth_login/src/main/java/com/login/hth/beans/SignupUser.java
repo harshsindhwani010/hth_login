@@ -23,10 +23,13 @@ public class SignupUser {
                 return null;
             }
             String ssn = result.get(0)[3].trim();
+            if(ssn==null || ssn.trim().equals("")){
+                return null;
+            }
             String alias = "QTEMP.USERPROF";
             String file = "TESTDATA.USERPROF(TRT)";
             sql = "INSERT INTO QTEMP.USERPROF(usrnme,uemail,uphone,USSN,upass1,usec1,usec2,usec3,uans1,uans2,uans3) values(?,?,?,?,?,?,?,?,?,?,?)";
-            String[] inputs = {signupRequestDTO.getUserName(), signupRequestDTO.getEmail(),signupRequestDTO.getPhoneNo(), signupRequestDTO.getEmployPolicy(),signupRequestDTO.getPassword(),signupRequestDTO.getSecurityQuestion1(),signupRequestDTO.getSecurityQuestion2(),signupRequestDTO.getSecurityQuestion3(), signupRequestDTO.getSecurityQuestion1Answer(),signupRequestDTO.getSecurityQuestion2Answer(),signupRequestDTO.getSecurityQuestion3Answer()};
+            String[] inputs = {signupRequestDTO.getUserName(), signupRequestDTO.getEmail(),signupRequestDTO.getPhoneNo(), ssn,signupRequestDTO.getPassword(),signupRequestDTO.getSecurityQuestion1(),signupRequestDTO.getSecurityQuestion2(),signupRequestDTO.getSecurityQuestion3(), signupRequestDTO.getSecurityQuestion1Answer(),signupRequestDTO.getSecurityQuestion2Answer(),signupRequestDTO.getSecurityQuestion3Answer()};
             result = iSeries.executeSQLByAlias(sql,inputs,alias,file);
             return result;
         }
