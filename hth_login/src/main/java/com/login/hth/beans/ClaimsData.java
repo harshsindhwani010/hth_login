@@ -82,7 +82,7 @@ public class ClaimsData {
             if (processDate.equals("")) {
                 return formattedProcessDate;
             }
-            if (processDate.length() == 5) {
+            if (processDate.length() == 5 || processDate.length() == 7) {
                 processDate = "0" + processDate;
             }
             Date d = new SimpleDateFormat("MMddyy", Locale.ENGLISH).parse(processDate);
