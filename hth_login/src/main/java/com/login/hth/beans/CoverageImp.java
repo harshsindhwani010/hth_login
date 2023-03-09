@@ -34,7 +34,6 @@ public class CoverageImp {
             if (!effectiveDate[planIndex].equals("0") && terminationDate[planIndex].equals("0")) {
                 effectDate = effectiveDate[planIndex];
                 terminateDate = terminationDate[planIndex];
-
                 break;
             }
         }
@@ -49,7 +48,7 @@ public class CoverageImp {
             List<String[]> blackpln = null;
             for (String[] groupDetail : grpmst) {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
-                 blackpln = INSURE.getBlckplnData(groupDetail[0]);
+                blackpln = INSURE.getBlckplnData(groupDetail[0]);
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
                 insuredInformationDTO.setGroupNumber(insureList[2].trim());
@@ -90,15 +89,6 @@ public class CoverageImp {
                 coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
                 coverageDTO.add(coverageInfoDTO);
 
-//                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
-//                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
-//                MedicalDTO medical1 = new MedicalDTO();
-//                medical1.setInsuredInformation(wholeDTOList);
-//                 dental = new Dental();
-//                dental.setInsuredInformationDTO(wholeDTOList);
-//                VisionDTO vision = new VisionDTO();
-//                vision.getInsuredInfo(wholeDTOList);
-//                System.out.println(grpmst.get(i));
             }
 
         }
