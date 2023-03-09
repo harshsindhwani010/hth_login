@@ -18,7 +18,6 @@ public class CoverageImp {
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
         List<MedicalDTO> medicalDTOList = new ArrayList<>();
         MedicalDTO medicalDTO = new MedicalDTO();
-       // List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
         List<InsuredInformationDTO> insuredInformationDTOList = new ArrayList<>();
         List<DependentInfoDTO> dependentInfoDTOList = new ArrayList<>();
         List<CoverageInfoDTO> coverageInfoDTOList = new ArrayList<>();
@@ -94,6 +93,7 @@ public class CoverageImp {
         medicalDTOList.add(medicalDTO);
         coverageProfileDTO.setMedical(medicalDTOList);
         coverageProfileDTO.setDental(medicalDTOList);
+
         System.out.println("@3:"+coverageProfileDTO);
 
         return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
