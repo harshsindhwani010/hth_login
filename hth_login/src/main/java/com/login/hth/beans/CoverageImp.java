@@ -75,8 +75,8 @@ public class CoverageImp {
             MedicalDTO medical = new MedicalDTO();
             medical.setInsuredInformation(informationDTO);
             medical.setDependentInformation(dependentDTO);
-            coverageProfileDTO.medical = medical;
-            coverageProfileDTO.dental = medical;
+            coverageProfileDTO.Medical = medical;
+            coverageProfileDTO.Medical = medical;
 
             for (String[] bPlan : blackpln) {
                 coverageInfoDTO.setPlan(plan);
@@ -88,7 +88,7 @@ public class CoverageImp {
 //                        coverageDTO.setCoverageInfoDTO(coverageInfoDTO);
                 coverageInfoDTO.setTypeOfCoverage(coverageInfoDTO.getTypeOfCoverage());
 
-//                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
+                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
 //                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
                 MedicalDTO medical1 = new MedicalDTO();
                 medical1.setInsuredInformation(wholeDTOList);
