@@ -10,8 +10,7 @@ import java.util.List;
 @Component
 public class CoverageImp {
 
-
-    public ResponseEntity<Object> coverageProfile(String ssn) {
+    public ResponseEntity<CoverageProfileDTO> coverageProfile(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
         List<String[]> insured = INSURE.getDependentData(ssn);
         List<String[]> inshst = INSURE.getInshstData(ssn);
