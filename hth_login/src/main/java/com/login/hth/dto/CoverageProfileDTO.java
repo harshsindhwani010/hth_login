@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CoverageProfileDTO {
 
-    public List<MedicalDTO> medical;
-    public List<MedicalDTO> dental;
-    public String vision;
+    public List<MedicalDTO> Medical;
+    public List<MedicalDTO> Dental;
+    public String Vision;
 }
