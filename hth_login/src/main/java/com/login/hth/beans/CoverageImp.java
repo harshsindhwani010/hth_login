@@ -46,12 +46,10 @@ public class CoverageImp {
             List<String[]> grpmst = INSURE.getGroupMasterData(insureList[2]);
             System.out.println(insureList[i]);
 
-            CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
-
             List<String[]> blackpln = null;
             for (String[] groupDetail : grpmst) {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
-                // blackpln = INSURE.getBlckplnData(groupDetail[0]);
+                 blackpln = INSURE.getBlckplnData(groupDetail[0]);
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
                 insuredInformationDTO.setGroupNumber(insureList[2].trim());
@@ -75,20 +73,22 @@ public class CoverageImp {
             }
             medical1.setInsuredInformation(informationDTO);
             medical1.setDependentInformation(dependentDTO);
+            medical1.setCoverageInformation(coverageDTO);
             medicalDTO.add(medical1);
             coverageProfileDTO.Medical = medicalDTO;
             coverageProfileDTO.Dental = medicalDTO;
 
 
-//            for (String[] bPlan : blackpln) {
-//                coverageInfoDTO.setPlan(plan);
-//                coverageInfoDTO.setTypeOfCoverage(bPlan[1]);
-//                coverageInfoDTO.setEffectiveDate(effectiveDate[planIndex]);
-//                coverageInfoDTO.setTerminationDate(bPlan[0]);
-//                coverageInfoDTO.setDeductable(duplicate);
-//                coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
-//                coverageDTO.setCoverageInfoDTO(coverageInfoDTO);
-//                coverageInfoDTO.setTypeOfCoverage(coverageInfoDTO.getTypeOfCoverage());
+            for (String[] bPlan : blackpln) {
+
+                CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
+                coverageInfoDTO.setPlan(plan);
+                coverageInfoDTO.setTypeOfCoverage(bPlan[1]);
+                coverageInfoDTO.setEffectiveDate(effectiveDate[planIndex]);
+                coverageInfoDTO.setTerminationDate(bPlan[0]);
+                coverageInfoDTO.setDeductable(duplicate);
+                coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
+                coverageDTO.add(coverageInfoDTO);
 
 //                wholeDTOList.add((InsuredInformationDTO) coverageDTO);
 //                wholeDTOList.add((InsuredInformationDTO) dependentDTO);
@@ -99,12 +99,15 @@ public class CoverageImp {
 //                VisionDTO vision = new VisionDTO();
 //                vision.getInsuredInfo(wholeDTOList);
 //                System.out.println(grpmst.get(i));
+            }
+
         }
 
         return ResponseEntity.ok().body(coverageProfileDTO);
     }
-
 }
+
+
 
 
 
