@@ -19,8 +19,8 @@ public class InsuredInformationDTO {
     private String primaryInsureName;
     private String primaryInsureID;
     private String dateOfBirth;
-    private CoverageInfoDTO CoverageInformation;
-    private DependentInfoDTO DependentInformation;
+//    private CoverageInfoDTO CoverageInformation;
+//    private DependentInfoDTO DependentInformation;
 
 
 
