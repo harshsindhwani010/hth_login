@@ -283,7 +283,7 @@ public class UserController {
 
 
     @GetMapping("/coverageProfile")
-    public ResponseEntity<CoverageProfileDTO> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<Object> medicalCoverage(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -293,7 +293,7 @@ public class UserController {
             return coverageImp.coverageProfile(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
-            return new ResponseEntity<CoverageProfileDTO>((MultiValueMap<String, String>) er, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>( er, HttpStatus.BAD_REQUEST);
         }
     }
 

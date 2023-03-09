@@ -1,5 +1,6 @@
 package com.login.hth.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CoverageProfileDTO {
-
-    public List<MedicalDTO> Medical;
-    public List<MedicalDTO> Dental;
-    public String Vision;
+    @JsonProperty("Medical")
+    private List<MedicalDTO> Medical;
+    @JsonProperty("Dental")
+    private List<MedicalDTO> Dental;
+    @JsonProperty("Vision")
+    private String Vision;
 }

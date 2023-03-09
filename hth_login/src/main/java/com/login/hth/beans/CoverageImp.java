@@ -1,27 +1,27 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CoverageImp {
 
-    public ResponseEntity<CoverageProfileDTO> coverageProfile(String ssn) {
+    public ResponseEntity<Object> coverageProfile(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
         List<String[]> insured = INSURE.getDependentData(ssn);
-        List<String[]> inshst = INSURE.getInshstData(ssn);
+       // List<String[]> inshst = INSURE.getInshstData(ssn);
 
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
-        List<MedicalDTO> medicalDTO = new ArrayList<>();
-        MedicalDTO medical1 = new MedicalDTO();
-        List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
-        List<InsuredInformationDTO> informationDTO = new ArrayList<>();
-        List<DependentInfoDTO> dependentDTO = new ArrayList<>();
-        List<CoverageInfoDTO> coverageDTO = new ArrayList<>();
+        List<MedicalDTO> medicalDTOList = new ArrayList<>();
+        MedicalDTO medicalDTO = new MedicalDTO();
+       // List<InsuredInformationDTO> wholeDTOList = new ArrayList<InsuredInformationDTO>();
+        List<InsuredInformationDTO> insuredInformationDTOList = new ArrayList<>();
+        List<DependentInfoDTO> dependentInfoDTOList = new ArrayList<>();
+        List<CoverageInfoDTO> coverageInfoDTOList = new ArrayList<>();
 
         String duplicate = "$150.00";
         String ytDublicateMet = "$100.00";
@@ -30,7 +30,7 @@ public class CoverageImp {
         String effectDate = null;
         String terminateDate = null;
         int planIndex = 0;
-        for (planIndex = 7; planIndex <= 57; planIndex++) {
+        for (planIndex = 58; planIndex <=108; planIndex++) {
             if (!effectiveDate[planIndex].equals("0") && terminationDate[planIndex].equals("0")) {
                 effectDate = effectiveDate[planIndex];
                 terminateDate = terminationDate[planIndex];
@@ -38,6 +38,7 @@ public class CoverageImp {
             }
         }
         String plan = insure.get(0)[planIndex];
+        System.out.println(coverageProfileDTO);
 
         for (int i = 0; i < insure.size(); i++) {
             String[] insureList = insure.get(i);
@@ -56,7 +57,7 @@ public class CoverageImp {
                 insuredInformationDTO.setPrimaryInsureName(insureList[1].trim() + " " + insureList[0].trim());
                 insuredInformationDTO.setPrimaryInsureID(ssn);
                 insuredInformationDTO.setDateOfBirth(insureList[4].trim());
-                informationDTO.add(insuredInformationDTO);
+                insuredInformationDTOList.add(insuredInformationDTO);
 
             }
 
@@ -67,16 +68,9 @@ public class CoverageImp {
                 dependentInfoDTO.setGender(dependent[3].trim());
                 dependentInfoDTO.setDDateOfBirth(dependent[4].trim());
                 dependentInfoDTO.setDEffectiveDate(dependent[5].trim());
-                dependentDTO.add(dependentInfoDTO);
+                dependentInfoDTOList.add(dependentInfoDTO);
 
             }
-            medical1.setInsuredInformation(informationDTO);
-            medical1.setDependentInformation(dependentDTO);
-            medical1.setCoverageInformation(coverageDTO);
-            medicalDTO.add(medical1);
-            coverageProfileDTO.Medical = medicalDTO;
-            coverageProfileDTO.Dental = medicalDTO;
-
 
             for (String[] bPlan : blackpln) {
 
@@ -87,18 +81,21 @@ public class CoverageImp {
                 coverageInfoDTO.setTerminationDate(bPlan[0]);
                 coverageInfoDTO.setDeductable(duplicate);
                 coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
-                coverageDTO.add(coverageInfoDTO);
+                coverageInfoDTOList.add(coverageInfoDTO);
 
             }
 
         }
+        System.out.println("2:"+coverageProfileDTO);
 
-        return ResponseEntity.ok().body(coverageProfileDTO);
+        medicalDTO.setInsuredInformation(insuredInformationDTOList);
+        medicalDTO.setDependentInformation(dependentInfoDTOList);
+        medicalDTO.setCoverageInformation(coverageInfoDTOList);
+        medicalDTOList.add(medicalDTO);
+        coverageProfileDTO.setMedical(medicalDTOList);
+        coverageProfileDTO.setDental(medicalDTOList);
+        System.out.println("@3:"+coverageProfileDTO);
+
+        return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
     }
 }
-
-
-
-
-
-

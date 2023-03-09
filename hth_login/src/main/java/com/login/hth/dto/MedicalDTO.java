@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class MedicalDTO {
 
-       public List<InsuredInformationDTO> insuredInformation;
-       public List<CoverageInfoDTO> coverageInformation;
-       public List<DependentInfoDTO> dependentInformation;
+       private List<InsuredInformationDTO> insuredInformation;
+       private List<CoverageInfoDTO> coverageInformation;
+       private List<DependentInfoDTO> dependentInformation;
 
 }
