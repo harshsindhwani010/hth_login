@@ -15,7 +15,7 @@ public class DependentInfoDTO {
 
     private String insuredName;
     private String relationship;
-    private String gender;
+    private CoverageType gender;
     private String dDateOfBirth;
     private String dEffectiveDate;
 

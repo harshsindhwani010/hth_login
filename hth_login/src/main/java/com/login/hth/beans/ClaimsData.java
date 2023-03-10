@@ -93,4 +93,21 @@ public class ClaimsData {
         }
         return formattedProcessDate;
     }
+    public static String formatDates(String processDate) {
+        String formattedProcessDate = "";
+        try {
+            if (processDate.equals("")) {
+                return formattedProcessDate;
+            }
+            if (processDate.length() == 5 || processDate.length() == 7) {
+                processDate = "0" + processDate;
+            }
+            Date d = new SimpleDateFormat("MMddyy", Locale.ENGLISH).parse(processDate);
+            SimpleDateFormat d2 = new SimpleDateFormat("MMMM dd,yyyy");
+            formattedProcessDate = d2.format(d).toString();
+        } catch (Exception e) {
+
+        }
+        return formattedProcessDate;
+    }
 }
