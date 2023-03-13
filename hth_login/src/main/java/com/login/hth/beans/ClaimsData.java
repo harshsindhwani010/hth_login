@@ -7,14 +7,21 @@ import com.login.hth.utils.RelationType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
 @Component
 public class ClaimsData {
-    public ResponseEntity<Object> checkClaim(String ssn) {
-            List<String[]> headerList = CLMDET.getHeaderData(ssn);
+    public ResponseEntity<Object> checkClaim(String ssn,Integer days) throws ParseException {
+        LocalDate past = null;
+        if(days!=null) {
+            past = LocalDate.now().minusDays(days);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            sdf.parse(past.toString());
+        }
+        List<String[]> headerList = CLMDET.getHeaderData(ssn);
         List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
         List<String[]> insureList = CLMDET.getInsureData(ssn);
         String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
@@ -59,7 +66,7 @@ public class ClaimsData {
             }
             if (processDate.length() == 8) {
                 Date d = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH).parse(processDate);
-              //  Date e = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH).parse(processDate);
+                //  Date e = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH).parse(processDate);
                 SimpleDateFormat d2 = new SimpleDateFormat("MM/dd/yyyy");
 
 
@@ -95,6 +102,7 @@ public class ClaimsData {
         }
         return formattedProcessDate;
     }
+
     public static String formatDates(String processDate) {
         String formattedProcessDate = "";
         try {

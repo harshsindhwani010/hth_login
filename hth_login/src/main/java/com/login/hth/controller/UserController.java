@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.login.hth.beans.ClaimsData.formattedDate;
@@ -161,13 +163,13 @@ public class UserController {
     }
 
     @GetMapping("/claims")
-    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken,@Nullable @RequestParam(value = "days", required = false) Integer days) throws ParseException {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != " ") {
-            return claimsData.checkClaim(claims.get("ssn").toString());
+            return claimsData.checkClaim(claims.get("ssn").toString(),days);
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -306,19 +308,7 @@ public class UserController {
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/getDates")
-    public ResponseEntity<Object> dates(@RequestHeader("Authrozation")String bearerToken){
-        bearerToken = bearerToken.substring(7,bearerToken.length());
-        MessageDTO err = new MessageDTO();
-        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-        if(claims.get("ssn").toString() != ""){
-            return  ClaimData.getDates(claims.get("ssn").toString());
-        }else {
-            err.setMessage("Error");
-            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
-        }
 
-    }
 }
 
 
