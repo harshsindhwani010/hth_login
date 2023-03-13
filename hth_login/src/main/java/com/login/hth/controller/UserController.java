@@ -4,7 +4,6 @@ import com.login.hth.beans.*;
 import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,8 +42,7 @@ public class UserController {
     IdCardData idCardData;
     @Autowired
     SecurityQue securityQue;
-//    @Autowired
-//    UserSignUp userSignUp;
+
     @Autowired
     SecurityDetails securityDetails;
     @Autowired
@@ -308,6 +305,19 @@ public class UserController {
             err.setMessage("User Not found.");
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
+    }
+    @GetMapping("/getDates")
+    public ResponseEntity<Object> dates(@RequestHeader("Authrozation")String bearerToken){
+        bearerToken = bearerToken.substring(7,bearerToken.length());
+        MessageDTO err = new MessageDTO();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if(claims.get("ssn").toString() != ""){
+            return  ClaimData.getDates(claims.get("ssn").toString());
+        }else {
+            err.setMessage("Error");
+            return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
 

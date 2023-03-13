@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Component
 public class ClaimsData {
     public ResponseEntity<Object> checkClaim(String ssn) {
-        List<String[]> headerList = CLMDET.getHeaderData(ssn);
+            List<String[]> headerList = CLMDET.getHeaderData(ssn);
         List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
         List<String[]> insureList = CLMDET.getInsureData(ssn);
         String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
@@ -40,6 +41,7 @@ public class ClaimsData {
                 claimResponseDTO.setPaymentDetails(paymentDetail);
                 claimResponseDTO.setPatient(fullName);
                 wholeDTOList.add(claimResponseDTO);
+
             }
         }
         return ResponseEntity.ok().body(wholeDTOList);
@@ -110,4 +112,5 @@ public class ClaimsData {
         }
         return formattedProcessDate;
     }
+
 }

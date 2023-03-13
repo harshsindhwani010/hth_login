@@ -34,4 +34,16 @@ public class CLMDET {
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }
+
+        public static  List<String[]> getHeaderDate(String ssn) {
+            List<String[]> resultList = null;
+            String alias = "QTEMP.CLMHDR";
+            String file = "TESTDATA.CLMHDR(TRT)";
+            String sql = "SELECT HCLMNO,HTOTCL,HFILL7,HTOTCK,HDEP,HDOC QTEMP.CLMHDR WHERE  HSSN ='" + ssn + "'";
+
+            resultList = iSeries.executeSQLByAlias(sql, alias, file);
+            return resultList;
+        }
+
+
 }
