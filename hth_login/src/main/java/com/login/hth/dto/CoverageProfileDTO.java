@@ -12,7 +12,7 @@ public class CoverageProfileDTO {
     @JsonProperty("Medical")
     private List<MedicalDTO> Medical;
     @JsonProperty("Dental")
-    private List<MedicalDTO> Dental;
+    private List<DentalDTO> Dental;
     @JsonProperty("Vision")
-    private String Vision;
+    private List<VisionDTO> Vision;
 }
