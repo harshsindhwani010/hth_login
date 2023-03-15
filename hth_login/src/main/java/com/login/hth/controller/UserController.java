@@ -4,19 +4,19 @@ import com.login.hth.beans.*;
 import com.login.hth.dto.*;
 import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.login.hth.beans.ClaimsData.formattedDate;
@@ -44,8 +44,7 @@ public class UserController {
     IdCardData idCardData;
     @Autowired
     SecurityQue securityQue;
-//    @Autowired
-//    UserSignUp userSignUp;
+
     @Autowired
     SecurityDetails securityDetails;
     @Autowired
@@ -164,13 +163,13 @@ public class UserController {
     }
 
     @GetMapping("/claims")
-    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<Object> getClaims(@RequestHeader("Authorization") String bearerToken,@Nullable @RequestParam(value = "days", required = false) Integer days) throws ParseException {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != " ") {
-            return claimsData.checkClaim(claims.get("ssn").toString());
+            return claimsData.checkClaim(claims.get("ssn").toString(),days);
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
@@ -309,6 +308,7 @@ public class UserController {
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
         }
     }
+
 }
 
 

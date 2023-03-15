@@ -34,4 +34,6 @@ public class CLMDET {
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }
+
+
 }

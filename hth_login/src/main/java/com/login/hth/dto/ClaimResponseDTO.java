@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class ClaimResponseDTO {
     private RelationType patientRelationship;
     private PaymentDetailDTO paymentDetails;
     private double patientResponsibilityDetails;
+
 
     public String getClaimType() {
         return claimType.label;

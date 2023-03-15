@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.login.hth.beans.ClaimsData.formatDate;
+import static com.login.hth.beans.ClaimsData.formatDates;
+import static org.apache.logging.log4j.ThreadContext.trim;
+
 @Component
 public class CoverageImp {
 
@@ -79,7 +83,7 @@ public class CoverageImp {
                 insuredInformationDTO.setDivision(insureList[3].trim());
                 insuredInformationDTO.setPrimaryInsureName(insureList[1].trim() + " " + insureList[0].trim());
                 insuredInformationDTO.setPrimaryInsureID(ssn);
-                insuredInformationDTO.setDateOfBirth(insureList[4].trim());
+                insuredInformationDTO.setDateOfBirth(formatDates(insureList[4].trim()));
                 insuredInformationDTOList.add(insuredInformationDTO);
 
             }
@@ -88,9 +92,9 @@ public class CoverageImp {
                 DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
                 dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
                 dependentInfoDTO.setRelationship(dependent[2].trim());
-                dependentInfoDTO.setGender(dependent[3].trim());
-                dependentInfoDTO.setDDateOfBirth(dependent[4].trim());
-                dependentInfoDTO.setDEffectiveDate(dependent[5].trim());
+                dependentInfoDTO.setGender(CoverageType.valueOf(dependent[3].trim()));
+                dependentInfoDTO.setDDateOfBirth(formatDates(dependent[4].trim()));
+                dependentInfoDTO.setDEffectiveDate(formatDates(dependent[5].trim()));
                 dependentInfoDTOList.add(dependentInfoDTO);
 
             }
