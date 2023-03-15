@@ -1,10 +1,10 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.*;
-import com.login.hth.utils.CoverageType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +18,16 @@ public class CoverageImp {
     public ResponseEntity<Object> coverageProfile(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
         List<String[]> insured = INSURE.getDependentData(ssn);
-       // List<String[]> inshst = INSURE.getInshstData(ssn);
+        List<String[]> inshst = INSURE.getInshstData(ssn);
 
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
         List<MedicalDTO> medicalDTOList = new ArrayList<>();
         MedicalDTO medicalDTO = new MedicalDTO();
+        List<DentalDTO> dentalDTOList = new ArrayList<>();
+        DentalDTO dentalDTO = new DentalDTO();
+        List<VisionDTO> visionDTOList = new ArrayList<>();
+        VisionDTO visionDTO = new VisionDTO();
+
         List<InsuredInformationDTO> insuredInformationDTOList = new ArrayList<>();
         List<DependentInfoDTO> dependentInfoDTOList = new ArrayList<>();
         List<CoverageInfoDTO> coverageInfoDTOList = new ArrayList<>();
@@ -34,26 +39,44 @@ public class CoverageImp {
         String effectDate = null;
         String terminateDate = null;
         int planIndex = 0;
-        for (planIndex = 58; planIndex <=108; planIndex++) {
-            if (!effectiveDate[planIndex].equals("0") && terminationDate[planIndex].equals("0")) {
+        for (planIndex = 58; planIndex <= 108; planIndex++) {
+            if (effectiveDate[planIndex].equals("0") && terminationDate[planIndex].equals("0")) {
                 effectDate = effectiveDate[planIndex];
                 terminateDate = terminationDate[planIndex];
                 break;
             }
         }
-        String plan = insure.get(0)[planIndex];
+        //String plan = insure.get(0)[planIndex];
         System.out.println(coverageProfileDTO);
+        String[] ePlans = insure.get(0);
+        String[] futuretermination = inshst.get(0);
+//        int tDate = 0;
+//        int enrolledPlans = 0;
+//        for (enrolledPlans = 7; enrolledPlans <= 57; enrolledPlans++) {
+//            for (tDate = 0; tDate <= 5; tDate++) {
+//                if (!ePlans[enrolledPlans].equals(" ")) {
 
         for (int i = 0; i < insure.size(); i++) {
             String[] insureList = insure.get(i);
 
             List<String[]> grpmst = INSURE.getGroupMasterData(insureList[2]);
+
+            String[] plans = grpmst.get(0);
+            String plan = null;
+            int p = 0;
+            for (p = 2; p <= 51; p++) {
+                if (!plans[p].equals("0")) {
+                    plan = plans[p];
+                    break;
+                }
+            }
+
             System.out.println(insureList[i]);
 
             List<String[]> blackpln = null;
             for (String[] groupDetail : grpmst) {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
-                blackpln = INSURE.getBlckplnData(groupDetail[0]);
+                blackpln = INSURE.getBlckplnData(groupDetail[0], groupDetail[p], plan);
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
                 insuredInformationDTO.setGroupNumber(insureList[2].trim());
@@ -77,35 +100,46 @@ public class CoverageImp {
             }
 
             for (String[] bPlan : blackpln) {
-
                 CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
                 coverageInfoDTO.setPlan(plan);
-                coverageInfoDTO.setTypeOfCoverage(bPlan[1]);
-                coverageInfoDTO.setEffectiveDate(formatDates(effectiveDate[planIndex]));
-//                coverageInfoDTO.setTerminationDate(formatDate(bPlan[0].trim()));
-                if (!blackpln.get(0)[0].equals("")){
-                    coverageInfoDTO.setTerminationDate("Active");
-                } else coverageInfoDTO.setTerminationDate(formatDates(bPlan[0].trim()));
-
+                coverageInfoDTO.setTypeOfCoverage(bPlan[0]);
+                coverageInfoDTO.setEffectiveDate(effectDate);
+                coverageInfoDTO.setTerminationDate(terminateDate);
                 coverageInfoDTO.setDeductable(duplicate);
                 coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
                 coverageInfoDTOList.add(coverageInfoDTO);
 
             }
-
         }
-        System.out.println("2:"+coverageProfileDTO);
+        System.out.println("2:" + coverageProfileDTO);
+        if (coverageInfoDTOList.get(1).getTypeOfCoverage().equalsIgnoreCase("M")) {
+            medicalDTO.setInsuredInformation(insuredInformationDTOList);
+            medicalDTO.setDependentInformation(dependentInfoDTOList);
+            medicalDTO.setCoverageInformation(coverageInfoDTOList);
+            medicalDTOList.add(medicalDTO);
+            coverageProfileDTO.setMedical(medicalDTOList);
+        } else if (coverageInfoDTOList.get(1).getTypeOfCoverage().equalsIgnoreCase("D")) {
+            dentalDTO.setInsuredInformation(insuredInformationDTOList);
+            dentalDTO.setDependentInformation(dependentInfoDTOList);
+            dentalDTO.setCoverageInformation(coverageInfoDTOList);
+            dentalDTOList.add(dentalDTO);
+            coverageProfileDTO.setDental(dentalDTOList);
+        } else {
+            visionDTO.setInsuredInformation(insuredInformationDTOList);
+            visionDTO.setDependentInformation(dependentInfoDTOList);
+            visionDTO.setCoverageInformation(coverageInfoDTOList);
+            visionDTOList.add(visionDTO);
+            coverageProfileDTO.setVision(visionDTOList);
+        }
 
-        medicalDTO.setInsuredInformation(insuredInformationDTOList);
-        medicalDTO.setDependentInformation(dependentInfoDTOList);
-        medicalDTO.setCoverageInformation(coverageInfoDTOList);
-        medicalDTOList.add(medicalDTO);
-        coverageProfileDTO.setMedical(medicalDTOList);
-        coverageProfileDTO.setDental(medicalDTOList);
+        System.out.println("@3:" + coverageProfileDTO);
 
-        System.out.println("@3:"+coverageProfileDTO);
+//                } else if (!futuretermination.equals(" ")) {
+//                    return new ResponseEntity<>(coverageProfileDTO, HttpStatus.BAD_REQUEST);
+//                } else {
+//                    return new ResponseEntity<>("User have no plans", HttpStatus.BAD_REQUEST);
+//                }
 
         return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
     }
-    }
-//}
+}

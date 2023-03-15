@@ -20,18 +20,17 @@ public class INSURE {
         List <String[]> resultList = null;
         String[] aliases = {"QTEMP.GRPMST", "QTEMP.BLCKPLN"};
         String[] files = {"TESTDATA.GRPMST(TRT)", "TESTDATA.BLCKPLN(TRT)"};
-       // String sql = "select coalesce(GPL1,GPL2,GPL3,GPL4,GPL5,GPL6,GPL7,GPL8,GPL9,GPL10,GPL11,GPL12,GPL13,GPL14,GPL15,GPL16,GPL17,GPL18,GPL19,GPL20,GPL21,GPL22,GPL23,GPL24,GPL25,GPL26,GPL27,GPL28,GPL29,GPL30,GPL31,GPL32,GPL33,GPL34,GPL35,GPL36,GPL37,GPL38,GPL39,GPL40,GPL41,GPL42,GPL43,GPL44,GPL45,GPL46,GPL47,GPL48,GPL49,GPL50,GCARR,GGRPNM) as NotNULLValue from QTEMP.GRPMST A JOIN QTEMP.BLCKPLN B ON B.CPNBR = A.GCARR WHERE A.GGRPNO = '" +grpno+"'";
-        String sql = "SELECT GCARR,GGRPNM,GPL1,GPL2,GPL3,GPL4,GPL5,GPL6,GPL7,GPL8,GPL9,GPL10,GPL11,GPL12,GPL13,GPL14,GPL15,GPL16,GPL17,GPL18,GPL19,GPL20,GPL21,GPL22,GPL23,GPL24,GPL25,GPL26,GPL27,GPL28,GPL29,GPL30,GPL31,GPL32,GPL33,GPL34,GPL35,GPL36,GPL37,GPL38,GPL39,GPL40,GPL41,GPL42,GPL43,GPL44,GPL45,GPL46,GPL47,GPL48,GPL49,GPL50 FROM QTEMP.GRPMST  WHERE GGRPNO = '"+grpno+"'";
+        String sql = "SELECT GCARR,GGRPNM,GPL1,GPL2,GPL3,GPL4,GPL5,GPL6,GPL7,GPL8,GPL9,GPL10,GPL11,GPL12,GPL13,GPL14,GPL15,GPL16,GPL17,GPL18,GPL19,GPL20,GPL21,GPL22,GPL23,GPL24,GPL25,GPL26,GPL27,GPL28,GPL29,GPL30,GPL31,GPL32,GPL33,GPL34,GPL35,GPL36,GPL37,GPL38,GPL39,GPL40,GPL41,GPL42,GPL43,GPL44,GPL45,GPL46,GPL47,GPL48,GPL49,GPL50 FROM QTEMP.GRPMST WHERE GGRPNO = '"+grpno+"'";
         resultList = iSeries.executeSQLByAlias(sql, aliases, files);
         return resultList;
     }
 
-    public static List<String[]> getBlckplnData(String cpnumber) {
+    public static List<String[]> getBlckplnData(String cpnumber, String cppln, String plan) {
         List<String[]> resultList = null;
-        String alias = "QTEMP.BLCKPLN";
-        String file = "TESTDATA.BLCKPLN(TRT)";
-        String sql = "SELECT CPLTRM,CCOVRG FROM QTEMP.BLCKPLN WHERE CPNBR = '" + cpnumber +"'";
-        resultList = iSeries.executeSQLByAlias(sql, alias, file);
+        String[] aliases = {"QTEMP.GRPMST", "QTEMP.BLCKPLN"};
+        String[] files = {"TESTDATA.GRPMST(TRT)", "TESTDATA.BLCKPLN(TRT)"};
+        String sql = "SELECT CCOVRG FROM QTEMP.BLCKPLN A JOIN QTEMP.GRPMST B ON B.GCARR  = A.CPNBR  AND A.CPPLN = '"+plan.trim()+"' WHERE CPNBR = '"+cpnumber + "' OR CPPLN = '"+cppln +"'";
+        resultList = iSeries.executeSQLByAlias(sql, aliases, files);
         return resultList;
     }
 
@@ -39,7 +38,7 @@ public class INSURE {
         List<String[]> resultList = null;
         String alias = "QTEMP.INSHST";
         String file = "TESTDATA.INSHST(TRT)";
-        String sql = "SELECT * FROM QTEMP.INSHST WHERE HSSN = '" +hssn+"'";
+        String sql = "SELECT HGRPNO,HPLN,HPEFF,HPTER FROM QTEMP.INSHST WHERE HSSN = '" +hssn+"'";
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }
