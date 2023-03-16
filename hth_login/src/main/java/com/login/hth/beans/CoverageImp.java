@@ -1,12 +1,13 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.*;
+import com.login.hth.utils.CoverageType;
 import com.login.hth.utils.ClaimType;
+import com.login.hth.utils.GenderType;
 import com.login.hth.utils.GenderType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,7 @@ public class CoverageImp {
             List<String[]> blackpln = null;
             for (String[] groupDetail : grpmst) {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
+                //check blank
                 blackpln = INSURE.getBlckplnData(groupDetail[0], groupDetail[p], plan);
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
@@ -112,13 +114,13 @@ public class CoverageImp {
             }
         }
         System.out.println("2:" + coverageProfileDTO);
-        if (coverageInfoDTOList.get(1).getTypeOfCoverage().equalsIgnoreCase("M")) {
+        if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("M")) {
             medicalDTO.setInsuredInformation(insuredInformationDTOList);
             medicalDTO.setDependentInformation(dependentInfoDTOList);
             medicalDTO.setCoverageInformation(coverageInfoDTOList);
             medicalDTOList.add(medicalDTO);
             coverageProfileDTO.setMedical(medicalDTOList);
-        } else if (coverageInfoDTOList.get(1).getTypeOfCoverage().equalsIgnoreCase("D")) {
+        } else if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("D")) {
             dentalDTO.setInsuredInformation(insuredInformationDTOList);
             dentalDTO.setDependentInformation(dependentInfoDTOList);
             dentalDTO.setCoverageInformation(coverageInfoDTOList);
