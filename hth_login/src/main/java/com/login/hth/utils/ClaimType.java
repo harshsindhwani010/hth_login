@@ -1,15 +1,15 @@
 package com.login.hth.utils;
 
 public enum ClaimType {
-//    A("HRA"),
-//    F("FSA"),
-//    G("FSA"),
+    A("HRA"),
+    F("FSA"),
+    G("FSA"),
     H("Medical"),
     M("Medical"),
     V("Vision"),
     D("Dental"),
-//    R("Prescription "),
-//    W("Disability ");
+    R("Prescription "),
+    W("Disability ");
 
 
 

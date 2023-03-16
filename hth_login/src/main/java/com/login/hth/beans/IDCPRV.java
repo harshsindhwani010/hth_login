@@ -49,7 +49,7 @@ public class IDCPRV {
             response.setCardNumber(resultList[2].trim());
             response.setLargeFront(resultList[3].trim());
             response.setLargeBack(resultList[4].trim());
-
+            System.out.println(i);
             if (i >= 5 && i <= 22) {
                 frontLine[i - 5] = resultList[i].trim();
             }
@@ -82,7 +82,9 @@ public class IDCPRV {
 
             if (i >= 77 && i <= 85) {
                 frontLogo[i - 77] = resultList[i].trim();
-
+                if (!resultList[i].trim().equals("")) {
+                frontLogo[i - 77] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
+            }
             }
             if (i == 85) {
                 response.setFrontLogo(frontLogo);
@@ -90,13 +92,18 @@ public class IDCPRV {
 
             if (i >= 86 && i <= 94) {
                 backLogo[i - 86] = resultList[i].trim();
+                if (!resultList[i].trim().equals("")) {
+                    backLogo[i - 86] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
+
+                }
+
             }
             if (i == 94) {
                 response.setBackLogo(backLogo);
             }
             if (i >= 77 && i <= 94) {
                 if (!resultList[i].trim().equals("")) {
-                    logos[i - 77] = "/MobileApp/"+member+"/Logos/" + resultList[i].trim();
+                    logos[i - 77] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
 //                    Image images = iSeries.downloadImages(logos[i - 77]);
 //                    imgList[i - 77] = images;
                 } else {

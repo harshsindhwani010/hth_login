@@ -1,7 +1,6 @@
 package com.login.hth.dto;
 
-import com.login.hth.utils.CoverageType;
-import com.login.hth.utils.RelationType;
+import com.login.hth.utils.GenderType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,16 @@ public class DependentInfoDTO {
 
     private String insuredName;
     private String relationship;
-    private CoverageType gender;
+    private GenderType gender;
     private String dDateOfBirth;
     private String dEffectiveDate;
 
+    public GenderType getGender() {
+        return gender;
+    }
+
 }
+
+
+
+
