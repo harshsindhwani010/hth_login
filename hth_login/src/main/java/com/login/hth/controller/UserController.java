@@ -205,19 +205,6 @@ public class UserController {
         }
     }
 
-//    @GetMapping("/userProfile")
-//    public ResponseEntity<Object> userProfile(@RequestHeader("Authorization") String bearerToken) {
-//        bearerToken = bearerToken.substring(7, bearerToken.length());
-//        MessageDTO er = new MessageDTO();
-//        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-//        if (claims.get("ssn").toString() != "") {
-//            return userSignUp.userProfile(claims.get("ssn").toString());
-//        } else {
-//            er.setMessage("Invalid User");
-//            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @GetMapping("/idCard")
     public ResponseEntity<Object> showIdCard(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
