@@ -83,7 +83,7 @@ public class IDCPRV {
             if (i >= 77 && i <= 85) {
                 frontLogo[i - 77] = resultList[i].trim();
                 if (!resultList[i].trim().equals("")) {
-                frontLogo[i - 77] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
+                frontLogo[i - 77] = "https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
             }else {
                     frontLogo[i - 77 ] = resultList[i].trim();
                 }
@@ -95,7 +95,7 @@ public class IDCPRV {
             if (i >= 86 && i <= 94) {
                 backLogo[i - 86] = resultList[i].trim();
                 if (!resultList[i].trim().equals("")) {
-                    backLogo[i - 86] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
+                    backLogo[i - 86] = "https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
 
                 }else {
                     backLogo[i - 86 ] = resultList[i].trim();
@@ -107,7 +107,7 @@ public class IDCPRV {
             }
             if (i >= 77 && i <= 94) {
                 if (!resultList[i].trim().equals("")) {
-                    logos[i - 77] = "/https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
+                    logos[i - 77] = "https://services.hi-techhealth.com/HITECH/LOGOS/"+member+"/Logos/" + resultList[i].trim();
 //                    Image images = iSeries.downloadImages(logos[i - 77]);
 //                    imgList[i - 77] = images;
                 } else {

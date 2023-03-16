@@ -1,9 +1,6 @@
 package com.login.hth.beans;
 
 import com.login.hth.dto.*;
-import com.login.hth.utils.CoverageType;
-import com.login.hth.utils.ClaimType;
-import com.login.hth.utils.GenderType;
 import com.login.hth.utils.GenderType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
