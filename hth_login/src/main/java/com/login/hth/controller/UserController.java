@@ -49,6 +49,8 @@ public class UserController {
     SecurityDetails securityDetails;
     @Autowired
     CoverageImp coverageImp;
+    @Autowired
+    AccumulatorImp accumulatorImp;
 
 
     @PostMapping("/userLogin")
@@ -293,6 +295,19 @@ public class UserController {
         } else {
             err.setMessage("User Not found.");
             return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/accumulator")
+    public ResponseEntity<Object> accumulator(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("group").toString() != "") {
+            return accumulatorImp.accumulatorProfile(claims.get("group").toString());
+        } else {
+            er.setMessage("Invalid User");
+            return new ResponseEntity<>( er, HttpStatus.BAD_REQUEST);
         }
     }
 

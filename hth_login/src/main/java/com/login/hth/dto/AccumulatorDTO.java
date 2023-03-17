@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccumulatorDTO {
-    private  String group;
+
     private String plan;
     private String plantType;
+    private String serviceType;
 
 
 }

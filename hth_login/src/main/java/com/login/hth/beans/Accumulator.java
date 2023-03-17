@@ -9,7 +9,7 @@ public class Accumulator {
         List<String[]> resultList = null;
         String alias = "QTEMP.MEDMAX";
         String file = "TESTDATA.MEDMAX(TRT)";
-        String sql = "SELECT MGRPNO, MPLAN, MTYPES, MMEDMX, MCOPAY,MOOPOV FROM QTEMP.MEDMAX WHERE MGRPNO. ='" + group + "'";
+        String sql = "SELECT  MPLAN, MTYPES,MANLMX,MPCTPY, MCOPAY,MOOPOV FROM QTEMP.MEDMAX WHERE MGRPNO. ='" + group + "'";
 
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
