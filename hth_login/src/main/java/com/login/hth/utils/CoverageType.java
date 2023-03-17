@@ -1,12 +1,19 @@
 package com.login.hth.utils;
 
-public enum CoverageType {
-    M("Male"),
-    F("Female");
+import java.util.HashMap;
+import java.util.Map;
 
-    public final String label;
-   private CoverageType(String label)  {
-       this.label = label;
+public class CoverageType {
+
+    public static Map<String, String> mapper = new HashMap<>();
+
+    static {
+
+        mapper.put("M","Medical");
+        mapper.put("D","Dental");
+        mapper.put("V","Vision");
+    }
+
 
     }
-}
+

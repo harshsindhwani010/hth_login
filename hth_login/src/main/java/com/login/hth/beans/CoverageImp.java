@@ -2,6 +2,8 @@ package com.login.hth.beans;
 
 import com.login.hth.dto.*;
 import com.login.hth.utils.CoverageType;
+import com.login.hth.utils.CoverageType1;
+import com.login.hth.utils.Relation2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -46,10 +48,13 @@ public class CoverageImp {
         //String plan = insure.get(0)[planIndex];
         System.out.println(coverageProfileDTO);
         String[] ePlans = insure.get(0);
-        String[] futuretermination = inshst.get(0);
+//        String[] futuretermination = inshst.get(0);
 //        int tDate = 0;
 //        int enrolledPlans = 0;
+//        String enrollPlan = null;
 //        for (enrolledPlans = 7; enrolledPlans <= 57; enrolledPlans++) {
+//            enrollPlan = ePlans[enrolledPlans];
+//
 //            for (tDate = 0; tDate <= 5; tDate++) {
 //                if (!ePlans[enrolledPlans].equals(" ")) {
 
@@ -89,8 +94,12 @@ public class CoverageImp {
             for (String[] dependent : insured) {
                 DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
                 dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
-                dependentInfoDTO.setRelationship(dependent[2].trim());
-                dependentInfoDTO.setGender(CoverageType.valueOf(dependent[3].trim()));
+                if (dependent[2].equals(Integer.parseInt(dependent[2]))) {
+                    dependentInfoDTO.setRelationship(Integer.parseInt(dependent[2].trim()) + " " + Relation2.mapper.get(dependent[2].trim()));
+                }else{
+                    dependentInfoDTO.setRelationship(Relation2.mapper.get(dependent[2].trim()));
+                }
+                dependentInfoDTO.setGender(CoverageType1.mapper.get(dependent[3].trim()));
                 dependentInfoDTO.setDDateOfBirth(formatDates(dependent[4].trim()));
                 dependentInfoDTO.setDEffectiveDate(formatDates(dependent[5].trim()));
                 dependentInfoDTOList.add(dependentInfoDTO);
@@ -100,7 +109,7 @@ public class CoverageImp {
             for (String[] bPlan : blackpln) {
                 CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
                 coverageInfoDTO.setPlan(plan);
-                coverageInfoDTO.setTypeOfCoverage(bPlan[0]);
+                coverageInfoDTO.setTypeOfCoverage(CoverageType.mapper.get(bPlan[0]));
                 coverageInfoDTO.setEffectiveDate(effectDate);
                 coverageInfoDTO.setTerminationDate(terminateDate);
                 coverageInfoDTO.setDeductable(duplicate);
@@ -108,36 +117,39 @@ public class CoverageImp {
                 coverageInfoDTOList.add(coverageInfoDTO);
 
             }
-        }
-        System.out.println("2:" + coverageProfileDTO);
-        if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("M")) {
-            medicalDTO.setInsuredInformation(insuredInformationDTOList);
-            medicalDTO.setDependentInformation(dependentInfoDTOList);
-            medicalDTO.setCoverageInformation(coverageInfoDTOList);
-            medicalDTOList.add(medicalDTO);
-            coverageProfileDTO.setMedical(medicalDTOList);
-        } else if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("D")) {
-            dentalDTO.setInsuredInformation(insuredInformationDTOList);
-            dentalDTO.setDependentInformation(dependentInfoDTOList);
-            dentalDTO.setCoverageInformation(coverageInfoDTOList);
-            dentalDTOList.add(dentalDTO);
-            coverageProfileDTO.setDental(dentalDTOList);
-        } else {
-            visionDTO.setInsuredInformation(insuredInformationDTOList);
-            visionDTO.setDependentInformation(dependentInfoDTOList);
-            visionDTO.setCoverageInformation(coverageInfoDTOList);
-            visionDTOList.add(visionDTO);
-            coverageProfileDTO.setVision(visionDTOList);
-        }
 
-        System.out.println("@3:" + coverageProfileDTO);
+            System.out.println("2:" + coverageProfileDTO);
+            if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("Medical")) {
+                medicalDTO.setInsuredInformation(insuredInformationDTOList);
+                medicalDTO.setDependentInformation(dependentInfoDTOList);
+                medicalDTO.setCoverageInformation(coverageInfoDTOList);
+                medicalDTOList.add(medicalDTO);
+                coverageProfileDTO.setMedical(medicalDTOList);
+            } else if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("Dental")) {
+                dentalDTO.setInsuredInformation(insuredInformationDTOList);
+                dentalDTO.setDependentInformation(dependentInfoDTOList);
+                dentalDTO.setCoverageInformation(coverageInfoDTOList);
+                dentalDTOList.add(dentalDTO);
+                coverageProfileDTO.setDental(dentalDTOList);
+            } else {
+                visionDTO.setInsuredInformation(insuredInformationDTOList);
+                visionDTO.setDependentInformation(dependentInfoDTOList);
+                visionDTO.setCoverageInformation(coverageInfoDTOList);
+                visionDTOList.add(visionDTO);
+                coverageProfileDTO.setVision(visionDTOList);
+            }
+
+            System.out.println("@3:" + coverageProfileDTO);
 
 //                } else if (!futuretermination.equals(" ")) {
 //                    return new ResponseEntity<>(coverageProfileDTO, HttpStatus.BAD_REQUEST);
 //                } else {
 //                    return new ResponseEntity<>("User have no plans", HttpStatus.BAD_REQUEST);
 //                }
+//            }
+//        }
 
+        }
         return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
     }
 }

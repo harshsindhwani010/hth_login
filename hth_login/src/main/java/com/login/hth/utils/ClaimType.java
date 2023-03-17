@@ -11,11 +11,6 @@ public enum ClaimType {
     R("Prescription "),
     W("Disability ");
 
-
-
-
-
-
     public final String label;
 
     private ClaimType(String label){

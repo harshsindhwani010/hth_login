@@ -2,13 +2,9 @@ package com.login.hth.dto;
 
 
 import com.login.hth.utils.ClaimType;
-import com.login.hth.utils.RelationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +14,8 @@ public class ClaimResponseDTO {
     private String patient;
     private String claimNumber;
     private ClaimType claimType;
-    private RelationType patientRelationship;
+    private String patientRelationship;
+    //private RelationType patientRelationship;
     private PaymentDetailDTO paymentDetails;
     private double patientResponsibilityDetails;
 
@@ -27,7 +24,7 @@ public class ClaimResponseDTO {
         return claimType.label;
     }
 
-    public String getPatientRelationship() {
-        return patientRelationship.label;
-    }
+//    public String getPatientRelationship() {
+//        return patientRelationship.label;
+//    }
 }

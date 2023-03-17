@@ -3,7 +3,7 @@ package com.login.hth.beans;
 import com.login.hth.dto.ClaimResponseDTO;
 import com.login.hth.dto.PaymentDetailDTO;
 import com.login.hth.utils.ClaimType;
-import com.login.hth.utils.RelationType;
+import com.login.hth.utils.Relation2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +33,6 @@ public class ClaimsData {
             for (String[] detail : detailList) {
                 double copay = Double.valueOf(detail[2].trim());
                 double notCoverd = Double.valueOf(detail[4].trim());
-                ;
                 double deducatable = Double.valueOf(detail[5].trim());
                 PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
                 paymentDetail.setTotal(header[1].trim());
@@ -44,7 +43,7 @@ public class ClaimsData {
                 claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
                 claimResponseDTO.setPatientResponsibilityDetails(copay + notCoverd + deducatable);
                 claimResponseDTO.setClaimType(ClaimType.valueOf(header[2].trim()));
-                claimResponseDTO.setPatientRelationship(RelationType.valueOf(header[4].trim()));
+                claimResponseDTO.setPatientRelationship(Relation2.mapper.get(header[4].trim()));
                 claimResponseDTO.setPaymentDetails(paymentDetail);
                 claimResponseDTO.setPatient(fullName);
                 wholeDTOList.add(claimResponseDTO);
@@ -68,7 +67,6 @@ public class ClaimsData {
                 Date d = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH).parse(processDate);
                 //  Date e = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH).parse(processDate);
                 SimpleDateFormat d2 = new SimpleDateFormat("MM/dd/yyyy");
-
 
                 formattedProcessDate = d2.format(d).toString();
             } else {
