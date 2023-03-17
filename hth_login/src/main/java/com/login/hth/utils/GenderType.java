@@ -5,8 +5,9 @@ public enum GenderType {
     F("Female");
 
     public final String label;
-   private GenderType(String label)  {
-       this.label = label;
+
+    private GenderType(String label) {
+        this.label = label;
 
     }
 }

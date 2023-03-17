@@ -2,6 +2,7 @@ package com.login.hth.beans;
 
 import com.login.hth.dto.*;
 import com.login.hth.utils.GenderType;
+import com.login.hth.utils.RelationType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -90,7 +91,7 @@ public class CoverageImp {
             for (String[] dependent : insured) {
                 DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
                 dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
-                dependentInfoDTO.setRelationship(dependent[2].trim());
+                dependentInfoDTO.setRelationship(RelationType.valueOf(dependent[2].trim()));
                 dependentInfoDTO.setGender(GenderType.valueOf(dependent[3].trim()));
                 dependentInfoDTO.setDDateOfBirth(formatDates(dependent[4].trim()));
                 dependentInfoDTO.setDEffectiveDate(formatDates(dependent[5].trim()));
