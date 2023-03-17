@@ -18,9 +18,10 @@ public class ClaimsData {
         LocalDate past = null;
         if(days!=null) {
             past = LocalDate.now().minusDays(days);
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             sdf.parse(past.toString());
         }
+        System.out.println(past);
         List<String[]> headerList = CLMDET.getHeaderData(ssn);
         List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
         List<String[]> insureList = CLMDET.getInsureData(ssn);
