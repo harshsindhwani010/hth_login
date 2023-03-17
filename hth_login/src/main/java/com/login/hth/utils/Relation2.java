@@ -10,6 +10,6 @@ public class Relation2 {
         mapper.put("EE","Employee");
         mapper.put("SP","Spouse");
         mapper.put("CH","Child");
-        mapper.put("01"," Child");
+        mapper.put("num"," Child");
     }
 }

@@ -2,15 +2,15 @@ package com.login.hth.beans;
 
 import com.login.hth.dto.*;
 import com.login.hth.utils.CoverageType;
-import com.login.hth.utils.CoverageType1;
 import com.login.hth.utils.Relation2;
 import com.login.hth.utils.GenderType;
-import com.login.hth.utils.RelationType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.login.hth.beans.ClaimsData.formatDates;
 
 @Component
@@ -96,14 +96,14 @@ public class CoverageImp {
             for (String[] dependent : insured) {
                 DependentInfoDTO dependentInfoDTO = new DependentInfoDTO();
                 dependentInfoDTO.setInsuredName(dependent[1].trim() + " " + dependent[0].trim());
-                dependentInfoDTO.setRelationship(RelationType.valueOf(dependent[2].trim()));
+                dependentInfoDTO.setRelationship(Relation2.mapper.get(dependent[2].trim()));
                 dependentInfoDTO.setGender(GenderType.valueOf(dependent[3].trim()));
-                if (dependent[2].equals(Integer.parseInt(dependent[2]))) {
-                    dependentInfoDTO.setRelationship(Integer.parseInt(dependent[2].trim()) + " " + Relation2.mapper.get(dependent[2].trim()));
-                }else{
+                if (isStringInt(dependent[2].trim())){
+                    dependentInfoDTO.setRelationship(dependent[2].trim() + "" + Relation2.mapper.get("num"));
+                }else {
                     dependentInfoDTO.setRelationship(Relation2.mapper.get(dependent[2].trim()));
                 }
-                dependentInfoDTO.setGender(CoverageType1.mapper.get(dependent[3].trim()));
+                dependentInfoDTO.setGender(GenderType.valueOf(dependent[3].trim()));
                 dependentInfoDTO.setDDateOfBirth(formatDates(dependent[4].trim()));
                 dependentInfoDTO.setDEffectiveDate(formatDates(dependent[5].trim()));
                 dependentInfoDTOList.add(dependentInfoDTO);
@@ -155,5 +155,14 @@ public class CoverageImp {
 
         }
         return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
+    }
+
+    public boolean isStringInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 }
