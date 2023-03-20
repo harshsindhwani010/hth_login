@@ -69,7 +69,7 @@ public class OtpValidate {
                     long store = getTimeInMilliseconds(time);
                     long current = getCurrentTimeInMilliSeconds();
                     long diff = current - store;
-                    if (diff <= 900) {
+                    if (diff <= 900) { // 15 Minutes
                         String[] userData1 = userLogin.getUserDetailUser(otpValidateDTO.getUserName());
                         updateStatus(otpValidateDTO, result[4]);
                         HashMap<String, String> data = new HashMap<>();

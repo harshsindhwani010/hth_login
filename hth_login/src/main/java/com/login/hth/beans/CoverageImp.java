@@ -21,6 +21,7 @@ public class CoverageImp {
         List<String[]> insured = INSURE.getDependentData(ssn);
         List<String[]> inshst = INSURE.getInshstData(ssn);
 
+
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
         List<MedicalDTO> medicalDTOList = new ArrayList<>();
         MedicalDTO medicalDTO = new MedicalDTO();
@@ -82,6 +83,9 @@ public class CoverageImp {
                 InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
                 //check blank
                 blackpln = INSURE.getBlckplnData(groupDetail[0], groupDetail[p], plan);
+                if (!blackpln.get(0).equals("")){
+                    INSURE.getPlanDes(plan);
+                }
 
                 insuredInformationDTO.setGroupName(groupDetail[1].trim());
                 insuredInformationDTO.setGroupNumber(insureList[2].trim());
@@ -112,11 +116,12 @@ public class CoverageImp {
 
             for (String[] bPlan : blackpln) {
                 CoverageInfoDTO coverageInfoDTO = new CoverageInfoDTO();
-                coverageInfoDTO.setPlan(plan);
+                coverageInfoDTO.setPlan(INSURE.getPlanDes(plan).get(0)[0].trim());
+
                 coverageInfoDTO.setTypeOfCoverage(CoverageType.mapper.get(bPlan[0]));
                 coverageInfoDTO.setEffectiveDate(effectDate);
                 coverageInfoDTO.setTerminationDate(terminateDate);
-                coverageInfoDTO.setDeductable(duplicate);
+                coverageInfoDTO.setDeductable(INSURE.getClmdet(INSURE.getClmHdr(ssn).get(0)[0].trim()).get(0)[18].trim());
                 coverageInfoDTO.setYtDeductableMet(ytDublicateMet);
                 coverageInfoDTOList.add(coverageInfoDTO);
 

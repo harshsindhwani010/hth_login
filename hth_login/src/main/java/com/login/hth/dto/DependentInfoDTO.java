@@ -1,6 +1,7 @@
 package com.login.hth.dto;
 
 import com.login.hth.utils.GenderType;
+import com.login.hth.utils.RelationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
