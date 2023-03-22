@@ -4,14 +4,12 @@ import com.login.hth.dto.ClaimResponseDTO;
 import com.login.hth.dto.PaymentDetailDTO;
 import com.login.hth.utils.ClaimType;
 import com.login.hth.utils.Relation2;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -31,46 +29,75 @@ public class ClaimsData {
 
                 dates.add(date);
             }
-        }
-        System.out.println(dates);
-        List<String[]> data =  INSURE.getClmDates(dates, ssn);
-        if (data.size()>0) {
-            System.out.println(past);
-            List<String[]> headerList = CLMDET.getHeaderData(ssn);
-            List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
-            List<String[]> insureList = CLMDET.getInsureData(ssn);
-            String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
-            String fullName = String.join(" ", name);
-            for (int i = 0; i < headerList.size(); i++) {
-                String[] header = headerList.get(i);
-                List<String[]> detailList = CLMDET.getDetailData(header[0].trim());
+            List<String[]> data = INSURE.getClmDates(dates, ssn);
+            if (data.size() > 0) {
 
-                for (String[] detail : detailList) {
-                    double copay = Double.valueOf(detail[2].trim());
-                    double notCoverd = Double.valueOf(detail[4].trim());
-                    double deducatable = Double.valueOf(detail[5].trim());
-                    PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
-                    paymentDetail.setTotal(header[1].trim());
-                    paymentDetail.setPlanPaid(detail[3].trim());
-                    paymentDetail.setPatientResponsibility(copay + notCoverd + deducatable);
-                    ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
-                    claimResponseDTO.setClaimNumber(header[0].trim());
-                    claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
-                    claimResponseDTO.setPatientResponsibilityDetails(copay + notCoverd + deducatable);
-                    claimResponseDTO.setClaimType(ClaimType.valueOf(header[2].trim()));
-                    claimResponseDTO.setPatientRelationship(Relation2.mapper.get(header[4].trim()));
-                    claimResponseDTO.setPaymentDetails(paymentDetail);
-                    claimResponseDTO.setPatient(fullName);
-                    wholeDTOList.add(claimResponseDTO);
+                System.out.println(past);
+                List<String[]> headerList = CLMDET.getHeaderData(ssn);
+                List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
+                List<String[]> insureList = CLMDET.getInsureData(ssn);
+                String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
+                String fullName = String.join(" ", name);
+                for (int i = 0; i < headerList.size(); i++) {
+                    String[] header = headerList.get(i);
+                    List<String[]> detailList = CLMDET.getDetailData(header[0].trim());
 
+                    for (String[] detail : detailList) {
+                        double copay = Double.valueOf(detail[2].trim());
+                        double notCoverd = Double.valueOf(detail[4].trim());
+                        double deducatable = Double.valueOf(detail[5].trim());
+                        PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
+                        paymentDetail.setTotal(header[1].trim());
+                        paymentDetail.setPlanPaid(detail[3].trim());
+                        paymentDetail.setPatientResponsibility(copay + notCoverd + deducatable);
+                        ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
+                        claimResponseDTO.setClaimNumber(header[0].trim());
+                        claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
+                        claimResponseDTO.setPatientResponsibilityDetails(copay + notCoverd + deducatable);
+                        claimResponseDTO.setClaimType(ClaimType.valueOf(header[2].trim()));
+                        claimResponseDTO.setPatientRelationship(Relation2.mapper.get(header[4].trim()));
+                        claimResponseDTO.setPaymentDetails(paymentDetail);
+                        claimResponseDTO.setPatient(fullName);
+                        wholeDTOList.add(claimResponseDTO);
+                    }
                 }
-
+                return ResponseEntity.ok().body(wholeDTOList);
             }
-            return ResponseEntity.ok().body(wholeDTOList);
-        }
-        else
-//            System.out.println("EMPTY!!");
-            return new ResponseEntity<>("No Data Found", HttpStatus.BAD_REQUEST);
+        } else {
+            List<String[]> data = INSURE.getClmData(ssn);
+            if (data.size() > 0) {
+                List<String[]> headerList = CLMDET.getHeaderData(ssn);
+                List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
+                List<String[]> insureList = CLMDET.getInsureData(ssn);
+                String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
+                String fullName = String.join(" ", name);
+                for (int i = 0; i < headerList.size(); i++) {
+                    String[] header = headerList.get(i);
+                    List<String[]> detailList = CLMDET.getDetailData(header[0].trim());
+
+                    for (String[] detail : detailList) {
+                        double copay = Double.valueOf(detail[2].trim());
+                        double notCoverd = Double.valueOf(detail[4].trim());
+                        double deducatable = Double.valueOf(detail[5].trim());
+                        PaymentDetailDTO paymentDetail = new PaymentDetailDTO();
+                        paymentDetail.setTotal(header[1].trim());
+                        paymentDetail.setPlanPaid(detail[3].trim());
+                        paymentDetail.setPatientResponsibility(copay + notCoverd + deducatable);
+                        ClaimResponseDTO claimResponseDTO = new ClaimResponseDTO();
+                        claimResponseDTO.setClaimNumber(header[0].trim());
+                        claimResponseDTO.setDateOfService(formatDate(detail[1].trim()));
+                        claimResponseDTO.setPatientResponsibilityDetails(copay + notCoverd + deducatable);
+                        claimResponseDTO.setClaimType(ClaimType.valueOf(header[2].trim()));
+                        claimResponseDTO.setPatientRelationship(Relation2.mapper.get(header[4].trim()));
+                        claimResponseDTO.setPaymentDetails(paymentDetail);
+                        claimResponseDTO.setPatient(fullName);
+                        wholeDTOList.add(claimResponseDTO);
+                    }
+                }
+                return ResponseEntity.ok().body(wholeDTOList);
+            }
+            }
+        return null;
     }
 
     public static String formattedDate(String processDate) {

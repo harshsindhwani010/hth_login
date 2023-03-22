@@ -97,4 +97,13 @@ public class INSURE {
         List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
         return resultData;
     }
+    public static List<String[]> getClmData( String ssn) {
+        String alias = "QTEMP.CLMHDR";
+        String file = "TESTDATA.CLMHDR(TRT)";
+        String sql = "SELECT * FROM QTEMP.CLMHDR WHERE HSSN = '" + ssn + "'";
+        System.out.println(sql);
+        List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
+        return resultData;
+    }
+
 }
