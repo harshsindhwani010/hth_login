@@ -82,17 +82,24 @@ public class INSURE {
     }
 
     public static List<String[]> getClmDates(List dates, String ssn) {
+
+        String conditions= "1=1";
         StringBuilder sb = new StringBuilder();
-        sb.append("(");
-        for (int i = 0; i < dates.size(); i++) {
-            sb.append("'" + dates.get(i) + "'");
-            sb.append(",");
+
+        if(dates.size()>0) {
+
+            sb.append("(");
+            for (int i = 0; i < dates.size(); i++) {
+                sb.append("'" + dates.get(i) + "'");
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(")");
+            conditions = conditions + " AND HDOS IN "+sb.toString();
         }
-        sb.deleteCharAt(sb.length()-1);
-        sb.append(")");
         String alias = "QTEMP.CLMHDR";
         String file = "TESTDATA.CLMHDR(TRT)";
-        String sql = "SELECT HDOS FROM QTEMP.CLMHDR where HDOS IN" + sb.toString() + " and HSSN='" + ssn + "'";
+        String sql = "SELECT HDOS FROM QTEMP.CLMHDR where " + conditions + " and HSSN='" + ssn + "'";
         System.out.println(sql);
         List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
         return resultData;
