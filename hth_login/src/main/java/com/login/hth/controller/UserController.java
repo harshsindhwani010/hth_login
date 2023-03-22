@@ -6,6 +6,7 @@ import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -51,6 +52,8 @@ public class UserController {
     CoverageImp coverageImp;
     @Autowired
     AccumulatorImp accumulatorImp;
+    @Autowired
+    SupportDTO supportDTO;
 
 
     @PostMapping("/userLogin")
@@ -309,6 +312,18 @@ public class UserController {
             er.setMessage("Invalid User");
             return new ResponseEntity<>( er, HttpStatus.BAD_REQUEST);
         }
+    }
+//
+//    @Value("${spring.demo.address}")
+//    private String address;
+//    @Value("${spring.demo.email}")
+//    private String email;
+    //@Value("${spring.demo.address}")
+
+    @GetMapping("/support")
+    public SupportDTO getpropertiesValue(){
+        System.out.println(supportDTO);
+        return supportDTO;
     }
 
 }
