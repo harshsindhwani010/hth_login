@@ -1,10 +1,14 @@
 package com.login.hth.beans;
 
 import com.login.hth.security.iSeries;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
+
 public class INSURE {
+
     private static String[] grpPlanList = null;
 
     public static List<String[]> getInsureData(String ssn) {
@@ -60,18 +64,53 @@ public class INSURE {
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }
+
     public static List<String[]> getClmHdr(String ssn) {
         String alias = "QTEMP.CLMHDR";
-        String file = "hthdatv1.CLMHDR(TRT)";
+        String file = "TESTDATA.CLMHDR(TRT)";
         String sql = "select * from qtemp.CLMHDR where HSSN= '" + ssn + "'";
         List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
         return resultData;
     }
+
     public static List<String[]> getClmdet(String hclmno) {
         String alias = "QTEMP.clmdet";
-        String file = "hthdatv1.clmdet(TRT)";
+        String file = "TESTDATA.clmdet(TRT)";
         String sql = "select * from qtemp.clmdet where dclmno = '" + hclmno + "'";
         List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
         return resultData;
     }
+
+    public static List<String[]> getClmDates(List dates, String ssn) {
+
+        String conditions= "1=1";
+        StringBuilder sb = new StringBuilder();
+
+        if(dates.size()>0) {
+
+            sb.append("(");
+            for (int i = 0; i < dates.size(); i++) {
+                sb.append("'" + dates.get(i) + "'");
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            sb.append(")");
+            conditions = conditions + " AND HDOS IN "+sb.toString();
+        }
+        String alias = "QTEMP.CLMHDR";
+        String file = "TESTDATA.CLMHDR(TRT)";
+        String sql = "SELECT HDOS FROM QTEMP.CLMHDR where " + conditions + " and HSSN='" + ssn + "'";
+        System.out.println(sql);
+        List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
+        return resultData;
+    }
+    public static List<String[]> getClmData( String ssn) {
+        String alias = "QTEMP.CLMHDR";
+        String file = "TESTDATA.CLMHDR(TRT)";
+        String sql = "SELECT * FROM QTEMP.CLMHDR WHERE HSSN = '" + ssn + "'";
+        System.out.println(sql);
+        List<String[]> resultData = iSeries.executeSQLByAlias(sql, alias, file);
+        return resultData;
+    }
+
 }

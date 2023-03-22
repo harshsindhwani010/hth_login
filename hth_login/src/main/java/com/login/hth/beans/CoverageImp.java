@@ -34,7 +34,7 @@ public class CoverageImp {
         List<DependentInfoDTO> dependentInfoDTOList = new ArrayList<>();
         List<CoverageInfoDTO> coverageInfoDTOList = new ArrayList<>();
 
-        String duplicate = "$150.00";
+//        String duplicate = "$150.00";
         String ytDublicateMet = "$100.00";
         String[] effectiveDate = insure.get(0);
         String[] terminationDate = insure.get(0);
