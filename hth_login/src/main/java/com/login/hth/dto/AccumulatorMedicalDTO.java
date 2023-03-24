@@ -14,7 +14,7 @@ public class AccumulatorMedicalDTO {
 //    private String deductibleMet;
 //    private String metAmount;
     private String met;
-    private String claimType;
+//    private String claimType;
     private String remaining;
 
 

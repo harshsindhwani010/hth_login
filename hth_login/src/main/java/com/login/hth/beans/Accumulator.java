@@ -16,3 +16,7 @@ public class Accumulator {
     }
 
 }
+//MANLMX = MAX
+//ADEDMT= MET if Y
+//For N have no Logic
+
