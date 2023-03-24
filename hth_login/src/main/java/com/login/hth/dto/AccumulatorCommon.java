@@ -10,9 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 public class AccumulatorCommon {
 
-    AccumulatorMedicalDTO medical;
-    AccumulatorMedicalDTO dental;
-    AccumulatorMedicalDTO vision;
-    AccumulatorMedicalDTO pharmacy;
+    List<AccumulatorMedicalDTO> medical;
+    List<AccumulatorMedicalDTO> dental;
+    List<AccumulatorMedicalDTO> vision;
+    List<AccumulatorMedicalDTO> pharmacy;
 
 }

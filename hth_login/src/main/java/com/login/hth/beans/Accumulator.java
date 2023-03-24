@@ -11,7 +11,6 @@ public class Accumulator {
         String[] files = {"TESTDATA.MEDMAX(RH1)", "TESTDATA.MEDACC(RH1)"};
         String sql = "SELECT  MPLAN, MANLMX, ADEDMT, FDIMET, APLNPR, AANNDE FROM QTEMP.MEDMAX JOIN QTEMP.MEDACC ON AGRPNO= MGRPNO WHERE ASSN ='" + ssn + "'";
         System.out.println(sql);
-//        MMEDMX,
         resultList = iSeries.executeSQLByAlias(sql, alias, files);
         return resultList;
     }
