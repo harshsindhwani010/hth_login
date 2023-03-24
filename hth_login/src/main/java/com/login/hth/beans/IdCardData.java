@@ -18,7 +18,7 @@ public class IdCardData {
 
     public ResponseEntity<Object> showIdCard(Claims claims) {
         String nameS = "A";
-        String nameE = "A";
+        String nameE = "Z";
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("MMddyy");
         format.setTimeZone(TimeZone.getTimeZone("GWT"));

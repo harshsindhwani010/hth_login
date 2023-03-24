@@ -55,6 +55,12 @@ public class UserController {
     @Autowired
     SupportDTO supportDTO;
 
+//    @Autowired
+//    DocumentsDTO documentsDTO;
+
+    @Autowired
+    DocumentsData documentsData;
+
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
@@ -165,6 +171,11 @@ public class UserController {
     @GetMapping("/questions")
     public JSONObject question() {
         return securityQue.questions();
+    }
+
+    @GetMapping("/documents")
+    public JSONObject documents() {
+        return documentsData.document();
     }
 
     @GetMapping("/claims")
@@ -301,24 +312,20 @@ public class UserController {
         }
     }
     @GetMapping("/accumulator")
-    public ResponseEntity<Object> accumulator(@RequestHeader("Authorization") String bearerToken) {
+    public AccumulatorCommon accumulatorData(@RequestHeader("Authorization") String bearerToken) {
         bearerToken = bearerToken.substring(7, bearerToken.length());
         MessageDTO er = new MessageDTO();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
-        if (claims.get("group").toString() != "") {
-            return accumulatorImp.accumulatorProfile(claims.get("group").toString());
+        if (claims.get("ssn").toString() != "") {
+            return accumulatorImp.accumulatorProfile(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
-            return new ResponseEntity<>( er, HttpStatus.BAD_REQUEST);
+//            return new ResponseEntity<>( er, HttpStatus.BAD_REQUEST);
+            return null;
         }
     }
-//
-//    @Value("${spring.demo.address}")
-//    private String address;
-//    @Value("${spring.demo.email}")
-//    private String email;
-    //@Value("${spring.demo.address}")
+
 
     @GetMapping("/support")
     public SupportDTO getpropertiesValue(){

@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccumulatorDTO {
-
-    private String plan;
-    private String plantType;
-    private String serviceType;
-
-
+public class DocumentsDTO {
+    private String image;
+    private String image1;
+    private String image2;
+    private String pdf;
 }

@@ -23,12 +23,12 @@ public class CoverageImp {
 
 
         CoverageProfileDTO coverageProfileDTO = new CoverageProfileDTO();
-        List<MedicalDTO> medicalDTOList = new ArrayList<>();
-        MedicalDTO medicalDTO = new MedicalDTO();
-        List<DentalDTO> dentalDTOList = new ArrayList<>();
-        DentalDTO dentalDTO = new DentalDTO();
-        List<VisionDTO> visionDTOList = new ArrayList<>();
-        VisionDTO visionDTO = new VisionDTO();
+        List<CoverageMedicalDTO> coverageMedicalDTOList = new ArrayList<>();
+        CoverageMedicalDTO coverageMedicalDTO = new CoverageMedicalDTO();
+        List<CoverageDentalDTO> coverageDentalDTOList = new ArrayList<>();
+        CoverageDentalDTO coverageDentalDTO = new CoverageDentalDTO();
+        List<CoverageVisionDTO> coverageVisionDTOList = new ArrayList<>();
+        CoverageVisionDTO coverageVisionDTO = new CoverageVisionDTO();
 
         List<InsuredInformationDTO> insuredInformationDTOList = new ArrayList<>();
         List<DependentInfoDTO> dependentInfoDTOList = new ArrayList<>();
@@ -129,23 +129,23 @@ public class CoverageImp {
 
             System.out.println("2:" + coverageProfileDTO);
             if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("Medical")) {
-                medicalDTO.setInsuredInformation(insuredInformationDTOList);
-                medicalDTO.setDependentInformation(dependentInfoDTOList);
-                medicalDTO.setCoverageInformation(coverageInfoDTOList);
-                medicalDTOList.add(medicalDTO);
-                coverageProfileDTO.setMedical(medicalDTOList);
+                coverageMedicalDTO.setInsuredInformation(insuredInformationDTOList);
+                coverageMedicalDTO.setDependentInformation(dependentInfoDTOList);
+                coverageMedicalDTO.setCoverageInformation(coverageInfoDTOList);
+                coverageMedicalDTOList.add(coverageMedicalDTO);
+                coverageProfileDTO.setMedical(coverageMedicalDTOList);
             } else if (coverageInfoDTOList.get(0).getTypeOfCoverage().equalsIgnoreCase("Dental")) {
-                dentalDTO.setInsuredInformation(insuredInformationDTOList);
-                dentalDTO.setDependentInformation(dependentInfoDTOList);
-                dentalDTO.setCoverageInformation(coverageInfoDTOList);
-                dentalDTOList.add(dentalDTO);
-                coverageProfileDTO.setDental(dentalDTOList);
+                coverageDentalDTO.setInsuredInformation(insuredInformationDTOList);
+                coverageDentalDTO.setDependentInformation(dependentInfoDTOList);
+                coverageDentalDTO.setCoverageInformation(coverageInfoDTOList);
+                coverageDentalDTOList.add(coverageDentalDTO);
+                coverageProfileDTO.setDental(coverageDentalDTOList);
             } else {
-                visionDTO.setInsuredInformation(insuredInformationDTOList);
-                visionDTO.setDependentInformation(dependentInfoDTOList);
-                visionDTO.setCoverageInformation(coverageInfoDTOList);
-                visionDTOList.add(visionDTO);
-                coverageProfileDTO.setVision(visionDTOList);
+                coverageVisionDTO.setInsuredInformation(insuredInformationDTOList);
+                coverageVisionDTO.setDependentInformation(dependentInfoDTOList);
+                coverageVisionDTO.setCoverageInformation(coverageInfoDTOList);
+                coverageVisionDTOList.add(coverageVisionDTO);
+                coverageProfileDTO.setVision(coverageVisionDTOList);
             }
 
             System.out.println("@3:" + coverageProfileDTO);

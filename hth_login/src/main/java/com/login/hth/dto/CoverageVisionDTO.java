@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VisionDTO {
+public class CoverageVisionDTO {
 
     private List<InsuredInformationDTO> insuredInformation;
     private List<CoverageInfoDTO> coverageInformation;

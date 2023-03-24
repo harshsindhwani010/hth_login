@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedicalDTO {
+public class CoverageMedicalDTO {
 
        private List<InsuredInformationDTO> insuredInformation;
        private List<CoverageInfoDTO> coverageInformation;
