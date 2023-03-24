@@ -11,10 +11,8 @@ import java.util.List;
 public class AccumulatorImp {
     public AccumulatorCommon accumulatorProfile(String ssn) {
         List<String[]> commonResult = Accumulator.accumulatorData(ssn);
-//        for (int i=0; i<commonResult.size();i++) {
         return setData(commonResult.get(0)[4].trim(), commonResult);
     }
-//    }
 
     private AccumulatorCommon setData(String type, List<String[]> commonResult) {
         AccumulatorCommon accumulatorCommon = new AccumulatorCommon();
@@ -28,10 +26,9 @@ public class AccumulatorImp {
             if (commonResult.get(i)[4].trim().equals("D")) {
                 accumulatorCommon.setDental(aCommon(commonResult.get(i)));
             }
-            if (commonResult.get(i)[4].trim().equals("RX")) {
+            if (commonResult.get(i)[4].trim().equals("R")) {
                 accumulatorCommon.setPharmacy(aCommon(commonResult.get(i)));
             }
-           // return accumulatorCommon;
         }
         return accumulatorCommon;
     }
@@ -52,6 +49,11 @@ public class AccumulatorImp {
                 value = String.valueOf(0);
             }
             accumulatorMedicalDTO.setRemaining(String.valueOf(Double.parseDouble(commonResult[1].trim()) - Double.parseDouble(value)));
+            if (accumulatorMedicalDTO.equals("R")){
+                accumulatorMedicalDTO.setMet(commonResult[6]);
+//                accumulatorMedicalDTO.setTotal(commonResult[]);
+//                accumulatorMedicalDTO.setRemaining((String.valueOf(Double.parseDouble(commonResult[6].trim())-Double.parseDouble(value1))) );
+            }
             List<AccumulatorMedicalDTO> accumulatorMedicalDTOS = new ArrayList<>();
             accumulatorMedicalDTOS.add(accumulatorMedicalDTO);
         return accumulatorMedicalDTOS;
