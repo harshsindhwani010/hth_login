@@ -15,4 +15,7 @@ public class AccumulatorCommon {
     List<AccumulatorMedicalDTO> vision;
     List<AccumulatorMedicalDTO> pharmacy;
 
+
+    public AccumulatorCommon(List<String[]> commonResult) {
+    }
 }

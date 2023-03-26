@@ -12,6 +12,8 @@ public class AccumulatorMedicalDTO {
     private String total;
     private String met;
     private String remaining;
+    private String deductible;
+    private String coinsurance;
 
 
 

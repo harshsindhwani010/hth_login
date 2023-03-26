@@ -9,10 +9,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CoverageProfileDTO {
-    @JsonProperty("Medical")
-    private List<CoverageMedicalDTO> Medical;
-    @JsonProperty("Dental")
-    private List<CoverageDentalDTO> Dental;
-    @JsonProperty("Vision")
-    private List<CoverageVisionDTO> Vision;
+    @JsonProperty("medical")
+    private List<CoverageMedicalDTO> medical;
+    @JsonProperty("dental")
+    private List<CoverageDentalDTO> dental;
+    @JsonProperty("vision")
+    private List<CoverageVisionDTO> vision;
 }
