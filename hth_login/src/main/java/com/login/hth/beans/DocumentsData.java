@@ -25,10 +25,12 @@ public class DocumentsData {
         DocumentImp documentImp = new DocumentImp();
         String[] alias = {"QTEMP.IMAGE"};
         String[] file = {"TESTDATA.IMAGE(TRT)"};
-        String sql = "SELECT IIMG FROM QTEMP.IMAGE WHERE IGRPNO = '"+groupId+"'";
+        String sql = "SELECT IIMG FROM QTEMP.IMAGE WHERE IGRPID = '"+groupId+"'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
+        System.out.println("groupid"+ sql);
         return result;
     }
+
     public static List<String[]> getDocumentData(String blockId, String planId) {
         List<String[]> result = null;
         DocumentImp documentImp = new DocumentImp();
@@ -36,6 +38,7 @@ public class DocumentsData {
         String[] file = {"TESTDATA.IMAGE(TRT)"};
         String sql = "SELECT IIMG FROM QTEMP.IMAGE JOIN QTEMP.INSURE WHERE IBLKID='"+ blockId+"' AND IBLKPL ='"+planId+"'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
+        System.out.println(sql);
         return result;
 }
 }

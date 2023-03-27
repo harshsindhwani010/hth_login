@@ -14,7 +14,7 @@ public class DocumentImp {
 
     public String[] getDocument(String ssn) {
         List<String[]> insure = INSURE.getInsureData(ssn);
-        String groupId= insure.get(0)[2];
+        String groupId= insure.get(0)[2].trim();
         List<String[]> documentData;
         documentData = DocumentsData.getDocumentDataWithGroupID(groupId);
         if(documentData.size()>0){
@@ -31,8 +31,8 @@ public class DocumentImp {
                 int p = 0;
                 for (p = 2; p <= 51; p++) {
                     if (!plans[p].equals("0")) {
-                        plan = plans[p];
-                        blockId =plans[0];
+                        plan = plans[p].trim();
+                        blockId =plans[0].trim();
                         break;
                     }
                 }

@@ -44,8 +44,10 @@ public class AccumulatorImp {
         accumulatorMedicalDTO.setTotal(commonResult[1].trim());
         if (commonResult[2].trim().equals("Y")) {
             accumulatorMedicalDTO.setMet(commonResult[1]);
+            accumulatorMedicalDTO.setDeductible("100");
         } else {
             accumulatorMedicalDTO.setMet("0");
+            accumulatorMedicalDTO.setDeductible("4.2");
         }
 
 
@@ -55,7 +57,7 @@ public class AccumulatorImp {
         if (commonResult[2].trim().equals("") || commonResult[3].trim().equals("")) {
             value = String.valueOf(0 + "0");
         }
-        accumulatorMedicalDTO.setDeductible(deductible);
+//        accumulatorMedicalDTO.setDeductible(deductible);
         accumulatorMedicalDTO.setCoinsurance(coinsurance);
         accumulatorMedicalDTO.setRemaining(String.valueOf(Double.parseDouble(commonResult[1].trim()) - Double.parseDouble(value)));
 //        List<AccumulatorMedicalDTO> accumulatorMedicalDTOS = new ArrayList<>();
