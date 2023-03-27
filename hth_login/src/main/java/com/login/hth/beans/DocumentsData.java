@@ -14,7 +14,7 @@ public class DocumentsData {
 
     public JSONObject document() {
         JSONObject jsonObject = new JSONObject();
-        List<String> document = Arrays.asList("https://blog.photoshelter.com/wp-content/uploads/2016/03/coi-feature.jpg","https://img.yumpu.com/62716007/1/500x640/travel-insurance-certificate.jpg", "https://blog.photoshelter.com/wp-content/uploads/2016/03/coi-feature.jpg", "https://nios.ac.in/media/documents/VocInsServices/m3-f2.pdf");
+        List<String> document = Arrays.asList("https://blog.photoshelter.com/wp-content/uploads/2016/03/coi-feature.jpg","https://img.yumpu.com/62716007/1/500x640/travel-insurance-certificate.jpg", "https://blog.photoshelter.com/wp-content/uploads/2016/03/coi-feature.jpg", "https://services.hi-techhealth.com/TR1/upload/regular/MGA11401_A67574286500520210525164007.pdf");
         jsonObject.put("documents", document);
 
         return jsonObject;

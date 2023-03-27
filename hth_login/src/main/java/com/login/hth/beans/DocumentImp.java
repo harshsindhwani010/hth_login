@@ -1,5 +1,6 @@
 package com.login.hth.beans;
 
+import com.login.hth.dto.InsuredInformationDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,17 +26,26 @@ public class DocumentImp {
                     break;
                 }
             }
+
+        List<String[]> blackpln = null;
+        for (String[] groupDetail : grpmst) {
+            InsuredInformationDTO insuredInformationDTO = new InsuredInformationDTO();
+            blackpln = INSURE.getBlckplnData(groupDetail[0], groupDetail[p], plan);
+            if (!blackpln.get(0).equals("")){
+                INSURE.getPlanDes(plan);
         }
 
-            List<String[]> data = DocumentsData.getDocumentData(ssn);
+        List<String[]> data = DocumentsData.getDocumentData(ssn);
         String[] images = new String[data.size()];
-        for (int i = 0; i < data.size(); i++) {
-            images[i]=imageUrl + data.get(i)[0].trim();
+        for (int a = 0; a < data.size(); a++) {
+            images[a]=imageUrl + data.get(a)[0].trim();
         }
         return images;
     }
+    }
 
 
+        return new String[0];
+    }
 }
-
 

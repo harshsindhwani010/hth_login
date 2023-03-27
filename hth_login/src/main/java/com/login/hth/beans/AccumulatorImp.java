@@ -19,8 +19,7 @@ public class AccumulatorImp {
     }
     private AccumulatorCommon setData(String type, List<String[]> commonResult) {
         AccumulatorCommon accumulatorCommon = new AccumulatorCommon(commonResult);
-
-        for (int i = 0; i < commonResult.size(); i++) {
+        for(int i = 0; i < commonResult.size(); i++) {
             if (commonResult.get(i)[4].trim().equals("M")) {
                 accumulatorCommon.setMedical(aCommon(commonResult.get(i)));
             }

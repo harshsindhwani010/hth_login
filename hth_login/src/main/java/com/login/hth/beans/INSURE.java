@@ -1,9 +1,6 @@
 package com.login.hth.beans;
 
 import com.login.hth.security.iSeries;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.time.LocalDate;
 import java.util.List;
 
 
