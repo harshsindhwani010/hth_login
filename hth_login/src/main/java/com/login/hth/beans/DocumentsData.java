@@ -19,14 +19,23 @@ public class DocumentsData {
 
         return jsonObject;
     }
-    public static List<String[]> getDocumentData(String ssn) {
+
+    public static List<String[]> getDocumentDataWithGroupID(String groupId) {
         List<String[]> result = null;
         DocumentImp documentImp = new DocumentImp();
         String[] alias = {"QTEMP.IMAGE"};
         String[] file = {"TESTDATA.IMAGE(TRT)"};
-        String sql = "SELECT IIMG, IGRPID, IBLKID,IBLKPL FROM QTEMP.IMAGE WHERE ISSN ='" + ssn +"'";
+        String sql = "SELECT IIMG FROM QTEMP.IMAGE WHERE IGRPNO = '"+groupId+"'";
         result = iSeries.executeSQLByAlias(sql, alias, file);
         return result;
-
+    }
+    public static List<String[]> getDocumentData(String blockId, String planId) {
+        List<String[]> result = null;
+        DocumentImp documentImp = new DocumentImp();
+        String[] alias = {"QTEMP.IMAGE" };
+        String[] file = {"TESTDATA.IMAGE(TRT)"};
+        String sql = "SELECT IIMG FROM QTEMP.IMAGE JOIN QTEMP.INSURE WHERE IBLKID='"+ blockId+"' AND IBLKPL ='"+planId+"'";
+        result = iSeries.executeSQLByAlias(sql, alias, file);
+        return result;
 }
 }
