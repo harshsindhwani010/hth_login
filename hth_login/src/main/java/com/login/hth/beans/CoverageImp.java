@@ -51,15 +51,15 @@ public class CoverageImp {
         //String plan = insure.get(0)[planIndex];
         System.out.println(coverageProfileDTO);
         String[] ePlans = insure.get(0);
-//        String[] futuretermination = inshst.get(0);
-//        int tDate = 0;
-//        int enrolledPlans = 0;
-//        String enrollPlan = null;
-//        for (enrolledPlans = 7; enrolledPlans <= 57; enrolledPlans++) {
-//            enrollPlan = ePlans[enrolledPlans];
-//
-//            for (tDate = 0; tDate <= 5; tDate++) {
-//                if (!ePlans[enrolledPlans].equals(" ")) {
+        String[] futuretermination = inshst.get(0);
+        int tDate = 0;
+        int enrolledPlans = 0;
+        String enrollPlan = null;
+        for (enrolledPlans = 7; enrolledPlans <= 57; enrolledPlans++) {
+            enrollPlan = ePlans[enrolledPlans];
+
+            for (tDate = 0; tDate <= 5; tDate++) {
+                if (!ePlans[enrolledPlans].equals(" ")) {
 
         for (int i = 0; i < insure.size(); i++) {
             String[] insureList = insure.get(i);
@@ -150,17 +150,18 @@ public class CoverageImp {
 
             System.out.println("@3:" + coverageProfileDTO);
 
-//                } else if (!futuretermination.equals(" ")) {
-//                    return new ResponseEntity<>(coverageProfileDTO, HttpStatus.BAD_REQUEST);
-//                } else {
-//                    return new ResponseEntity<>("User have no plans", HttpStatus.BAD_REQUEST);
-//                }
-//            }
-//        }
-
+                }
+                }else if (!futuretermination.equals(" ")) {
+                    return new ResponseEntity<>(coverageProfileDTO, HttpStatus.BAD_REQUEST);
+                } else {
+                    return new ResponseEntity<>("User have no plans", HttpStatus.BAD_REQUEST);
+                }
+            }
         }
+
         return new ResponseEntity<>(coverageProfileDTO, HttpStatus.OK);
-    }
+        }
+//    }
 
     public boolean isStringInt(String s) {
         try {
