@@ -6,7 +6,6 @@ import com.login.hth.security.JWTUtility;
 import io.jsonwebtoken.Claims;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -55,11 +54,11 @@ public class UserController {
     @Autowired
     SupportDTO supportDTO;
 
-//    @Autowired
-//    DocumentsDTO documentsDTO;
 
     @Autowired
     DocumentsData documentsData;
+    @Autowired
+    DocumentImp documentImp;
 
 
     @PostMapping("/userLogin")
@@ -186,6 +185,19 @@ public class UserController {
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != " ") {
             return claimsData.checkClaim(claims.get("ssn").toString(),days);
+        } else {
+            er.setMessage("Invalid User");
+            return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/getDocuments")
+    public Object getDocument(@RequestHeader("Authorization") String bearerToken, @Nullable @RequestParam(value = "days", required = false) Integer days) throws ParseException {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("ssn").toString() != " ") {
+            return documentImp.getDocument(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
             return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
