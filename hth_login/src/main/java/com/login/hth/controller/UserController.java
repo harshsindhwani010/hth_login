@@ -338,6 +338,21 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getAccumulator")
+    public AccumulatorCommon accumulator(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("ssn").toString() != "") {
+            return accumulatorImp.accumulatorProfile(claims.get("ssn").toString());
+        } else {
+            er.setMessage("Invalid User");
+//            return new AccumulatorCommon(er, HttpStatus.BAD_REQUEST);
+            return null;
+        }
+    }
+
 
     @GetMapping("/support")
     public SupportDTO getpropertiesValue(){

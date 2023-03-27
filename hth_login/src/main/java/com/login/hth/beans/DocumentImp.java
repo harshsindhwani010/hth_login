@@ -1,41 +1,53 @@
 package com.login.hth.beans;
 
+import com.login.hth.dto.DocumentFieldsDTO;
+import com.login.hth.dto.InsuredInformationDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Component
 public class DocumentImp {
     private final String imageUrl = "https://services.hi-techhealth.com";
+
     public String[] getDocument(String ssn) {
-        String groupId,blockid,planId;
         List<String[]> insure = INSURE.getInsureData(ssn);
-        for (int i = 0; i < insure.size(); i++) {
-            String[] insureList = insure.get(i);
+        String groupId= insure.get(0)[2];
+        List<String[]> documentData;
+        documentData = DocumentsData.getDocumentDataWithGroupID(groupId);
+        if(documentData.size()>0){
 
-            List<String[]> grpmst = INSURE.getGroupMasterData(insureList[2]);
-            String[] plans = grpmst.get(0);
-            String plan = null;
-            int p = 0;
-            for (p = 2; p <= 51; p++) {
-                if (!plans[p].equals("0")) {
-                    plan = plans[p];
-                    System.out.println(plans);
-                    break;
+        }else{
+
+            for (int i = 0; i < insure.size(); i++) {
+                String[] insureList = insure.get(i);
+
+                List<String[]> grpmst = INSURE.getGroupMasterData(insureList[2]);
+                String[] plans = grpmst.get(0);
+                String plan = null;
+                String blockId = null;
+                int p = 0;
+                for (p = 2; p <= 51; p++) {
+                    if (!plans[p].equals("0")) {
+                        plan = plans[p];
+                        blockId =plans[0];
+                        break;
+                    }
                 }
-            }
-        }
 
-            List<String[]> data = DocumentsData.getDocumentData(ssn);
-        String[] images = new String[data.size()];
-        for (int i = 0; i < data.size(); i++) {
-            images[i]=imageUrl + data.get(i)[0].trim();
+                documentData = DocumentsData.getDocumentData(blockId,plan);
+
+        }
+            }
+        String[] images = new String[documentData.size()];
+        for (int a = 0; a < documentData.size(); a++) {
+            images[a] = imageUrl + documentData.get(a)[0].trim();
         }
         return images;
     }
+    }
 
-
-}
 
 
