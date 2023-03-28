@@ -19,8 +19,8 @@ public class CLMDET {
        List<String[]>resultList = null;
         String alias = "QTEMP.CLMDET";
         String file = "TESTDATA.CLMDET(TRT)";
-        String sql = "SELECT DPROVD,DDOS,DCOPAY,DAMTAL,DAMTEX,DAMTDD FROM QTEMP.CLMDET WHERE DCLMNO ='" + claimNum + "'";
-
+        String sql = "SELECT DPROVD,DDOS,DCOPAY,DAMTAL,DAMTEX,DAMTDD ORDER BY DESC FROM QTEMP.CLMDET  WHERE DCLMNO ='" + claimNum +"'";
+        System.out.println(sql);
         resultList = iSeries.executeSQLByAlias(sql, alias, file);
         return resultList;
     }

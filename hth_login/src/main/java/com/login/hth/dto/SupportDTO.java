@@ -21,9 +21,13 @@ public class SupportDTO {
     private String phone;
     @Value("${spring.demo.location}")
     private String location;
-
     @Value("${spring.demo.map}")
     private String map;
+
+    @Value("${spring.demo.latitude}")
+    private String latitude;
+    @Value("${spring.demo.longitude}")
+    private String longitude;
 
 }
 

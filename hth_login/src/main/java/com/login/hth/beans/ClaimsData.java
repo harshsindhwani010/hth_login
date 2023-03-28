@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
 
 
 @Component
@@ -27,18 +30,16 @@ public class ClaimsData {
                 Date str = formatter.parse(past.toString());
                 formatter = new SimpleDateFormat("Mddyy");
                 String date = formatter.format(str);
-
                 dates.add(date);
             }
         }
         List<String[]> data = INSURE.getClmDates(dates, ssn);
         if (data.size() > 0) {
-
             System.out.println(past);
             List<String[]> headerList = CLMDET.getHeaderData(ssn);
             List<ClaimResponseDTO> wholeDTOList = new ArrayList<ClaimResponseDTO>();
             List<String[]> insureList = CLMDET.getInsureData(ssn);
-            String[] name = Arrays.stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
+            String[] name = stream(insureList.get(0)).map(String::trim).toArray(String[]::new);
             String fullName = String.join(" ", name);
             for (int i = 0; i < headerList.size(); i++) {
                 String[] header = headerList.get(i);
@@ -70,7 +71,6 @@ public class ClaimsData {
             return ResponseEntity.ok().body(messageDTO);
         }
     }
-
 
     public static String formattedDate(String processDate) {
         String formattedProcessDate = "";
@@ -111,6 +111,7 @@ public class ClaimsData {
             if (processDate.length() == 5 || processDate.length() == 7) {
                 processDate = "0" + processDate;
             }
+
             Date d = new SimpleDateFormat("MMddyy", Locale.ENGLISH).parse(processDate);
             SimpleDateFormat d2 = new SimpleDateFormat("MMM dd,yyyy");
             formattedProcessDate = d2.format(d).toString();
