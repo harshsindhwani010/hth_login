@@ -22,10 +22,6 @@ public class DependentInfoDTO {
     public String getGender() {
         return gender.label;
     }
-//    public String getRelationShip() {
-//        return relationship.label;
-//    }
-
 }
 
 

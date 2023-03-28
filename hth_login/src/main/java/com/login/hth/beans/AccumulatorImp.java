@@ -60,8 +60,7 @@ public class AccumulatorImp {
 //        accumulatorMedicalDTO.setDeductible(deductible);
         accumulatorMedicalDTO.setCoinsurance(coinsurance);
         accumulatorMedicalDTO.setRemaining(String.valueOf(Double.parseDouble(commonResult[1].trim()) - Double.parseDouble(value)));
-//        List<AccumulatorMedicalDTO> accumulatorMedicalDTOS = new ArrayList<>();
-//        accumulatorMedicalDTOS.add(accumulatorMedicalDTO);
+
         return medicalDTOList;
     }
 

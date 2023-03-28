@@ -1,7 +1,6 @@
 package com.login.hth.beans;
 
-import com.login.hth.dto.DocumentFieldsDTO;
-import com.login.hth.dto.InsuredInformationDTO;
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
