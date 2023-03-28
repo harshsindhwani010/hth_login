@@ -53,8 +53,6 @@ public class UserController {
     AccumulatorImp accumulatorImp;
     @Autowired
     SupportDTO supportDTO;
-
-
     @Autowired
     DocumentsData documentsData;
     @Autowired

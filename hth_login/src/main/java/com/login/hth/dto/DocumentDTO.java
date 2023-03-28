@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DocumentDTO {
 
-    private String image;
-
+    private  String images;
+    private  String imageDescription;
 
 }
