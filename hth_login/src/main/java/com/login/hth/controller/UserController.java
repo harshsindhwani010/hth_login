@@ -57,6 +57,8 @@ public class UserController {
     DocumentsData documentsData;
     @Autowired
     DocumentImp documentImp;
+    @Autowired
+    SupportData supportData;
 
 
     @PostMapping("/userLogin")
@@ -344,6 +346,21 @@ public class UserController {
         Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
         if (claims.get("ssn").toString() != "") {
             return accumulatorImp.accumulatorProfile(claims.get("ssn").toString());
+        } else {
+            er.setMessage("Invalid User");
+//            return new AccumulatorCommon(er, HttpStatus.BAD_REQUEST);
+            return null;
+        }
+    }
+    @GetMapping("/getSupport")
+    public SupportData getSupportInformation(@RequestHeader("Authorization") String bearerToken) {
+        bearerToken = bearerToken.substring(7, bearerToken.length());
+        MessageDTO er = new MessageDTO();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Claims claims = jwtUtility.getAllClaimsFromToken(bearerToken);
+        if (claims.get("ssn").toString() != "") {
+            return null;
+//            return SupportData.supportDetails(claims.get("ssn").toString());
         } else {
             er.setMessage("Invalid User");
 //            return new AccumulatorCommon(er, HttpStatus.BAD_REQUEST);
