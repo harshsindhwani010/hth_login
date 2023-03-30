@@ -13,18 +13,7 @@ public class ClaimResponseDTO {
     private String dateOfService;
     private String patient;
     private String claimNumber;
-    private ClaimType claimType;
-    private String patientRelationship;
-    //private RelationType patientRelationship;
     private PaymentDetailDTO paymentDetails;
     private double patientResponsibilityDetails;
 
-
-    public String getClaimType() {
-        return claimType.label;
-    }
-
-//    public String getPatientRelationship() {
-//        return patientRelationship.label;
-//    }
 }

@@ -58,6 +58,9 @@ public class UserController {
     @Autowired
     DocumentImp documentImp;
 
+//    @Autowired
+//    ClaimDuplicate claimDuplicate;
+
 
     @PostMapping("/userLogin")
     public ResponseEntity<Object> userLogin(@RequestBody UserDTO userDTO) {
